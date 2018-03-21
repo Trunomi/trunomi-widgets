@@ -1,4 +1,4 @@
-# Trunomi Widgets [Demo](https://trunomi.github.io/tru-widgets/)
+# Trunomi Widgets [Demo](https://trunomi.github.io/tru-widgets/prefcentre)
 Set of React components that makes the implementation of the Trunomi platform on a react application easier. Contains a number of fully customizable widgets.
 
 ## Getting Started
