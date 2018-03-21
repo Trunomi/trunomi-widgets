@@ -17,7 +17,7 @@ class AppRouter extends React.Component {
     render() {
         let {host, pathname} = window.location;
 
-        let path = host.includes('github') ? '/tru-widgets' : '';
+        let path = host.includes('github') ? '/trunomi-widgets' : '';
         path += pathname.includes('preview') ? '/preview' : '';
 
         return (

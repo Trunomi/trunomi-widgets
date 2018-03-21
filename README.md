@@ -1,4 +1,4 @@
-# Trunomi Widgets [Demo](https://trunomi.github.io/tru-widgets/prefcentre)
+# Trunomi Widgets [Demo](https://trunomi.github.io/trunomi-widgets/prefcentre)
 Set of React components that makes the implementation of the Trunomi platform on a react application easier. Contains a number of fully customizable widgets.
 
 ## Getting Started
@@ -7,13 +7,13 @@ npm or yarn and React/React-dom to be used. Fully compatible with react 16 and 0
 
 ### Set Up
 This module can be installed using **npm** or **yarn**. It is currently not hosted in npm yet but can be installed manually. 
-* Clone this project: `git clone https://github.com/Trunomi/tru-widgets.git`
-* Install the module: `npm install --save ../tru-widgets` (being **../tru-widgets** the locatione of the cloned repository)
+* Clone this project: `git clone https://github.com/Trunomi/trunomi-widgets.git`
+* Install the module: `npm install --save ../trunomi-widgets` (being **../trunomi-widgets** the locatione of the cloned repository)
 
 ### Usage
-Import the wanted widgets from the **tru-widgets**: 
+Import the wanted widgets from the **trunomi-widgets**: 
 ```js
-import {ConsentsWidget, ActiveDSRWidget, DSRWidget, CaptureConsent, CaptureDSR, Trucert, UserPreferences} from 'tru-widgets';
+import {ConsentsWidget, ActiveDSRWidget, DSRWidget, CaptureConsent, CaptureDSR, Trucert, UserPreferences} from 'trunomi-widgets';
 ```
 Use the component specifyin the appropiate props. For example, the user preferences widget:
 ```js
@@ -78,7 +78,7 @@ startSession({
 ```
 
 # Widgets 
-[Here](https://trunomi.github.io/tru-widgets/)the widgets can be seen in action. Clicking on the developer view will display more information about the props as well as an interactive way of setting them in real time.
+[Here](https://trunomi.github.io/trunomi-widgets/widgets)the widgets can be seen in action. Clicking on the developer view will display more information about the props as well as an interactive way of setting them in real time.
 ## Consents widget (`ConsentsWidget`)
 Widget that lists all the consent definitions and the status of those for the the given configuration. It allows the end user to grant and deny/revoke consents and check the Trucert generated for each consent definition. 
 
