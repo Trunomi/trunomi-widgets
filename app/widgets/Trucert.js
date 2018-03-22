@@ -73,7 +73,7 @@ class Trucert extends BaseWidget {
                 general.push(['Product', product]);
             }
             if (payload.gf_jurisdiction)
-                general.push(['Juristiction', payload.gf_jurisdiction]);
+                general.push(['Jurisdiction', payload.gf_jurisdiction]);
 
         }
         let fingerprint = ledger[0].trucert;
