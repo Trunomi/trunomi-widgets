@@ -78,21 +78,21 @@ export default class CaptureDSR extends BaseWidget {
                 body = {payload: {reasons: selectedReasons}};
 
             await this.api.sendRequest(page, 'post', body);
-            this.props.onSuccess();
             this.setState({
                 notice: <p>Your request has been <b>received</b>. Please note that it takes up to
                     30 days to review the request</p>, //Demo purposes
                 finished: true
-            })
+            });
+            this.props.onSuccess();
         }
         catch(error) {
             console.log(error);
-            this.props.onError(error);
             this.setState({
                 notice: <p><b>Unfortunately</b> we were unable to register your request.
                     There is already a data {type} request pending for {this.dict.getName(this.state.dataType.name)}.</p>,
                 finished: true
-            })
+            });
+            this.props.onError(error);
         }
     }
 

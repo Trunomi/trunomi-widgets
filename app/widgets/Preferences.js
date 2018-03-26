@@ -24,10 +24,6 @@ class UserPreferences extends React.Component {
         this.refs.DSRdisp.refreshData();
     }
 
-    refreshDSRs = () => {
-        this.refs.DSRs.loadRights();
-    }
-
     panel = (title = {}, body = {}) => {
         if (_.size(title) && _.size(body)) {
             let { pane, iconClass, text } = title;
@@ -35,9 +31,9 @@ class UserPreferences extends React.Component {
             let isOpen = this.state[pane];
 
             return (
-                <BS.Panel expanded={true}>
+                <BS.Panel expanded={isOpen} onToggle={() => this.setState({ [pane]: !isOpen })}>
                     <BS.Panel.Heading>
-                        <BS.Panel.Title toggle onClick={() => this.setState({ [pane]: !isOpen })}>
+                        <BS.Panel.Title toggle>
                             <PaneHeader text={text} shown={isOpen} iconClass={iconClass} />
                         </BS.Panel.Title>
                     </BS.Panel.Heading>
@@ -61,8 +57,7 @@ class UserPreferences extends React.Component {
         }, consentPaneBody = {
             Widget: ConsentsWidget,
             props: {
-                truConfig: truConfig,
-                onProcessed: this.refreshDSRs
+                truConfig: truConfig
             }
         }, dataPaneTitle = {
             text: dataTitle,
