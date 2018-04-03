@@ -80,13 +80,14 @@ class trunomiAPI{
         });
     }
 
-    async sendRequest(page = '', method = 'GET', body = null) {
+    async sendRequest(page = '', method = 'GET', body = null, additionalHeaders=null) {
         const {apiToken, enterpriseId, customerId, host_addr, jwtToken} = this.truConfig;
 
 
         let headers = {
             "Content-Type": "application/json",
-            "x-trunomi-version": "2017-02-28"
+            "x-trunomi-version": "2017-02-28",
+            ...additionalHeaders
         };
 
         let queryParams = '';
@@ -97,7 +98,6 @@ class trunomiAPI{
             headers["X-Trunomi-Enterprise-Api-Token"] = apiToken;
             headers["X-Trunomi-Api-Policy"] = "enterprise on behalf of customer";
             queryParams = "?customerId=" + customerId + "&enterpriseId=" + enterpriseId;
-
         }
 
         let params = {
@@ -160,8 +160,9 @@ class trunomiAPI{
         return await this.sendRequest(addID('/ledger', id));
     }
 
-    async getContexts(id=null){
-        return await this.sendRequest(addID('/context', id));
+    async getContexts(id=null, customerId=null){
+        let headers = customerId ? {"X-Trunomi-Customer-Id": customerId} : null;
+        return await this.sendRequest(addID('/context', id), 'GET', null, headers);
     }
 
     async getNewConsents(){

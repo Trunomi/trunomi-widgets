@@ -31,8 +31,8 @@ class ConsentsWidget extends BaseWidget {
         let {contextId} = this.props;
 
         try {
-            let rights = await this.api.sendRequest("/rights/query", 'post', {contextId: contextId||undefined});
-            let contexts = await this.api.getContexts(contextId);
+            let rights = await this.api.sendRequest("/rights/query", 'post', {contextId: contextId||undefined}),
+                contexts = await this.api.getContexts(contextId, this.api.truConfig.customerId);
 
             this.setState({contexts: contexts, rights: rights, loaded: true});
         }
@@ -75,7 +75,7 @@ class ConsentsWidget extends BaseWidget {
 
     genRightRowArray = (contextId, consentId, aux, dataTypeId) => {
         let right = this.state.rights[contextId][consentId];
-        let dataType = this.dataTypes[dataTypeId]
+        let dataType = this.dataTypes[dataTypeId];
         try {
             return ([
                 (aux === 1) ? this.dict.getName(right.contextName) : '',
@@ -95,12 +95,13 @@ class ConsentsWidget extends BaseWidget {
         let {id, name} = context;
 
         let elements = context.consentDefinitions.map((consentDefinition, consentId) => {
+            if(consentDefinition===null)
+                return;
+            aux++;
             if (this.checkIfIsRight(id, consentId)) {
-                aux++;
                 return this.genRightRowArray(id, consentId, aux, consentDefinition.dataTypeId)
             }
             else{
-                aux++;
                 let dataT = this.dataTypes[consentDefinition.dataTypeId];
                 return ([
                     (aux === 1) ? this.dict.getName(name) : '',

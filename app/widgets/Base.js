@@ -2,8 +2,6 @@ import React from 'react';
 import TrunomiAPI, {Session} from '../config/api';
 import propTypeTruConfig from '../config/customPropType';
 import Locale from '../config/locale';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 export default class BaseWidget extends React.Component {
     constructor(props) {
