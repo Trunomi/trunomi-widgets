@@ -111,14 +111,14 @@ class PanelScreen extends Component {
     loginScreen = () => {
         let {prefCentre} = this.props;
 
-        let text = prefCentre ? 'a sample Preferences Centre' : 'the Trunomi Widgets using Live Data'
+        let text = prefCentre ? 'a sample Preferences Centre' : 'the Trunomi widgets using live data'
         if (!this.state.config) {
             return (
                 <BS.Grid className="main-section">
                     <BS.Col md={12}>
-                        <h1><small>This page allows you to preview {text}.</small></h1>
-                        <h1>
-                            <small>Please Click On <Settings stateChange={this.stateChange}/> To Configure The Previewer
+                        <h1 style={{textAlign: "center"}}>
+                            <small>This page allows you to preview {text} <br/><br/>
+                            Please click on <Settings stateChange={this.stateChange}/> to configure the previewer
                             </small>
                         </h1>
                     </BS.Col>

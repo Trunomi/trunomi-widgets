@@ -19,7 +19,8 @@ let events = {
     'r-in-process': 'Request is being processed. Please check back here to view its status.',
     'r-extend': 'Request is being processed and a time extension has been requested.',
     'r-close': 'Request has been closed.',
-    'r-error': 'Request has experienced an error.'
+    'r-error': 'Request has experienced an error.',
+    'r-complete': 'Request has been completed.'
 };
 
 let eventDefinitions = {
