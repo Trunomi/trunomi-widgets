@@ -38,7 +38,7 @@ export default class extends React.Component {
 
         if (prefCentre) {
             return (<div>
-                    {this.Button(UserPreferences, 'My Preferences')}
+                    {this.Button(UserPreferences, 'New Permissions')}
                     {this.Button(NewConsents, 'New Consents', this.state.newC)}
                 </div>
             )
@@ -63,11 +63,11 @@ export default class extends React.Component {
         if (!prefCentre) {
             return (<div>
                     {this.Button(UserPreferences, 'User Preferences')}
-                    {this.Button(ConsentsWidget, 'My Consents')}
+                    {this.Button(ConsentsWidget, 'My Permissions')}
                     {this.Button(DSRWidget, 'My Data')}
                     {this.Button(ActiveDSRWidget, 'Data Subject Requests')}
                     {this.Button(NewDSR, 'New DSR')}
-                    {this.Button(NewConsents, 'New Consent')}
+                    {this.Button(NewConsents, 'New Permission')}
                     {this.Button(TrucertSelector, 'Sample Trucert')}
                 </div>
             )

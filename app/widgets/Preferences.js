@@ -98,7 +98,7 @@ class UserPreferences extends React.Component {
 UserPreferences.defaultProps = {
     title: '',
     consentPane: true,
-    consentTitle: 'My Consents',
+    consentTitle: 'My Permissions',
     dataPane: true,
     dataTitle: 'My Data',
     dsrPane: true,

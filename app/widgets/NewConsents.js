@@ -20,7 +20,7 @@ class NewConsents extends React.Component {
 
     loadData = async () => {
         try {
-            var contexts = await this.api.getContexts(),
+            var contexts = await this.api.getContexts(null, this.api.truConfig.customerId),
                 rights = await this.api.sendRequest('/rights/query', 'POST');
         }
         catch (error) {
