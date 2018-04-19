@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
+import LoadingModal from "../components/Loading";
 
 class ConsentsWidget extends BaseWidget {
 
@@ -55,13 +56,12 @@ class ConsentsWidget extends BaseWidget {
         let {onProcessed} = this.props;
 
         if(error) {
-            let {code, message} = error;
-
             this.setState({actionError: 'Error: ' + error.message});
         }
         await this.loadData();
         if(_.isFunction(onProcessed))
             onProcessed();
+        this.setState({processing: false})
     }
 
     async componentDidMount() {
@@ -83,7 +83,7 @@ class ConsentsWidget extends BaseWidget {
                 this.dict.getName(dataType.name),
                 <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
                                contextId={contextId} onProcessed={this.onProcessed.bind(this)}
-                               api={this.api} dict={this.dict}/>,
+                               api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}/>,
                 <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId}/>
             ])
         }catch(e) {}
@@ -103,16 +103,21 @@ class ConsentsWidget extends BaseWidget {
             }
             else{
                 let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                return ([
-                    (aux === 1) ? this.dict.getName(name) : '',
-                    this.dict.getName(consentDefinition.name),
-                    this.dict.getName(dataT.name),
-                    <span className={'text-center'}>
-                        <ConsentButton dataTypeId={consentDefinition.dataTypeId} consentId={consentId}
-                                       state="NotActed" contextId={id} onProcessed={this.onProcessed.bind(this)}
-                                       api={this.api} dict={this.dict}/></span>,
-                    <p className={'text-center'}>N/A</p>
-                ])
+                try {
+                    return ([
+                        (aux === 1) ? this.dict.getName(name) : '',
+                        this.dict.getName(consentDefinition.name),
+                        this.dict.getName(dataT.name),
+                        <span className={'text-center'}>
+                            <ConsentButton dataTypeId={consentDefinition.dataTypeId} consentId={consentId}
+                                           state="NotActed" contextId={id} onProcessed={this.onProcessed.bind(this)}
+                                           onClick={() => {
+                                               this.setState({processing: true})
+                                           }}
+                                           api={this.api} dict={this.dict}/></span>,
+                        <p className={'text-center'}>N/A</p>
+                    ])
+                }catch (e){}
             }
         });
 
@@ -122,7 +127,7 @@ class ConsentsWidget extends BaseWidget {
 
 
     render() {
-        let display, {error, loaded, contexts, actionError} = this.state;
+        let display, {error, loaded, contexts, actionError, processing} = this.state;
         contexts = _.isArray(contexts) ? contexts : [contexts];
         let {table} = this.props;
 
@@ -139,14 +144,16 @@ class ConsentsWidget extends BaseWidget {
                 return this.genContextRowArray(element);
             });
 
-            display = <Table header={headers} data={_.flatten(contextRows)} {...table}/>
+            display = <Table style={{margin: 0}} header={headers} data={_.flatten(contextRows)} {...table}/>
         }
 
         return <BS.Panel style={{width: '100%', minWidth: '530px'}}>
-            <FadeOutNotice show={!!actionError} text={actionError}
-                           bsStyle={'danger'}
-                           after={()=>{this.setState({actionError: ''})}}/>
-            {display}
+            <LoadingModal loading={processing}>
+                <FadeOutNotice show={!!actionError} text={actionError}
+                               bsStyle={'danger'}
+                               after={()=>{this.setState({actionError: ''})}}/>
+                {display}
+            </LoadingModal>
         </BS.Panel>
     }
 }

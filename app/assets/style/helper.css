@@ -132,7 +132,7 @@
 }
 
 .loadingIcon {
-    float:none;
+    float: none;
     margin:0 auto;
 }
 
@@ -278,4 +278,32 @@
 .radio-checkbox input{
     -webkit-appearance: radio;
     -moz-appearance: radio;
+}
+
+#loadingModal .modal-dialog {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#loadingModal .modal-content {
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    height: 100%;
+    text-align: center;
+}
+
+#loadingModal .modal-content i {
+    position: relative;
+    color: black;
+    top: 40%;
+}
+
+.modal-container {
+    position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
 }

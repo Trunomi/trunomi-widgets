@@ -1,30 +1,18 @@
 import React, {Component} from 'react';
 import Toggle from 'react-bootstrap-toggle';
 
-import LoadingModal from "./Loading";
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
 
 export default class ConsentButton extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            loading: false
-        };
-
-        this.api = this.props.api;
-        this.dict = this.props.dict;
-    }
-
     sendConsentQuery = async(type, body, contextId) => {
         let {onProcessed} = this.props;
 
         try {
             let page = "/ledger/context/" + contextId + "/consent-" + type;
-            await this.api.sendRequest(page, 'post', body);
+            await this.props.api.sendRequest(page, 'post', body);
 
-            this.setState({loading: false});
             onProcessed();
         }
         catch(error){
@@ -37,7 +25,7 @@ export default class ConsentButton extends React.Component{
     handleConsent = (event) => {
         const {dataTypeId, consentId, contextId} = this.props;
 
-        this.setState({loading: true});
+        this.props.onClick()
 
         let body = {
             payload: {
@@ -54,7 +42,7 @@ export default class ConsentButton extends React.Component{
     };
 
     render() {
-        let buttonText = this.dict.getName(consentButtonDict);
+        let buttonText = this.props.dict.getName(consentButtonDict);
 
         return <div className='text-center'>
             <Toggle height={34} width={50} onstyle='success'
@@ -62,7 +50,6 @@ export default class ConsentButton extends React.Component{
                     on={<p>{buttonText[0]}</p>}
                     off={<p>{buttonText[1]}</p>}
                     active={this.props.state==='consent-grant'}/>
-            <LoadingModal loading={this.state.loading} locale={this.dict.locale}/>
         </div>
     }
 }
