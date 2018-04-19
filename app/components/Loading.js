@@ -19,7 +19,7 @@ class LoadingModal extends React.Component{
                 show={loading}
                 container={this}
                 aria-labelledby="contained-modal-title">
-                <i className='icon-spin1 animate-spin loadingIcon' style={{fontSize: '8vw'}}/>
+                <i className='icon-spin1 animate-spin loadingIcon'/>
             </BS.Modal>
             {children}
         </div>

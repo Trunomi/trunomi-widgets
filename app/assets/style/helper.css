@@ -292,13 +292,17 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     height: 100%;
-    text-align: center;
 }
 
 #loadingModal .modal-content i {
     position: relative;
     color: black;
-    top: 40%;
+    font-size: 100px;
+    top: 50%;
+    height: 100px;
+    margin-top: -50px;
+    left: 50%;
+    margin-left: -50px;
 }
 
 .modal-container {
