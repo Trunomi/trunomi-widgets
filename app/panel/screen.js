@@ -148,16 +148,18 @@ class PanelScreen extends Component {
 
     render() {
         let {config, configModal} = this.state;
-        let {title} = this.props;
+        let {title, managed} = this.props;
 
         return <div>
             <ConfigModal show={configModal} {...config} onSubmit={this.saveConfig}
                          onHide={()=>{this.setState({configModal: false})}}/>
+
             <BS.Grid>
                 <BS.Col md={12}>
                     <h1>
                         <b>{title}</b>
-                        <p className='float-right'><Settings stateChange={this.stateChange} /></p></h1>
+                        {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
+                    </h1>
                     <hr/>
                 </BS.Col>
             </BS.Grid>

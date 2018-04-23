@@ -40,7 +40,7 @@ class Trucert extends BaseWidget {
             });
         }
         if (enterpriseId)
-            logo = await this.api.sendRequest('/data-model/enterprise-icon/' + enterpriseId);
+            logo = await this.api.sendRequest('/enterprise-portal/stats/enterprise-icon/' + enterpriseId);
 
         this.setState({ledger, context, dataType, loaded: true, logo});
     }
