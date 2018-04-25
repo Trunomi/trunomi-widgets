@@ -46,7 +46,7 @@ class DSRWidget extends BaseWidget{
                 context.consentDefinitions.map((consent) => {
                     name = this.dict.getName(consent.name);
 
-                    if (!data_types[consent.dataTypeId].consentNames.includes(name)) {
+                    if (data_types[consent.dataTypeId]) { // If the data type doesn't exist -> bad data on db
                         data_types[consent.dataTypeId].consentNames.push(name);
                         data_types[consent.dataTypeId].basis.push(basis);
                     }
