@@ -52,7 +52,7 @@ export default class Events extends React.Component {
             return _.map(ledger, (led, i) => {
                 payload = JSON.parse(led.payload);
                 header = [
-                    [_.startCase(led.event)],
+                    [_.startCase(led.event).replace("Consent", "Permission")],
                     moment.unix(_.toInteger(led.capturedAt) / 1000).format("MMMM Do YYYY, h:mm a")
                 ];
                 data = this.eventData(payload, i, header);
