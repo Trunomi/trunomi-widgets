@@ -8,38 +8,39 @@ class NewConsents extends React.Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            show: {},
+            loading: true,
         };
 
         this.api = new API(this.props.truConfig);
     }
 
     async componentWillMount() {
-        await this.loadData();
+        let newConsents = await this.api.getNewConsents(true);
+
+        this.setState({data: newConsents, loading: false});
     }
 
-    loadData = async () => {
-        try {
-            var contexts = await this.api.getContexts(null, true),
-                rights = await this.api.sendRequest('/rights/query', 'POST');
-        }
-        catch (error) {
-            console.log(error);
-        }
+    close = (key) => {
+        let {show} = this.state;
+        show[key] = false;
 
-        let newConsents = await this.api.getNewConsents(true)
-
-        this.setState({data: newConsents});
+        this.setState({show})
     }
-
 
     render() {
-        let {data} = this.state;
+        let {data, show, loading} = this.state;
+
+        if (loading)
+            return null;
 
         return <div>
             {
                 data.map((elem, i)=>{
-                    return <CaptureConsent key={i} contextId={elem[0]} consentId={elem[1]} {...this.props}/>
+                    return <CaptureConsent key={i} contextId={elem[0]} consentId={elem[1]} {...this.props}
+                                           show={show[i] !== false}
+                                           onClose={this.close.bind(null, i)}/>
                 })
             }
             {data.length === 0 &&
@@ -52,11 +53,7 @@ class NewConsents extends React.Component {
 }
 
 NewConsents.defaultProps = {
-    show: true,
-    style: {},
-    onError: _.noop,
-    onSuccess: _.noop,
-    onClose: _.noop
+    onSuccess: _.noop
 };
 
 export default NewConsents
