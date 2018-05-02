@@ -160,13 +160,13 @@ class trunomiAPI{
         return await this.sendRequest(addID('/ledger', id));
     }
 
-    async getContexts(id=null, customerId=null){
-        let headers = customerId ? {"X-Trunomi-Customer-Id": customerId} : null;
+    async getContexts(id=null, customerId=false){
+        let headers = customerId ? {"X-Trunomi-Customer-Id": this.truConfig.customerId} : null;
         return await this.sendRequest(addID('/context', id), 'GET', null, headers);
     }
 
-    async getNewConsents(){
-        let contexts = await this.getContexts(),
+    async getNewConsents(customerId=false){
+        let contexts = await this.getContexts(null, customerId),
             rights = await this.sendRequest('/rights/query', 'POST');
 
         let newConsents = [];
@@ -175,7 +175,7 @@ class trunomiAPI{
             let {id, consentDefinitions} = context;
 
             consentDefinitions.forEach((consent, consentId)=>{
-                if(!rights[id] || !rights[id][consentId])
+                if((!rights[id] || !rights[id][consentId]) && consent)
                     newConsents.push([id, consentId]);
             })
         });

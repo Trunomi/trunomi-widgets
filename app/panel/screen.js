@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import * as BS from 'react-bootstrap';
-import {CaptureConsent,
-    CaptureDSR,
-    Trucert,
+import {NewConsents,
     UserPreferences} from '../index';
 import DeveloperOptions from './subcomponents/developerOptions';
 import WidgetButtons from './subcomponents/widgetButtons';
@@ -12,10 +10,20 @@ import ConfigModal from "./subcomponents/configModal";
 import Settings from './subcomponents/settings';
 import _ from 'lodash';
 import '../assets/style/css/bootstrap.min.css'
+import API from '../config/api';
 
 class PanelScreen extends Component {
     constructor(props) {
         super(props);
+
+        this.prefParams = UserPreferences.defaultProps
+        this.prefParams.onProcessed = (err, newConsent) => {
+            if (!err && newConsent)
+                this.setState({newConsents: this.state.newConsents - 1})
+        }
+
+        this.newConsentParams = NewConsents.defaultProps
+        this.newConsentParams.onSuccess = () => {this.setState({newConsents: this.state.newConsents - 1})}
 
         this.state = {
             show: true,
@@ -24,31 +32,49 @@ class PanelScreen extends Component {
             randKey: Math.random(),
             dev: false,
             config: null,
-            configModal: false
+            configModal: false,
+            newConsents: null
         };
         this.cookie = new Cookies();
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         let cookies = this.cookie.get('tru_config'),
             token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
 
-        let host_addr = window.location.protocol + "//" + window.location.hostname;
+        let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0
         
         if (token){
-            this.setState({
-                config: {
-                    jwtToken: token,
-                    host_addr: host_addr
-                }
-            })
+            config =  {
+                jwtToken: token,
+                host_addr: host_addr
+            }
         }
         else if (cookies)
-            this.setState({config: cookies});
+            config = cookies
+
+        if (this.props.prefCentre) {
+            let api = new API(config);
+
+            let consents = await api.getNewConsents(true);
+
+            newConsents = consents.length;
+        }
+
+        this.setState({config, newConsents})
     }
 
     chooseWidget = (widget) => {
-        this.setState({Widget: widget, params: widget.defaultProps})
+        let params = widget.defaultProps
+
+        if (widget === NewConsents){
+            params = this.newConsentParams
+        }
+        else if(widget === UserPreferences){
+            params = this.prefParams
+        }
+
+        this.setState({Widget: widget, params})
     }
 
     updateJSON = (edit, config) => {
@@ -128,12 +154,14 @@ class PanelScreen extends Component {
     }
 
     widgetsScreen = () => {
-        let {Widget, dev, config, randKey, params} = this.state;
+        let {Widget, dev, config, randKey, params, newConsents} = this.state;
+
         if (config) {
             return (
                 <BS.Grid className="main-section">
                     <BS.Col md={4}>
-                        <WidgetButtons widget={Widget}  chooseWidget={this.chooseWidget} prefCentre={this.props.prefCentre}/>
+                        <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={this.props.prefCentre}
+                                       newConsents={newConsents}/>
                         {!this.props.prefCentre && <DeveloperButton dev={dev} stateChange={this.stateChange}/>}
                         <DeveloperOptions {...this.state} updateJSON={this.updateJSON}
                                           stateChange={this.stateChange}/>

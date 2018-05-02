@@ -33,7 +33,7 @@ class ConsentsWidget extends BaseWidget {
 
         try {
             let rights = await this.api.sendRequest("/rights/query", 'post', {contextId: contextId||undefined}),
-                contexts = await this.api.getContexts(contextId, this.api.truConfig.customerId);
+                contexts = await this.api.getContexts(contextId, true);
 
             this.setState({contexts: contexts, rights: rights, loaded: true});
         }
@@ -52,15 +52,16 @@ class ConsentsWidget extends BaseWidget {
         return false;
     }
 
-    onProcessed = async(error) => {
+    onProcessed = async(error, newConsent) => {
         let {onProcessed} = this.props;
 
         if(error) {
             this.setState({actionError: 'Error: ' + error.message});
         }
         await this.loadData();
+
         if(_.isFunction(onProcessed))
-            onProcessed();
+            onProcessed(error, newConsent);
         this.setState({processing: false})
     }
 
@@ -82,7 +83,7 @@ class ConsentsWidget extends BaseWidget {
                 this.dict.getName(right.consentDefinition.name),
                 this.dict.getName(dataType.name),
                 <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
-                               contextId={contextId} onProcessed={this.onProcessed.bind(this)}
+                               contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
                                api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}/>,
                 <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId}/>
             ])
@@ -110,7 +111,8 @@ class ConsentsWidget extends BaseWidget {
                         this.dict.getName(dataT.name),
                         <span className={'text-center'}>
                             <ConsentButton dataTypeId={consentDefinition.dataTypeId} consentId={consentId}
-                                           state="NotActed" contextId={id} onProcessed={this.onProcessed.bind(this)}
+                                           state="NotActed" contextId={id}
+                                           onProcessed={this.onProcessed.bind(null, null, true)}
                                            onClick={() => {
                                                this.setState({processing: true})
                                            }}

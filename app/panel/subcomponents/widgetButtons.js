@@ -2,24 +2,21 @@ import * as React from 'react';
 import {ConsentsWidget,
     ActiveDSRWidget,
     DSRWidget,
-    UserPreferences,
-    startSession,
-    stopSession} from '../../index';
+    UserPreferences} from '../../index';
 import NewDSR from '../../widgets/NewDSR';
 import NewConsents from "../../widgets/NewConsents";
-import API from '../../config/api';
 import TrucertSelector from "./trucertSelector";
-import Cookies from 'universal-cookie';
-
 
 export default class extends React.Component {
 
-    constructor(){
-        super();
-        this.state = {};
+    constructor(props){
+        super(props);
+        this.state = {
+            newConsents: this.props.newConsents
+        };
     }
 
-    Button = (widgetButton, text, newC) => {
+    Button = (widgetButton, text, newConsents) => {
         let {widget, chooseWidget} = this.props;
         let cName = 'widget-button';
         cName += (widgetButton===widget) ? ' widget-button-active' : '';
@@ -27,11 +24,15 @@ export default class extends React.Component {
         return <div>
             <button style={{width: '75%'}} className={cName}
                     onClick={() => chooseWidget(widgetButton)}>
-                {text} {newC ? `(${newC})` : ''}
+                {text} {newConsents !== undefined ? `(${newConsents})` : ''}
             </button>
             <br/>
         </div>
     };
+
+    componentWillReceiveProps = (newProps) => {
+        this.setState({newConsents: newProps.newConsents})
+    }
 
     prefCentreButtons = () => {
         let {prefCentre} = this.props;
@@ -39,21 +40,9 @@ export default class extends React.Component {
         if (prefCentre) {
             return (<div>
                     {this.Button(UserPreferences, 'My Preferences')}
-                    {this.Button(NewConsents, 'New Permissions', this.state.newC)}
+                    {this.Button(NewConsents, 'New Permissions', this.state.newConsents)}
                 </div>
             )
-        }
-    };
-
-    componentWillMount = async () => {
-        if (this.props.prefCentre) {
-            let cookies = new Cookies,
-                config = cookies.get('tru_config'),
-                api = new API(config);
-
-            let consents = await api.getNewConsents();
-
-            this.setState({newC: consents.length});
         }
     };
 

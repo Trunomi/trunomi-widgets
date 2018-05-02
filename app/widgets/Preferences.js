@@ -49,7 +49,6 @@ class UserPreferences extends React.Component {
         let {truConfig, title, consentPane, consentTitle, dataPane,
             dataTitle, dsrPane, dsrTitle, helpLink} = this.props;
 
-
         let consentPaneTitle = {
             text: consentTitle,
             pane: 'pane1',
@@ -57,7 +56,8 @@ class UserPreferences extends React.Component {
         }, consentPaneBody = {
             Widget: ConsentsWidget,
             props: {
-                truConfig: truConfig
+                truConfig: truConfig,
+                onProcessed: this.props.onProcessed
             }
         }, dataPaneTitle = {
             text: dataTitle,

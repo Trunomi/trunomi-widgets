@@ -14,30 +14,20 @@ class NewConsents extends React.Component {
         this.api = new API(this.props.truConfig);
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         await this.loadData();
     }
 
     loadData = async () => {
         try {
-            var contexts = await this.api.getContexts(null, this.api.truConfig.customerId),
+            var contexts = await this.api.getContexts(null, true),
                 rights = await this.api.sendRequest('/rights/query', 'POST');
         }
         catch (error) {
             console.log(error);
         }
 
-        let newConsents = [];
-
-        contexts.forEach((context) => {
-            let {id, consentDefinitions} = context;
-
-            consentDefinitions.forEach((consent, consentId) => {
-                if(!rights[id] || !rights[id][consentId]) {
-                    newConsents.push([id, consentId]);
-                }
-            })
-        });
+        let newConsents = await this.api.getNewConsents(true)
 
         this.setState({data: newConsents});
     }
