@@ -45,7 +45,7 @@ class NewConsents extends React.Component {
             }
             {data.length === 0 &&
                 <WaitingConfig>
-                    This customers doesn't have any new consents.
+                    This customer doesn't have any new Permissions
                 </WaitingConfig>
             }
         </div>
