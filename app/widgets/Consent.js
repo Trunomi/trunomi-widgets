@@ -106,9 +106,9 @@ class ConsentsWidget extends BaseWidget {
                 let dataT = this.dataTypes[consentDefinition.dataTypeId];
                 try {
                     return ([
-                        (aux === 1) ? this.dict.getName(name) : '',
-                        this.dict.getName(consentDefinition.name),
-                        this.dict.getName(dataT.name),
+                        <span>{(aux === 1) ? this.dict.getName(name) : ''}</span>,
+                        <span style={{wordBreak: "break-all"}}>{this.dict.getName(consentDefinition.name)}</span>,
+                        <span>{this.dict.getName(dataT.name)}</span>,
                         <span className={'text-center'}>
                             <ConsentButton dataTypeId={consentDefinition.dataTypeId} consentId={consentId}
                                            state="NotActed" contextId={id}
@@ -145,7 +145,6 @@ class ConsentsWidget extends BaseWidget {
             let contextRows = _.map(contexts, (element) => {
                 return this.genContextRowArray(element);
             });
-
             display = <Table style={{margin: 0}} header={headers} data={_.flatten(contextRows)} {...table}/>
         }
 
