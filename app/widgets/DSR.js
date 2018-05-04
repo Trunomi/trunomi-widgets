@@ -86,7 +86,7 @@ class DSRWidget extends BaseWidget{
         try {
             return ([
                 <span>{this.dict.getName(data_type.name)}</span>,
-                <span style={{wordBreak: "break-all"}}>>{(data_type.consentNames.length) ? data_type.consentNames.join(", ") : "None"}</span>,
+                <span style={{wordBreak: "break-all"}}>{(data_type.consentNames.length) ? data_type.consentNames.join(", ") : "None"}</span>,
                 <span>{(data_type.basis.length) ? data_type.basis.join(", ") : "None"}</span>,
                 <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={data_type}
                            onProcessed={this.onProcessed.bind(this)}/>
