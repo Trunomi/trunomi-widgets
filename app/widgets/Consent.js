@@ -140,7 +140,7 @@ class ConsentsWidget extends BaseWidget {
             display = <LoadingInline/>;
         }
         else {
-            let headers = _.union(this.dict.getName(consentTableDict), [<p>Trucert<sup>TM</sup></p>]);
+            let headers = _.union(this.dict.getName(consentTableDict), [<p>TruCert<sup>TM</sup></p>]);
 
             let contextRows = _.map(contexts, (element) => {
                 return this.genContextRowArray(element);

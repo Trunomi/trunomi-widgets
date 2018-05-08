@@ -49,7 +49,7 @@ export default class TrucertSelector extends Component{
 
         if(!id){
             display = <WaitingConfig>
-                This Page Allows you to preview a Trucert widget with real data.<br/>
+                This Page Allows you to preview a TruCert widget with real data.<br/>
                 Please select the ledger event to be displayed.
             </WaitingConfig>
         }else{
