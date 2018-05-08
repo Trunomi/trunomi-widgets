@@ -79,9 +79,9 @@ class ConsentsWidget extends BaseWidget {
         let dataType = this.dataTypes[dataTypeId];
         try {
             return ([
-                (aux === 1) ? this.dict.getName(right.contextName) : '',
-                this.dict.getName(right.consentDefinition.name),
-                this.dict.getName(dataType.name),
+                <span style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
+                <span style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
+                <span>{this.dict.getName(dataType.name)}</span>,
                 <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
                                contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
                                api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}/>,
@@ -106,7 +106,7 @@ class ConsentsWidget extends BaseWidget {
                 let dataT = this.dataTypes[consentDefinition.dataTypeId];
                 try {
                     return ([
-                        <span>{(aux === 1) ? this.dict.getName(name) : ''}</span>,
+                        <span style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(name) : ''}</span>,
                         <span style={{wordBreak: "break-all"}}>{this.dict.getName(consentDefinition.name)}</span>,
                         <span>{this.dict.getName(dataT.name)}</span>,
                         <span className={'text-center'}>
