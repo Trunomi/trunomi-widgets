@@ -90,7 +90,7 @@ class PanelScreen extends Component {
             this.setState({params: updated_src, randKey: Math.random()});
     }
 
-    saveConfig = (event, staticAuth) => {
+    saveConfig = async (event, staticAuth) => {
         event.preventDefault();
         this.cookie.remove('tru_config');
 
@@ -110,12 +110,16 @@ class PanelScreen extends Component {
             };
         }
 
+        let api = new API(config),
+            consents = await api.getNewConsents(true);
+
         this.cookie.set('tru_config', config)
 
         this.setState({
-            config: config,
+            config,
             configModal: false,
-            randKey: Math.random()
+            randKey: Math.random(),
+            newConsents: consents.length
         });
     }
 

@@ -37,7 +37,7 @@ export default class ConfigModal extends Component{
             </BS.FormGroup>
             <BS.FormGroup controlId="locale">
                 <BS.ControlLabel>Locale</BS.ControlLabel>
-                <BS.FormControl type="text" required defaultValue={locale}/>
+                <BS.FormControl type="text" defaultValue={locale}/>
             </BS.FormGroup>
         </div>
     }
