@@ -100,8 +100,8 @@ class PanelScreen extends Component {
                 apiToken: event.target.elements[0].value,
                 host_addr: event.target.elements[1].value,
                 enterpriseId: event.target.elements[2].value,
-                customerId: event.target.elements[3].value
-
+                customerId: event.target.elements[3].value,
+                locale: event.target.elements[4].value
             };
         } else {
             config = {

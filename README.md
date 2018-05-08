@@ -1,4 +1,4 @@
-# Trunomi Widgets [Demo](https://trunomi.github.io/trunomi-widgets/prefcentre)
+# Trunomi Widgets [Preference centre demo](https://trunomi.github.io/trunomi-widgets/prefcentre) [Widgets demo](https://trunomi.github.io/trunomi-widgets/widgets)
 Set of React components that makes the implementation of the Trunomi platform on a react application easier. Contains a number of fully customizable widgets.
 
 ## Getting Started
@@ -20,7 +20,7 @@ Use the component specifyin the appropiate props. For example, the user preferen
 <UserPreferences truConfig={...} title='Preferences' dataPane={false}/>
 ```
 
-## Configuration object (required) `More info about a session soon`
+## Configuration object (required)
 Prop required by all the widgets (unless a Session has started) that contains the configuration required to interact with the TRUNOMI platform. There are 2 ways of doing this: using static authentication with an API token or using express authenticaion with a JWT token.
 The config objects has to follow one of the 2 structures:
 

@@ -16,7 +16,7 @@ export default class ConfigModal extends Component{
     }
 
     staticForm(){
-        let {apiToken, enterpriseId, customerId, host_addr} = this.props;
+        let {apiToken, enterpriseId, customerId, host_addr, locale} = this.props;
 
         return <div>
             <BS.FormGroup controlId="apiToken">
@@ -34,6 +34,10 @@ export default class ConfigModal extends Component{
             <BS.FormGroup controlId="customerId">
                 <BS.ControlLabel>Customer ID</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={customerId}/>
+            </BS.FormGroup>
+            <BS.FormGroup controlId="locale">
+                <BS.ControlLabel>Locale</BS.ControlLabel>
+                <BS.FormControl type="text" required defaultValue={locale}/>
             </BS.FormGroup>
         </div>
     }
