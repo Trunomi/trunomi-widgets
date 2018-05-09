@@ -52,19 +52,21 @@ class ManagedPrefCentre extends React.Component {
                 password: event.target.elements[1].value,
                 enterpriseId: this.props.enterpriseId
             }
-        }).then(async (res)=>{
+        }).then(async (res) => {
             await axios({
                 method: 'post',
                 url: host_addr + '/auth',
                 headers:{
                     Authorization: res.headers['x-trunomi-www-authenticate']
                 }
-            }).then((res) => {
+            })
+            .then((res) => {
                 sessionStorage.setItem("TRUNOMI_USE_TOKEN", res.headers['www-authenticate'])
                 this.setState({loggedIn: true, error: ""})
             })
-        }).catch((err)=>{
-            this.setState({error: "Invalid Credentials"})
+        })
+        .catch((err) => {
+            this.setState({error: err.response.data})
         })
     }
 
@@ -78,11 +80,11 @@ class ManagedPrefCentre extends React.Component {
                 <form onSubmit={this.onSubmit}>
                     <BS.FormGroup>
                         <BS.ControlLabel>User</BS.ControlLabel>
-                        <BS.FormControl placeholder="User" type="text"/>
+                        <BS.FormControl placeholder="User" type="text" />
                     </BS.FormGroup>
                     <BS.FormGroup>
                         <BS.ControlLabel>Password</BS.ControlLabel>
-                        <BS.FormControl placeholder="Password" type="password"/>
+                        <BS.FormControl placeholder="Password" type="password" />
                     </BS.FormGroup>
                     {error && <BS.Alert bsStyle="danger" onDismiss={()=>{this.setState({error: ""})}}>
                         <strong><i className="icon-attention"/> {error}</strong>
