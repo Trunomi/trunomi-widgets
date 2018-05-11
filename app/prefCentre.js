@@ -92,6 +92,10 @@ class ManagedPrefCentre extends React.Component {
                     <BS.Button bsStyle="primary" bsSize="large" type="submit" block>
                         Log In
                     </BS.Button>
+                    <BS.Button bsStyle="link" className="float-right" bsSize="large" href={"/portal/forgot-password/" + this.props.enterpriseId}>
+                        Forgot Password
+                    </BS.Button>
+                    <br/>
                 </form>
             </BS.Modal.Body>
         </BS.Modal>
