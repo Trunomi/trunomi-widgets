@@ -80,6 +80,7 @@ app.get('/grant/:customerId', async (req, res) => {
         if (e.response && e.response.data && e.response.data.code === 409){
             console.log(`Error ${e.response.data.code}: ${e.response.data.message}`)
             res.sendFile(path.join(__dirname + '/alreadyGranted.html'));
+            return
         }
         res.sendFile(path.join(__dirname + '/error.html'));
     }
