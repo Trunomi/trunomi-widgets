@@ -43,20 +43,23 @@ export default class ConsentButton extends React.Component{
 
     render() {
         let buttonText = this.props.dict.getName(consentButtonDict);
+        let granted = this.props.state==='consent-grant';
 
         return <div className='text-center'>
             <Toggle height={34} width={50} onstyle='success'
                     onClick={this.handleConsent}
                     on={<p>{buttonText[0]}</p>}
                     off={<p>{buttonText[1]}</p>}
-                    active={this.props.state==='consent-grant'}/>
+                    disabled={granted && this.props.disableRevoke}
+                    active={granted}/>
         </div>
     }
 }
 
 ConsentButton.defaultProps = {
     onProcessed: _.noop,
-    state: 'NotActed'
+    state: 'NotActed',
+    disableRevoke: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;

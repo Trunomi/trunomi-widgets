@@ -77,6 +77,10 @@ class ConsentsWidget extends BaseWidget {
     genRightRowArray = (contextId, consentId, aux, dataTypeId) => {
         let right = this.state.rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
+        let {disableRevoke} = this.props, disabled = false;
+        if (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId))
+            disabled = true;
+
         try {
             return ([
                 <span style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
@@ -84,7 +88,8 @@ class ConsentsWidget extends BaseWidget {
                 <span>{this.dict.getName(dataType.name)}</span>,
                 <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
                                contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
-                               api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}/>,
+                               api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}
+                               disableRevoke={disabled}/>,
                 <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId}/>
             ])
         }catch(e) {}
@@ -162,12 +167,14 @@ class ConsentsWidget extends BaseWidget {
 ConsentsWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
-    contextIds: PropTypes.arrayOf(PropTypes.string)
+    contextIds: PropTypes.arrayOf(PropTypes.string),
+    disableRevoke: PropTypes.object
 };
 
 ConsentsWidget.defaultProps = {
     contextIds: null,
-    table: Table.widgetTableProps
+    table: Table.widgetTableProps,
+    disableRevoke: {}
 };
 
 export default ConsentsWidget;
