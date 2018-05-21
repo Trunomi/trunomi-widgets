@@ -87,7 +87,8 @@ Widget that lists all the consent definitions and the status of those for the th
 | Name | Type | Required | Default | Description |
 | ---- | ---- | -------- | ------- | ----------- |
 | truConfig | object | **yes** | | Configuration object |
-| contextId | string | **no** | `''` | Prop to specify to only show consents from an specific context ID | 
+| contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of context IDs | 
+| disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
 | table | object | **no** | `...` | Customization object for the table |
 
 The table object allows for the following keys and have the following default values: 
@@ -112,7 +113,7 @@ Widget that lists all the personal informatio the customer has given consent to 
 | Name | Type | Required | Default | Description |
 | ---- | ---- | -------- | ------- | ----------- |
 | truConfig | object | **yes** | | Configuration object |
-| contextId | string | **no** | `''` | Prop to specify to only show DSRs from an specific context ID | 
+| dataTypeIds | string array | **no** | `null` | Prop to specify to only show an specific list of data type ids | 
 | table | object | **no** | `...` | Customization object for the table |
 
 ## Active Data Subject Requests widget (`ActiveDSRWidget`)
@@ -142,6 +143,9 @@ Component that displays the three previous widgets to form a user preference cen
 | dsrPane | string | **no** | `true` | To specify whether to display the active DSR pane (ActiveDSRWidget) |
 | dsrTitle | string | **no** | `'My Data Requests'` | Title for the active dsr pane |
 | helpLink | string | **no** | `''` | If specified, a help icon with this link will be created on top of the widget |
+| dataTypeIds | string array | **no** | `null` | Prop to specify to only show an specific list of data type ids | 
+| contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of context IDs | 
+| disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
     
 ## Capture Consent widget (`CaptureConsent`)
 Widget that prompts a customer to consent or deny consent for a given consent program. 
