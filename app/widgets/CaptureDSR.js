@@ -33,7 +33,7 @@ export default class CaptureDSR extends BaseWidget {
             this.setState({dataType: dataType, loaded: true});
         }
         try {
-            let data = await this.api.getDataTypes(dataTypeId);
+            let data = await this.api.sendRequest('/data-type/' + dataTypeId);
 
             if(!data[type + 'Definition']) {
                 this.setState({

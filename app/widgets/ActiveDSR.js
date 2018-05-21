@@ -46,9 +46,11 @@ class ActiveDSRWidget extends BaseWidget {
     }
 
     refreshData = async () => {
-        let {type} = this.props;
+        let {type, dataTypeIds} = this.props;
         try {
             let DSRs = await this.api.sendRequest('/ledger/requests/dataSubject/' + (type !== '' ? type + '/' : '') + 'last');
+            if(dataTypeIds)
+                DSRs = DSRs.filter((el) => { return dataTypeIds.includes(el.contextId)})
             DSRs = _.sortBy(DSRs, 'capturedAt');
             this.setState({data: DSRs, error: '', loaded: true});
         } catch(error) {
@@ -119,12 +121,14 @@ class ActiveDSRWidget extends BaseWidget {
 ActiveDSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
-    type: PropTypes.oneOf(['access', 'erasure', 'object', 'rectify', ''])
+    type: PropTypes.oneOf(['access', 'erasure', 'object', 'rectify', '']),
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 ActiveDSRWidget.defaultProps = {
     type: '',
-    table: Table.widgetTableProps
+    table: Table.widgetTableProps,
+    dataTypeIds: null
 };
 
 export default ActiveDSRWidget;

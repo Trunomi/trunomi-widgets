@@ -29,11 +29,11 @@ class ConsentsWidget extends BaseWidget {
     }
 
     loadData = async () => {
-        let {contextId} = this.props;
+        let {contextIds} = this.props;
 
         try {
-            let rights = await this.api.sendRequest("/rights/query", 'post', {contextId: contextId||undefined}),
-                contexts = await this.api.getContexts(contextId, true);
+            let rights = await this.api.getRights(contextIds),
+                contexts = await this.api.getContexts(contextIds, true);
 
             this.setState({contexts: contexts, rights: rights, loaded: true});
         }
@@ -162,11 +162,11 @@ class ConsentsWidget extends BaseWidget {
 ConsentsWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
-    contextId: PropTypes.string
+    contextIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 ConsentsWidget.defaultProps = {
-    contextId: '',
+    contextIds: null,
     table: Table.widgetTableProps
 };
 

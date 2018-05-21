@@ -47,7 +47,7 @@ class UserPreferences extends React.Component {
 
     render() {
         let {truConfig, title, consentPane, consentTitle, dataPane,
-            dataTitle, dsrPane, dsrTitle, helpLink} = this.props;
+            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props;
 
         let consentPaneTitle = {
             text: consentTitle,
@@ -57,7 +57,8 @@ class UserPreferences extends React.Component {
             Widget: ConsentsWidget,
             props: {
                 truConfig: truConfig,
-                onProcessed: this.props.onProcessed
+                onProcessed,
+                contextIds
             }
         }, dataPaneTitle = {
             text: dataTitle,
@@ -68,7 +69,8 @@ class UserPreferences extends React.Component {
             props: {
                 truConfig: truConfig,
                 onProcessed: this.refreshRights,
-                ref: "DSRs"
+                ref: "DSRs",
+                dataTypeIds
             }
         }, dsrPaneTitle = {
             text: dsrTitle,
@@ -78,7 +80,8 @@ class UserPreferences extends React.Component {
             Widget: ActiveDSRWidget,
             props: {
                 truConfig: truConfig,
-                ref: "DSRdisp"
+                ref: "DSRdisp",
+                dataTypeIds
             }
         }
 
@@ -103,7 +106,9 @@ UserPreferences.defaultProps = {
     dataTitle: 'My Data',
     dsrPane: true,
     dsrTitle: 'My Data Requests',
-    helpLink: ''
+    helpLink: '',
+    contextIds: null,
+    dataTypeIds: null
 };
 
 UserPreferences.propTypes = {
@@ -115,7 +120,9 @@ UserPreferences.propTypes = {
     dataTitle: PropTypes.string,
     dsrPane: PropTypes.bool,
     dsrTitle: PropTypes.string,
-    helpLink: PropTypes.string
+    helpLink: PropTypes.string,
+    contextIds: PropTypes.arrayOf(PropTypes.string),
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default UserPreferences

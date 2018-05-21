@@ -29,7 +29,7 @@ class DSRWidget extends BaseWidget{
     async loadData(){
         try {
             let contexts = await this.api.getContexts(),
-                data_types = await this.api.getDataTypes();
+                data_types = await this.api.getDataTypes(this.props.dataTypeIds);
 
             _.map(data_types, (data_type)=>{
                 data_type["consentNames"] = [];
@@ -122,12 +122,12 @@ class DSRWidget extends BaseWidget{
 DSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
-    contextId: PropTypes.string
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
-    contextId: ''
+    dataTypeIds: null
 };
 
 export default DSRWidget;

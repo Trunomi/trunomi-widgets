@@ -27,7 +27,7 @@ export default class CaptureConsent extends BaseWidget{
         let {contextId, consentId} = this.props;
 
         try {
-            let data = await this.api.getContexts(contextId);
+            let data = await this.api.getContexts([contextId]);
 
             if (data.consentDefinitions[consentId] === undefined)
                 throw new Error(

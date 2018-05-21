@@ -125,11 +125,15 @@ class trunomiAPI{
         return apiRequest.data;
     }
 
-    async getDataTypes(id = null){
-        let raw = await this.sendRequest(addID('/data-type', id)), processed = {};
+    async getDataTypes(ids = null){
+        let raw = [], processed = {};
 
-        if(id)
-            return raw;
+        if(!ids)
+            raw = await this.sendRequest('/data-type');
+        else
+            raw = await Promise.all(ids.map((id) => {
+                return this.sendRequest(addID('/data-type', id))
+            }));
 
         _.map(raw, (element) => {
             processed[element.id] = element;
@@ -160,9 +164,26 @@ class trunomiAPI{
         return await this.sendRequest(addID('/ledger', id));
     }
 
-    async getContexts(id=null, customerId=false){
+    async getContexts(ids=null, customerId=false){
+        // TODO: use filters approach once filters are working
         let headers = customerId ? {"X-Trunomi-Customer-Id": this.truConfig.customerId} : null;
-        return await this.sendRequest(addID('/context', id), 'GET', null, headers);
+
+        if (!ids)
+            return await this.sendRequest('/context', 'GET', null, headers);
+
+        return  await Promise.all(ids.map((id) => {
+            return this.sendRequest(addID('/context', id), 'GET', null, headers);
+        }));
+    }
+
+    async getRights(ids=null){
+        // TODO: use filters approach once filters are working
+        if (!ids)
+            return await this.sendRequest('/rights/query', 'POST');
+
+        return  await Promise.all(ids.map((id) => {
+            return this.sendRequest('/rights/query', 'POST', {contextId: id});
+        }));
     }
 
     async getNewConsents(customerId=false){
