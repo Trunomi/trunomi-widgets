@@ -99,7 +99,6 @@ class ConsentsWidget extends BaseWidget {
         let aux = 0;
 
         let {id, name} = context;
-
         let elements = context.consentDefinitions.map((consentDefinition, consentId) => {
             if(consentDefinition===null)
                 return;
@@ -109,19 +108,20 @@ class ConsentsWidget extends BaseWidget {
             }
             else{
                 let dataT = this.dataTypes[consentDefinition.dataTypeId];
+                let isConsent = this.dict.getName(consentDefinition.justification) === 'consent'; 
                 try {
                     return ([
                         <span style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(name) : ''}</span>,
                         <span style={{wordBreak: "break-all"}}>{this.dict.getName(consentDefinition.name)}</span>,
                         <span>{this.dict.getName(dataT.name)}</span>,
-                        <span className={'text-center'}>
+                        isConsent ? <span className={'text-center'}>
                             <ConsentButton dataTypeId={consentDefinition.dataTypeId} consentId={consentId}
                                            state="NotActed" contextId={id}
                                            onProcessed={this.onProcessed.bind(null, null, true)}
                                            onClick={() => {
                                                this.setState({processing: true})
                                            }}
-                                           api={this.api} dict={this.dict}/></span>,
+                                           api={this.api} dict={this.dict}/></span> : null,
                         <p className={'text-center'}>N/A</p>
                     ])
                 }catch (e){}
