@@ -27,7 +27,7 @@ export default class CaptureConsent extends BaseWidget{
         let {contextId, consentId} = this.props;
 
         try {
-            let data = await this.api.getContexts([contextId]);
+            let data = await this.api.sendRequest('/context/' + contextId);
 
             if (data.consentDefinitions[consentId] === undefined)
                 throw new Error(
@@ -110,24 +110,8 @@ export default class CaptureConsent extends BaseWidget{
     render() {
         let {consentDef, loaded, finished, notice, consentState, show} = this.state, display;
 
-        if(!show) {
-            return null;
-        }
-
-        if (finished) {
-            display = <div>
-                {<strong>Thank you</strong>}
-                {notice}
-            </div>;
-        }
-        else if (!loaded) {
-            display = <LoadingInline/>;
-        }
-        else {
-            display = <div>
-                <strong>{this.dict.getName(consentDef.name)}</strong>
-                <p style={{padding: '5px'}}>{this.dict.getName(consentDef.consentUse)}</p>
-                <button className={'link'} onClick={() => {
+        let grantOptions = <span>
+            <button className={'link'} onClick={() => {
                     this.sendConsentQuery('grant')
                 }}>
                     Yes, personalize my rewards {/* DEMO purposes */}
@@ -148,6 +132,31 @@ export default class CaptureConsent extends BaseWidget{
                         {/*{this.dict.getName(consentDef.consentRevoke.prompt)}*/}
                     </button>
                 }
+        </span>
+        let nonGrantOptions = <button className='link' onClick={this.sendConsentQuery.bind(null, 'grant')}>
+            Confirm
+        </button>   
+
+
+
+        if(!show) {
+            return null;
+        }
+
+        if (finished) {
+            display = <div>
+                {<strong>Thank you</strong>}
+                {notice}
+            </div>;
+        }
+        else if (!loaded) {
+            display = <LoadingInline/>;
+        }
+        else {
+            display = <div>
+                <strong>{this.dict.getName(consentDef.name)}</strong>
+                <p style={{padding: '5px'}}>{this.dict.getName(consentDef.consentUse)}</p>
+                {this.dict.getName(consentDef.justification) === "consent" ? grantOptions : nonGrantOptions}
             </div>;
         }
 

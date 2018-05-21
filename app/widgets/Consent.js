@@ -33,9 +33,11 @@ class ConsentsWidget extends BaseWidget {
 
         try {
             let rights = await this.api.getRights(contextIds),
-                contexts = await this.api.getContexts(contextIds, true);
+                raw = await this.api.getContexts(contextIds, true);
+            let contexts = {};
+            raw.forEach((el) => {contexts[el.id]= el});
 
-            this.setState({contexts: contexts, rights: rights, loaded: true});
+            this.setState({contexts, rights, loaded: true});
         }
         catch(error) {
             this.setState({error: error.toString()})
@@ -82,14 +84,15 @@ class ConsentsWidget extends BaseWidget {
             disabled = true;
 
         try {
+            let isConsent = this.dict.getName(this.state.contexts[contextId].consentDefinitions[consentId].justification) === 'consent';
             return ([
                 <span style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
                 <span style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
                 <span>{this.dict.getName(dataType.name)}</span>,
-                <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
+                isConsent ? <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
                                contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
                                api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}
-                               disableRevoke={disabled}/>,
+                               disableRevoke={disabled}/> : null,
                 <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId}/>
             ])
         }catch(e) {}
@@ -135,7 +138,6 @@ class ConsentsWidget extends BaseWidget {
 
     render() {
         let display, {error, loaded, contexts, actionError, processing} = this.state;
-        contexts = _.isArray(contexts) ? contexts : [contexts];
         let {table} = this.props;
 
         if(error) {
