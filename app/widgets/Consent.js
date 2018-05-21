@@ -172,7 +172,7 @@ ConsentsWidget.propTypes = {
 };
 
 ConsentsWidget.defaultProps = {
-    contextIds: null,
+    contextIds: ["77fc7dc0-4c9a-11e7-a9a4-1f09afff1a73"],
     table: Table.widgetTableProps,
     disableRevoke: {}
 };

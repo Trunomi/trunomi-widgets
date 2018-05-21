@@ -181,9 +181,13 @@ class trunomiAPI{
         if (!ids)
             return await this.sendRequest('/rights/query', 'POST');
 
-        return  await Promise.all(ids.map((id) => {
-            return this.sendRequest('/rights/query', 'POST', {contextId: id});
+        let result = {};
+        await Promise.all(ids.map(async(id) => {
+            let aux = await this.sendRequest('/rights/query', 'POST', {contextId: id});
+            result[id] = aux[id];
         }));
+
+        return result
     }
 
     async getNewConsents(customerId=false){
