@@ -29,10 +29,12 @@ class UserPreferences extends React.Component {
             let { pane, iconClass, text } = title;
             let { Widget, props } = body;
             let isOpen = this.state[pane];
+            let {fontFamily, headerColor} = this.props.style;
 
             return (
-                <BS.Panel expanded={isOpen} onToggle={() => this.setState({ [pane]: !isOpen })}>
-                    <BS.Panel.Heading>
+                <BS.Panel expanded={isOpen} onToggle={() => this.setState({ [pane]: !isOpen })}
+                          style={{fontFamily: fontFamily}}>
+                    <BS.Panel.Heading style={{background: headerColor}}>
                         <BS.Panel.Title toggle>
                             <PaneHeader text={text} shown={isOpen} iconClass={iconClass} />
                         </BS.Panel.Title>
@@ -108,7 +110,8 @@ UserPreferences.defaultProps = {
     dsrTitle: 'My Data Requests',
     helpLink: '',
     contextIds: null,
-    dataTypeIds: null
+    dataTypeIds: null,
+    style: {}
 };
 
 UserPreferences.propTypes = {
@@ -122,7 +125,8 @@ UserPreferences.propTypes = {
     dsrTitle: PropTypes.string,
     helpLink: PropTypes.string,
     contextIds: PropTypes.arrayOf(PropTypes.string),
-    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string),
+    style: PropTypes.object
 };
 
 export default UserPreferences
