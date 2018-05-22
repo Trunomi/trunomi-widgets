@@ -87,9 +87,10 @@ Widget that lists all the consent definitions and the status of those for the th
 | Name | Type | Required | Default | Description |
 | ---- | ---- | -------- | ------- | ----------- |
 | truConfig | object | **yes** | | Configuration object |
-| contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of context IDs | 
+| contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of purpose IDs | 
 | disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
 | table | object | **no** | `...` | Customization object for the table |
+| contextTags | string array | **no** | `null` | Tags to only show specific processing definitions or purposes |
 
 The table object allows for the following keys and have the following default values: 
 ```js
@@ -146,6 +147,7 @@ Component that displays the three previous widgets to form a user preference cen
 | dataTypeIds | string array | **no** | `null` | Prop to specify to only show an specific list of data type ids | 
 | contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of context IDs | 
 | disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
+| contextTags | string array | **no** | `null` | Tags to only show specific processing definitions or purposes |
     
 ## Capture Consent widget (`CaptureConsent`)
 Widget that prompts a customer to consent or deny consent for a given consent program. 

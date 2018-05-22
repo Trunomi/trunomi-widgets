@@ -48,7 +48,7 @@ class UserPreferences extends React.Component {
     }
 
     render() {
-        let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke,
+        let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props;
 
         let consentPaneTitle = {
@@ -61,7 +61,8 @@ class UserPreferences extends React.Component {
                 truConfig: truConfig,
                 onProcessed,
                 contextIds,
-                disableRevoke
+                disableRevoke,
+                contextTags
             }
         }, dataPaneTitle = {
             text: dataTitle,
@@ -112,6 +113,7 @@ UserPreferences.defaultProps = {
     helpLink: '',
     contextIds: null,
     dataTypeIds: null,
+    contextTags: null,
     style: {},
     disableRevoke: {}
 };
@@ -128,6 +130,7 @@ UserPreferences.propTypes = {
     helpLink: PropTypes.string,
     contextIds: PropTypes.arrayOf(PropTypes.string),
     dataTypeIds: PropTypes.arrayOf(PropTypes.string),
+    contextTags: PropTypes.arrayOf(PropTypes.string),
     style: PropTypes.object,
     disableRevoke: PropTypes.object
 };

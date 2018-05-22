@@ -164,9 +164,9 @@ class trunomiAPI{
         return await this.sendRequest(addID('/ledger', id));
     }
 
-    async getContexts(ids=null, customerId=false){
-        // TODO: use filters approach once filters are working
-        let headers = customerId ? {"X-Trunomi-Customer-Id": this.truConfig.customerId} : null;
+    async getContexts(ids=null, customerId=false, contextTags=null){
+        let headers = customerId ? {"X-Trunomi-Customer-Id": this.truConfig.customerId} : {};
+        if (contextTags) headers["X-Trunomi-Context-Tags"] = contextTags.join(",");
 
         if (!ids)
             return await this.sendRequest('/context', 'GET', null, headers);
@@ -176,14 +176,15 @@ class trunomiAPI{
         }));
     }
 
-    async getRights(ids=null){
-        // TODO: use filters approach once filters are working
+    async getRights(ids=null, contextTags=null){
+        let headers = contextTags ? {"X-Trunomi-Context-Tags": contextTags.join(",")} : {};
+
         if (!ids)
-            return await this.sendRequest('/rights/query', 'POST');
+            return await this.sendRequest('/rights/query', 'POST', null, headers);
 
         let result = {};
         await Promise.all(ids.map(async(id) => {
-            let aux = await this.sendRequest('/rights/query', 'POST', {contextId: id});
+            let aux = await this.sendRequest('/rights/query', 'POST', {contextId: id}, headers);
             result[id] = aux[id];
         }));
 
