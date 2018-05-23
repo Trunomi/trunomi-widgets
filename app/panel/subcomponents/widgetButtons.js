@@ -6,6 +6,7 @@ import {ConsentsWidget,
 import NewDSR from '../../widgets/NewDSR';
 import NewConsents from "../../widgets/NewConsents";
 import TrucertSelector from "./trucertSelector";
+import * as BS from 'react-bootstrap';
 
 export default class extends React.Component {
 
@@ -19,7 +20,7 @@ export default class extends React.Component {
     Button = (widgetButton, text, newConsents) => {
         let {widget, chooseWidget} = this.props;
         let cName = 'widget-button';
-        cName += (widgetButton===widget) ? ' widget-button-active' : '';
+        cName += (widgetButton===widget && widgetButton !== UserPreferences) ? ' widget-button-active' : '';
 
         return <div>
             <button style={{width: '75%'}} className={cName}
@@ -34,12 +35,21 @@ export default class extends React.Component {
         this.setState({newConsents: newProps.newConsents})
     }
 
+    logOut = () => {
+        sessionStorage.removeItem("TRUNOMI_USE_TOKEN")
+        location.reload()
+    }
+
     prefCentreButtons = () => {
-        let {prefCentre} = this.props;
+        let {prefCentre, managed} = this.props;
 
         if (prefCentre) {
             return (<div>
-                    {this.Button(UserPreferences, 'My Preferences')}
+                    {this.Button(UserPreferences, 'My Data Preferences')}
+                    {managed && <BS.Button style={{float: 'right', marginRight: '73px'}}
+                                           bsStyle="link" onClick={this.logOut}>
+                        Log Out
+                    </BS.Button>}
                     {/*{this.Button(NewConsents, 'New Permissions', this.state.newConsents)}*/}
                 </div>
             )

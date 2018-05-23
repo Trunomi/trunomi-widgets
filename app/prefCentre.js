@@ -5,12 +5,6 @@ import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/logo.svg"
 
-const logOut = {
-    position: "absolute",
-    bottom: '5%',
-    right: '5%'
-}
-
 class ManagedPrefCentre extends React.Component {
     state = {
         loggedIn: false,
@@ -101,11 +95,6 @@ class ManagedPrefCentre extends React.Component {
         </BS.Modal>
     }
 
-    logOut = () => {
-        sessionStorage.removeItem("TRUNOMI_USE_TOKEN")
-        this.setState({loggedIn: false})
-    }
-
     render() {
         let {loggedIn, loading} = this.state
 
@@ -116,9 +105,6 @@ class ManagedPrefCentre extends React.Component {
                 {this.renderModal()}
                 {loggedIn && <section>
                     <WidgetsPanel title="Preferences Centre" managed/>
-                    <BS.Button style={logOut} bsStyle="link" onClick={this.logOut}>
-                        Log Out
-                    </BS.Button>
                 </section>}
             </section>
 

@@ -165,7 +165,7 @@ class PanelScreen extends Component {
                 <BS.Grid className="main-section">
                     <BS.Col md={4}>
                         <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={this.props.prefCentre}
-                                       newConsents={newConsents}/>
+                                       newConsents={newConsents} managed={this.props.managed}/>
                         {!this.props.prefCentre && <DeveloperButton dev={dev} stateChange={this.stateChange}/>}
                         <DeveloperOptions {...this.state} updateJSON={this.updateJSON}
                                           stateChange={this.stateChange}/>
