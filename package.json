@@ -42,6 +42,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.8",
     "file-loader": "^1.1.6",
+    "fs": "^0.0.1-security",
     "react-hot-loader": "^4.0.0-beta.14",
     "react-json-view": "^1.16.0",
     "style-loader": "^0.19.1",
