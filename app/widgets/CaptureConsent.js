@@ -114,7 +114,7 @@ export default class CaptureConsent extends BaseWidget{
             <button className={'link'} onClick={() => {
                     this.sendConsentQuery('grant')
                 }}>
-                    Yes, personalize my rewards {/* DEMO purposes */}
+                    Yes {/* DEMO purposes */}
                     {/*{this.dict.getName(consentDef.consentAccept.prompt)}*/}
                 </button>
                 {(consentState === undefined) ?
