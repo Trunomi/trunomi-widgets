@@ -40,7 +40,7 @@ export default class extends React.Component {
         if (prefCentre) {
             return (<div>
                     {this.Button(UserPreferences, 'My Preferences')}
-                    {this.Button(NewConsents, 'New Permissions', this.state.newConsents)}
+                    {/*{this.Button(NewConsents, 'New Permissions', this.state.newConsents)}*/}
                 </div>
             )
         }
