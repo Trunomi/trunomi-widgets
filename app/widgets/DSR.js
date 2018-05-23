@@ -61,6 +61,18 @@ class DSRWidget extends BaseWidget{
         }
     }
 
+    async loadRights(){
+        try {
+            let rights = await this.api.getRights(this.props.dataTypeIds)
+
+            this.setState({rights, loaded: true});
+        }
+        catch(e){
+            console.log(error);
+            this.setState({error: error.toString()})
+        }
+    }
+
     onProcessed(eventProcessed){
         let {onProcessed} = this.props;
 
@@ -79,7 +91,7 @@ class DSRWidget extends BaseWidget{
     }
 
     componentDidMount() {
-        this.loadData()
+        this.props.showAll ? this.loadData() : this.loadRights();
     }
 
     genRowArray(data_type){
@@ -94,10 +106,22 @@ class DSRWidget extends BaseWidget{
         }catch(e){}//Sometimes the data sent by right api is corrupted
     }
 
+    genRightRowArray(right){
+        try {
+            return ([
+                <span>{this.dict.getName(right.dataType[0].name)}</span>,
+                <span style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
+                <span>{this.dict.getName(right.consentDefinition.justification) || "N/A"}</span>,
+                <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={right.dataType[0]}
+                           onProcessed={this.onProcessed.bind(this)}/>
+            ])
+        }catch(e){}//Sometimes the data sent by right api is corrupted
+    }
+
 
     render() {
         let display;
-        let {error, loaded, data_types, dsrError, noticeMessage} = this.state, {table} = this.props;
+        let {error, loaded, data_types, dsrError, noticeMessage, rights} = this.state, {table, showAll} = this.props;
 
         if(error)
             display = <ErrorPanel/>;
@@ -105,10 +129,23 @@ class DSRWidget extends BaseWidget{
             display = <LoadingInline/>;
         else{
             let headers = this.dict.getName(dataTableDict);
-            let body = _.map(data_types, this.genRowArray);
+            let body;
+
+            if (showAll) {
+                body = _.map(data_types, this.genRowArray);
+            }else{
+                body = _.map(rights, (contextRights, contextId) => {
+                    return _.map(contextRights, (right) => {
+                        return this.genRightRowArray(right)
+                    })
+                });
+                body = _.flatten(body);
+            }
 
             display = <Table header={headers} data={body} {...table}/>
         }
+
+
 
         return <BS.Panel style={{width: '100%', minWidth: '530px'}}>
             <FadeOutNotice show={!!noticeMessage} text={noticeMessage}
@@ -122,12 +159,14 @@ class DSRWidget extends BaseWidget{
 DSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
-    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string),
+    showAll: PropTypes.bool
 };
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
-    dataTypeIds: null
+    dataTypeIds: null,
+    showAll: false
 };
 
 export default DSRWidget;

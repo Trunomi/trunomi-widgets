@@ -20,7 +20,7 @@ export default class extends React.Component {
     Button = (widgetButton, text, newConsents) => {
         let {widget, chooseWidget} = this.props;
         let cName = 'widget-button';
-        cName += (widgetButton===widget && widgetButton !== UserPreferences) ? ' widget-button-active' : '';
+        cName += (widgetButton===widget) ? ' widget-button-active' : '';
 
         return <div>
             <button style={{width: '75%'}} className={cName}
@@ -46,8 +46,8 @@ export default class extends React.Component {
         if (prefCentre) {
             return (<div>
                     {this.Button(UserPreferences, 'My Data Preferences')}
-                    {managed && <BS.Button style={{float: 'right', marginRight: '73px'}}
-                                           bsStyle="link" onClick={this.logOut}>
+                    {managed && <BS.Button className='widget-button' bsStyle="link" style={{width: '75%'}}
+                                           onClick={this.logOut}>
                         Log Out
                     </BS.Button>}
                     {/*{this.Button(NewConsents, 'New Permissions', this.state.newConsents)}*/}

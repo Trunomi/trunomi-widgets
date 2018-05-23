@@ -115,6 +115,7 @@ Widget that lists all the personal informatio the customer has given consent to 
 | ---- | ---- | -------- | ------- | ----------- |
 | truConfig | object | **yes** | | Configuration object |
 | dataTypeIds | string array | **no** | `null` | Prop to specify to only show an specific list of data type ids | 
+| showAll | boolean | **no** | `false` | Prop to specify to only whether to show all data types or only the ones that the customer has rights linked to it | 
 | table | object | **no** | `...` | Customization object for the table |
 
 ## Active Data Subject Requests widget (`ActiveDSRWidget`)
@@ -148,6 +149,7 @@ Component that displays the three previous widgets to form a user preference cen
 | contextIds | string array | **no** | `null` | Prop to specify to only show processing definitions from an specific list of context IDs | 
 | disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
 | contextTags | string array | **no** | `null` | Tags to only show specific processing definitions or purposes |
+| showAll | boolean | **no** | `false` | Prop to specify to only whether to show all data types or only the ones that the customer has rights linked to it | 
     
 ## Capture Consent widget (`CaptureConsent`)
 Widget that prompts a customer to consent or deny consent for a given consent program. 
