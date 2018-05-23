@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Toggle from 'react-bootstrap-toggle';
+import Switch from 'react-bootstrap-switch';
+import './react-bootstrap-switch.css';
 
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
@@ -22,7 +23,7 @@ export default class ConsentButton extends React.Component{
         }
     };
 
-    handleConsent = (event) => {
+    handleConsent = (x,event) => {
         const {dataTypeId, consentId, contextId} = this.props;
 
         this.props.onClick()
@@ -46,12 +47,13 @@ export default class ConsentButton extends React.Component{
         let granted = this.props.state==='consent-grant';
 
         return <div className='text-center'>
-            <Toggle height={34} width={50} onstyle='success'
-                    onClick={this.handleConsent}
-                    on={<p>{buttonText[0]}</p>}
-                    off={<p>{buttonText[1]}</p>}
+            <Switch onChange={this.handleConsent}
+                    bsSize='mini'
+                    onText={<p>{buttonText[0]}</p>}
+                    onColor='success'
+                    offText={<p>{buttonText[1]}</p>}
                     disabled={granted && this.props.disableRevoke}
-                    active={granted}/>
+                    value={granted}/>
         </div>
     }
 }
