@@ -4,10 +4,9 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN yarn
-
 COPY . .
-
+RUN yarn
+RUN yarn build
 RUN yarn demo
 
 EXPOSE 9000
