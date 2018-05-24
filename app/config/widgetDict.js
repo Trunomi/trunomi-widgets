@@ -38,6 +38,20 @@ export const dataTableDict = {
     ]
 };
 
+export const dataTableDict2 = {
+    "en-US": [
+        dataType['en-US'],
+        "Where it's used",
+        'Action'
+    ],
+    "es-ES": [
+        dataType['es-ES'],
+        'Donde es utilizado',
+        'Acción'
+    ]
+};
+
+
 export const dsrTableDict = {
     "en-US": [
         'Request',

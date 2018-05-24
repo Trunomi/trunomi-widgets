@@ -5,7 +5,7 @@ import DSRButton from "../components/DsrButton";
 import FadeOutNotice from "../components/FadeOutNotice";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dataTableDict} from "../config/widgetDict";
+import {dataTableDict, dataTableDict2} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -106,13 +106,21 @@ class DSRWidget extends BaseWidget{
         }catch(e){}//Sometimes the data sent by right api is corrupted
     }
 
-    genRightRowArray(right){
+    genRightRowArray(entry){
         try {
+            let where = entry.whereItsUsed.map((val, id)=>{
+                return <p key={id}>
+                    {this.dict.getName(val.contextName)}: {this.dict.getName(val.consentDefinition.name)}
+                    {(id < entry.whereItsUsed.length - 1) && <br/>}
+                </p>
+            }) 
+
             return ([
-                <span>{this.dict.getName(right.dataType[0].name)}</span>,
-                <span style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                <span>{this.dict.getName(right.consentDefinition.justification) || "N/A"}</span>,
-                <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={right.dataType[0]}
+                <span>{this.dict.getName(entry.right.dataType[0].name)}</span>,
+                <span style={{wordBreak: "break-all"}}>
+                    {where}
+                </span>,
+                <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={entry.right.dataType[0]}
                            onProcessed={this.onProcessed.bind(this)}/>
             ])
         }catch(e){}//Sometimes the data sent by right api is corrupted
@@ -128,18 +136,29 @@ class DSRWidget extends BaseWidget{
         else if(!loaded)
             display = <LoadingInline/>;
         else{
-            let headers = this.dict.getName(dataTableDict);
+            let headers;
             let body;
 
             if (showAll) {
                 body = _.map(data_types, this.genRowArray);
+                headers = this.dict.getName(dataTableDict);
             }else{
-                body = _.map(rights, (contextRights, contextId) => {
-                    return _.map(contextRights, (right) => {
-                        return this.genRightRowArray(right)
+                let processed = {};
+                _.forEach(rights, (contextRights, contextId) => {
+                    return _.forEach(contextRights, (right) => {
+                        let {dataTypeId} = right.consentDefinition;
+
+                        if(!processed[dataTypeId]) {
+                            processed[dataTypeId] = {
+                                right,
+                                whereItsUsed: []
+                            };
+                        }
+                        processed[dataTypeId].whereItsUsed.push(right);
                     })
                 });
-                body = _.flatten(body);
+                body = _.map(processed, (dataType) => this.genRightRowArray(dataType))
+                headers = this.dict.getName(dataTableDict2);
             }
 
             display = <Table header={headers} data={body} {...table}/>
