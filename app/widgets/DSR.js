@@ -63,7 +63,8 @@ class DSRWidget extends BaseWidget{
 
     async loadRights(){
         try {
-            let rights = await this.api.getRights(this.props.dataTypeIds)
+            let {dataTypeIds, contextTags} = this.props,
+                rights = await this.api.getRights(dataTypeIds, contextTags)
 
             this.setState({rights, loaded: true});
         }
@@ -179,13 +180,15 @@ DSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
     dataTypeIds: PropTypes.arrayOf(PropTypes.string),
-    showAll: PropTypes.bool
+    showAll: PropTypes.bool,
+    contextTags: PropTypes.arrayOf(PropTypes.string)
 };
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
     dataTypeIds: null,
-    showAll: false
+    showAll: false,
+    contextTags: null
 };
 
 export default DSRWidget;

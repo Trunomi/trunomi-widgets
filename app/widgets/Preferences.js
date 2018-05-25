@@ -74,7 +74,8 @@ class UserPreferences extends React.Component {
                 truConfig: truConfig,
                 onProcessed: this.refreshRights,
                 ref: "DSRs",
-                dataTypeIds
+                dataTypeIds,
+                contextTags
             }
         }, dsrPaneTitle = {
             text: dsrTitle,
