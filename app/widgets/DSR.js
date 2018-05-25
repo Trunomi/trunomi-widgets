@@ -107,7 +107,7 @@ class DSRWidget extends BaseWidget{
         }catch(e){}//Sometimes the data sent by right api is corrupted
     }
 
-    genRightRowArray(entry){
+    genRightRowArray(entry, i){
         try {
             let where = entry.whereItsUsed.map((val, id)=>{
                 return <p key={id}>
@@ -117,14 +117,14 @@ class DSRWidget extends BaseWidget{
             }) 
 
             return ([
-                <span>{this.dict.getName(entry.right.dataType[0].name)}</span>,
-                <span style={{wordBreak: "break-all"}}>
+                <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.right.dataType[0].name)}</span>,
+                <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-all"}}>
                     {where}
                 </span>,
-                <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={entry.right.dataType[0]}
+                <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig} dataType={entry.right.dataType[0]}
                            onProcessed={this.onProcessed.bind(this)}/>
             ])
-        }catch(e){}//Sometimes the data sent by right api is corrupted
+        }catch(e){console.log(e)}//Sometimes the data sent by right api is corrupted
     }
 
 
@@ -158,7 +158,11 @@ class DSRWidget extends BaseWidget{
                         processed[dataTypeId].whereItsUsed.push(right);
                     })
                 });
-                body = _.map(processed, (dataType) => this.genRightRowArray(dataType))
+                let i = 0
+                body = _.map(processed, (dataType) => {
+                    i++
+                    return this.genRightRowArray(dataType, i)
+                })
                 headers = this.dict.getName(dataTableDict2);
             }
 

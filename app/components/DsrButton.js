@@ -36,7 +36,7 @@ class DsrButton extends React.Component{
 
     render() {
         const {reasonsPrompt, dsrType} = this.state;
-        const {dataType} = this.props;
+        const {dataType, id} = this.props;
 
         let reasons;
 
@@ -53,7 +53,7 @@ class DsrButton extends React.Component{
         return <div>
             <BS.ButtonToolbar>
                 <BS.DropdownButton title={buttonText[0]}
-                                   id="dropdown-size-medium" onSelect={this.toggleReasons}>
+                                   id={"dropdown-size-medium" + (id ? ` ${id}`: "")} onSelect={this.toggleReasons}>
                     {(dataType.accessDefinition) && <BS.MenuItem eventKey="dar">{buttonText[1]}</BS.MenuItem>}
                     {(dataType.objectDefinition) && <BS.MenuItem eventKey="dor">{buttonText[2]}</BS.MenuItem>}
                     {(dataType.rectifyDefinition) && <BS.MenuItem eventKey="drr">{buttonText[3]}</BS.MenuItem>}
