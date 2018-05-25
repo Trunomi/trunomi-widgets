@@ -56,7 +56,6 @@ class DSRWidget extends BaseWidget{
             this.setState({contexts, data_types, loaded: true});
         }
         catch(error){
-            console.log(error);
             this.setState({error: error.toString()})
         }
     }
@@ -69,7 +68,6 @@ class DSRWidget extends BaseWidget{
             this.setState({rights, loaded: true});
         }
         catch(e){
-            console.log(error);
             this.setState({error: error.toString()})
         }
     }
@@ -124,7 +122,7 @@ class DSRWidget extends BaseWidget{
                 <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig} dataType={entry.right.dataType[0]}
                            onProcessed={this.onProcessed.bind(this)}/>
             ])
-        }catch(e){console.log(e)}//Sometimes the data sent by right api is corrupted
+        }catch(e){}//Sometimes the data sent by right api is corrupted
     }
 
 
