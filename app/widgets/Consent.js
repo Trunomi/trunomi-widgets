@@ -69,14 +69,14 @@ class ConsentsWidget extends BaseWidget {
         let {disableRevoke} = this.props, disabled = false;
         if (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId))
             disabled = true;
-        
+
         try {
             let isConsent = this.dict.getName(this.state.contexts[contextId].consentDefinitions[consentId].justification) === 'consent';
             let uiId = i + "-" + consentId
             return ([
                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-all"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                <span id={"my-permissions-personal-info-"+i}>{(aux === 1) ? this.dict.getName(dataType.name) : ''}</span>,
+                <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataType.name)}</span>,
                 isConsent ? <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
                                contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
                                api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}
