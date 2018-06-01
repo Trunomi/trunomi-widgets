@@ -40,24 +40,15 @@ class ManagedPrefCentre extends React.Component {
 
         await axios({
             method: 'post',
-            url: host_addr.includes("localhost") ? "http://localhost:8343/api/login" : host_addr + "/mock/api/login",
+            url: host_addr.includes("localhost") ? "http://localhost:8343/api/login/v2" : host_addr + "/mock/api/login/v2",
             data: {
                 username: event.target.elements[0].value,
                 password: event.target.elements[1].value,
                 enterpriseId: this.props.enterpriseId
             }
         }).then(async (res) => {
-            await axios({
-                method: 'post',
-                url: host_addr + '/auth',
-                headers:{
-                    Authorization: res.headers['x-trunomi-www-authenticate']
-                }
-            })
-            .then((res) => {
-                sessionStorage.setItem("TRUNOMI_USE_TOKEN", res.headers['www-authenticate'])
-                this.setState({loggedIn: true, error: ""})
-            })
+            sessionStorage.setItem("TRUNOMI_USE_TOKEN", res.headers['www-authenticate'])
+            this.setState({loggedIn: true, error: ""})
         })
         .catch((err) => {
             this.setState({error: err.response.data})
