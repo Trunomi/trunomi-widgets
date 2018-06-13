@@ -83,9 +83,9 @@ class ActiveDSRWidget extends BaseWidget {
             dsrType,
             this.dict.getName(dataType.name),
             `${capturedAt.toDateString()} ${capturedAt.toTimeString().split('GMT')[0]}`,
-            events[event.substring(2)], //For demo purposes
-            //this.dict.getName(status),
-            payload.message || '' //There is also payload.reason which is set from the portal.
+            // events[event.substring(2)], //For demo purposes
+            payload.message || "",
+            payload.reasons ? payload.reasons.join(", ") : ''
         ]);
         /*<td>{definitions.requestAccept.successNote[Object.keys(definitions.requestAccept.successNote)[0]]}</td>*/
     }
