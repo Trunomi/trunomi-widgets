@@ -47,6 +47,7 @@ class ConsentsWidget extends BaseWidget {
     }
     onProcessed = async(error, newConsent) => {
         let {onProcessed} = this.props;
+        
         if(error) {
             this.setState({actionError: 'Error: ' + error.message});
         }
@@ -78,7 +79,7 @@ class ConsentsWidget extends BaseWidget {
                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-all"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
                 <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataType.name)}</span>,
                 isConsent ? <ConsentButton dataTypeId={dataType.id} consentId={consentId} state={right.consentState}
-                               contextId={contextId} onProcessed={this.onProcessed.bind(null, null, false)}
+                               contextId={contextId} onProcessed={this.onProcessed} newConsent
                                api={this.api} dict={this.dict} onClick={() => {this.setState({processing: true})}}
                                disableRevoke={disabled}/> : null,
                 <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId}/>

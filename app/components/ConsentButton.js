@@ -8,18 +8,18 @@ import _ from 'lodash';
 
 export default class ConsentButton extends React.Component{
     sendConsentQuery = async(type, body, contextId) => {
-        let {onProcessed} = this.props;
+        let {onProcessed, newConsent} = this.props;
 
         try {
             let page = "/ledger/context/" + contextId + "/consent-" + type;
             await this.props.api.sendRequest(page, 'post', body);
 
-            onProcessed();
+            onProcessed(null, newConsent);
         }
         catch(error){
             console.log(error);
+            onProcessed(error.response.data, newConsent);
             this.setState({loading: false});
-            onProcessed(error.response.data);
         }
     };
 
@@ -61,7 +61,8 @@ export default class ConsentButton extends React.Component{
 ConsentButton.defaultProps = {
     onProcessed: _.noop,
     state: 'NotActed',
-    disableRevoke: false
+    disableRevoke: false,
+    newConsent: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;
