@@ -28,8 +28,7 @@ class DSRWidget extends BaseWidget{
 
     async loadData(){
         try {
-            let contexts = await this.api.getContexts(),
-                data_types = await this.api.getDataTypes(this.props.dataTypeIds);
+            let {contexts, data_types} = this.state;
 
             _.map(data_types, (data_type)=>{
                 data_type["consentNames"] = [];
@@ -62,8 +61,8 @@ class DSRWidget extends BaseWidget{
 
     async loadRights(){
         try {
-            let {dataTypeIds, contextTags} = this.props,
-                rights = await this.api.getRights(dataTypeIds, contextTags)
+            let {contextTags} = this.props,
+                rights = await this.api.getRights(null, contextTags)
 
             this.setState({rights, loaded: true});
         }
@@ -89,8 +88,13 @@ class DSRWidget extends BaseWidget{
         }
     }
 
-    componentDidMount() {
-        this.props.showAll ? this.loadData() : this.loadRights();
+    async componentDidMount() {
+        let {showAll, contextTags, dataTypeIds} = this.props;
+        let contexts = await this.api.getRights(null, false, contextTags);
+        let data_types = await this.api.getDataTypes(dataTypeIds);
+        this.setState({contexts, data_types});
+
+        showAll ? this.loadData() : this.loadRights();
     }
 
     genRowArray(data_type){
@@ -115,12 +119,12 @@ class DSRWidget extends BaseWidget{
             }) 
 
             return ([
-                <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.right.dataType[0].name)}</span>,
+                <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.dataType.name)}</span>,
                 <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-all"}}>
                     {where}
                 </span>,
-                <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig} dataType={entry.right.dataType[0]}
-                           onProcessed={this.onProcessed.bind(this)}/>
+                <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
+                           dataType={entry.dataType} onProcessed={this.onProcessed.bind(this)}/>
             ])
         }catch(e){}//Sometimes the data sent by right api is corrupted
     }
@@ -128,7 +132,8 @@ class DSRWidget extends BaseWidget{
 
     render() {
         let display;
-        let {error, loaded, data_types, dsrError, noticeMessage, rights} = this.state, {table, showAll} = this.props;
+        let {error, loaded, data_types, dsrError, noticeMessage, rights} = this.state,
+            {table, showAll, dataTypeIds} = this.props;
 
         if(error)
             display = <ErrorPanel/>;
@@ -143,13 +148,14 @@ class DSRWidget extends BaseWidget{
                 headers = this.dict.getName(dataTableDict);
             }else{
                 let processed = {};
-                _.forEach(rights, (contextRights, contextId) => {
+                _.forEach(rights, (contextRights) => {
                     return _.forEach(contextRights, (right) => {
                         let {dataTypeId} = right.consentDefinition;
-
+                        if (dataTypeIds && !dataTypeIds.includes(dataTypeId))
+                            return
                         if(!processed[dataTypeId]) {
                             processed[dataTypeId] = {
-                                right,
+                                dataType: data_types[dataTypeId],
                                 whereItsUsed: []
                             };
                         }
