@@ -59,8 +59,9 @@ export default class CaptureDSR extends BaseWidget {
     sendDSRquery = async (event) => {
         event.preventDefault();
 
-        let {id} = this.state.dataType, {otherReason, selectedReasons} = this.state, {type} = this.props,
+        let {otherReason, selectedReasons, dataType} = this.state, {type} = this.props,
             index = selectedReasons.indexOf('Other (Please specify)');
+        let {reasons} = dataType[type + 'Definition'];
 
         if (index >= 0){
             selectedReasons[index] = otherReason;
@@ -74,8 +75,17 @@ export default class CaptureDSR extends BaseWidget {
         };
 
         try {
-            let page = "/ledger/context/"+ id + "/" + types[type],
-                body = {payload: {reasons: selectedReasons}};
+            let page = "/ledger/context/"+ dataType.id + "/" + types[type];
+            let body = {
+                payload: {
+                    reasons: selectedReasons.map((id)=>{
+                        let text = this.dict.getName(reasons[id]);
+                        if (text.includes('Please specify'))
+                            return otherReason;
+                        return text
+                    })
+                }
+            };
 
             await this.api.sendRequest(page, 'post', body);
             this.setState({
@@ -101,15 +111,15 @@ export default class CaptureDSR extends BaseWidget {
         this.props.onClose();
     }
 
-    handleReasonChange = (value, maxSelections) => {
+    handleReasonChange = (id, maxSelections) => {
         let {selectedReasons} = this.state;
 
-        if (selectedReasons.includes(value))
-            _.pull(selectedReasons, value);
+        if (selectedReasons.includes(id))
+            _.pull(selectedReasons, id);
         else {
             if (selectedReasons.length.toString() === maxSelections)
                 _.pullAt(selectedReasons, 0);
-            selectedReasons.push(value);
+            selectedReasons.push(id);
         }
         this.setState({selectedReasons});
     }
@@ -128,18 +138,18 @@ export default class CaptureDSR extends BaseWidget {
                 return <div key={id}>
                     {maxSelections == 1 ?
                         <BS.Radio name="radioGroup" required
-                                  checked={selectedReasons.includes(text)}
-                                  onChange={this.handleReasonChange.bind(this, text, maxSelections)}>
+                                  checked={selectedReasons.includes(id)}
+                                  onChange={this.handleReasonChange.bind(this, id, maxSelections)}>
                             {text}
                         </BS.Radio>
                         :
-                        <BS.Checkbox checked={selectedReasons.includes(text)}
+                        <BS.Checkbox checked={selectedReasons.includes(id)}
                                      required={selectedReasons.length < 1}
-                                     onChange={this.handleReasonChange.bind(this, text, maxSelections)}>
+                                     onChange={this.handleReasonChange.bind(this, id, maxSelections)}>
                             {text}
                         </BS.Checkbox>
                     }
-                    {_.includes(text, 'Please specify') && _.includes(selectedReasons, 'Other (Please specify)') &&
+                    {_.includes(text, 'Please specify') && _.includes(selectedReasons, id) &&
                     <BS.FormControl type="text" required
                                     value={otherReason}
                                     placeholder="Specify your reason"
