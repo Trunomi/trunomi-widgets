@@ -97,7 +97,7 @@ class trunomiAPI{
         else {
             headers["X-Trunomi-Enterprise-Api-Token"] = apiToken;
             headers["X-Trunomi-Api-Policy"] = "enterprise on behalf of customer";
-            queryParams = "?customerId=" + customerId + "&enterpriseId=" + enterpriseId;
+            queryParams = "?customerId=" + encodeURIComponent(customerId) + "&enterpriseId=" + enterpriseId;
         }
 
         let params = {
