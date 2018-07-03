@@ -21,7 +21,12 @@ class UserPreferences extends React.Component {
     }
 
     refreshRights = () => {
-        this.refs.DSRdisp.refreshData();
+        this.refs.ActiveDSR.refreshData();
+    }
+
+    refreshData = (err, newConsent) => {
+        if(!err && newConsent)
+            this.refs.MyData.refreshData()
     }
 
     panel = (title = {}, body = {}) => {
@@ -59,7 +64,7 @@ class UserPreferences extends React.Component {
             Widget: ConsentsWidget,
             props: {
                 truConfig: truConfig,
-                onProcessed,
+                onProcessed: this.refreshData,
                 contextIds,
                 disableRevoke,
                 contextTags
@@ -73,7 +78,7 @@ class UserPreferences extends React.Component {
             props: {
                 truConfig: truConfig,
                 onProcessed: this.refreshRights,
-                ref: "DSRs",
+                ref: "MyData",
                 dataTypeIds,
                 contextTags
             }
@@ -85,7 +90,7 @@ class UserPreferences extends React.Component {
             Widget: ActiveDSRWidget,
             props: {
                 truConfig: truConfig,
-                ref: "DSRdisp",
+                ref: "ActiveDSR",
                 dataTypeIds
             }
         }

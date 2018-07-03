@@ -89,12 +89,16 @@ class DSRWidget extends BaseWidget{
     }
 
     async componentDidMount() {
-        let {showAll, contextTags, dataTypeIds} = this.props;
+        let {contextTags, dataTypeIds} = this.props;
         let contexts = await this.api.getRights(null, false, contextTags);
         let data_types = await this.api.getDataTypes(dataTypeIds);
         this.setState({contexts, data_types});
 
-        showAll ? this.loadData() : this.loadRights();
+        this.refreshData()
+    }
+
+    refreshData = () => {
+        return this.props.showAll ? this.loadData() : this.loadRights()
     }
 
     genRowArray(data_type){
