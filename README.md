@@ -91,6 +91,7 @@ Widget that lists all the consent definitions and the status of those for the th
 | disableRevoke | object | **no** | `{}` | Prop to specify the processing definitions where the user will only be ale to grant (not revoke). The object keys must be the context ids and the values, arrays of processing definition ids (integers) | 
 | table | object | **no** | `...` | Customization object for the table |
 | contextTags | string array | **no** | `null` | Tags to only show specific processing definitions or purposes |
+| showAll | boolean | **no** | `true` | If it is false, only the processing definitions which the customer has already acted on will be displayed |
 
 The table object allows for the following keys and have the following default values: 
 ```js

@@ -100,7 +100,7 @@ class ConsentsWidget extends BaseWidget {
                 if (this.checkIfIsRight(id, consentId)) {
                     return this.genRightRowArray(id, consentId, aux, consentDefinition.dataTypeId, i)
                 }
-                else{
+                else if (this.props.showAll){
                     let dataT = this.dataTypes[consentDefinition.dataTypeId];
                     let isConsent = this.dict.getName(consentDefinition.justification) === 'consent'; 
                     try {
@@ -160,12 +160,14 @@ ConsentsWidget.propTypes = {
     table: PropTypes.object,
     contextIds: PropTypes.arrayOf(PropTypes.string),
     disableRevoke: PropTypes.object,
-    contextTags: PropTypes.arrayOf(PropTypes.string)
+    contextTags: PropTypes.arrayOf(PropTypes.string),
+    showAll: PropTypes.bool
 };
 ConsentsWidget.defaultProps = {
     contextIds: null,
     contextTags: null,
     table: TableX.widgetTableProps,
-    disableRevoke: {}
+    disableRevoke: {},
+    showAll: true
 };
 export default ConsentsWidget;
