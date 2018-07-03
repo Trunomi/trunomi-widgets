@@ -55,9 +55,9 @@ class DsrButton extends React.Component{
                 <BS.DropdownButton title={buttonText[0]}
                                    id={"dropdown-size-medium" + (id ? ` ${id}`: "")} onSelect={this.toggleReasons}>
                     {(dataType.accessDefinition) && <BS.MenuItem eventKey="dar">{buttonText[1]}</BS.MenuItem>}
-                    {(dataType.objectDefinition) && <BS.MenuItem eventKey="dor">{buttonText[2]}</BS.MenuItem>}
+                    {(dataType.erasureDefinition) && <BS.MenuItem eventKey="der">{buttonText[2]}</BS.MenuItem>}
                     {(dataType.rectifyDefinition) && <BS.MenuItem eventKey="drr">{buttonText[3]}</BS.MenuItem>}
-                    {(dataType.erasureDefinition) && <BS.MenuItem eventKey="der">{buttonText[4]}</BS.MenuItem>}
+                    {(dataType.objectDefinition) && <BS.MenuItem eventKey="dor">{buttonText[4]}</BS.MenuItem>}
                 </BS.DropdownButton>
             </BS.ButtonToolbar>
             {reasons}

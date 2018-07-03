@@ -84,16 +84,16 @@ export const dsrButtonDict = {
     "en-US": [
         'Action',
         'Access',
-        'Object',
+        'Erase',
         'Rectify',
-        'Erase'
+        'Object'
     ],
     "es-ES": [
         'Accion',
         'Acceso',
-        'Objeto',
+        'Borrar',
         'Rectificar',
-        'Borrar'
+        'Objetar'
     ]
 };
 
