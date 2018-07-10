@@ -116,7 +116,8 @@ class ManagedPrefCentre extends React.Component {
             formInputs = <section>
                 <p>
                     {username}
-                    <BS.Button bsStyle='link' onClick={()=>{this.setState({usernameVerified: false})}}>
+                    <BS.Button bsStyle='link' 
+                        onClick={()=>{this.setState({usernameVerified: false, error: '', emailSent: false})}}>
                         Change
                     </BS.Button> 
                 </p> 
@@ -167,7 +168,6 @@ class ManagedPrefCentre extends React.Component {
 
     baseLogInForm = () => {
         const {error} = this.state
-        const {enterpriseId} = this.props
 
         return  <form onSubmit={this.onSubmit}>
             <BS.FormGroup>
