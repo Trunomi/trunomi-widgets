@@ -76,7 +76,7 @@ class ManagedPrefCentre extends React.Component {
         let {username, mockAddr} = this.state, {enterpriseId} = this.props
 
         await axios.post(mockAddr + "/passwordless", {enterpriseId, username}).then(()=>{
-            this.setState({emailSent: true})
+            this.setState({emailSent: true, error: ''})
         }).catch((err)=>{
             this.setState({error: err.response.data, emailSent: false})
         })
