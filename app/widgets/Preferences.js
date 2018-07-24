@@ -1,27 +1,29 @@
-import React from 'react';
-import * as BS from 'react-bootstrap';
-import Logo from '../components/Logo';
-import ConsentsWidget from "./Consent";
-import ActiveDSRWidget from "./ActiveDSR";
-import DSRWidget from "./DSR";
+import React from 'react'
+import * as BS from 'react-bootstrap'
+import Logo from '../components/Logo'
+import ConsentsWidget from "./Consent"
+import ActiveDSRWidget from "./ActiveDSR"
+import DSRWidget from "./DSR"
 
-import propTypeTruConfig from '../config/customPropType';
-import PropTypes from 'prop-types';
-import PaneHeader from './Preferences/PaneHeader';
+import propTypeTruConfig from '../config/customPropType'
+import PropTypes from 'prop-types'
+import PaneHeader from './Preferences/PaneHeader'
+import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from "@material-ui/core"
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 class UserPreferences extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             pane1: false,
             pane2: false,
             pane3: false
-        };
+        }
     }
 
     refreshRights = () => {
-        this.refs.ActiveDSR.refreshData();
+        this.refs.ActiveDSR.refreshData()
     }
 
     refreshData = (err, newConsent) => {
@@ -31,30 +33,26 @@ class UserPreferences extends React.Component {
 
     panel = (title = {}, body = {}) => {
         if (_.size(title) && _.size(body)) {
-            let { pane, iconClass, text } = title;
-            let { Widget, props } = body;
-            let isOpen = this.state[pane];
-            let {fontFamily, headerColor} = this.props.style;
+            let { pane, iconClass, text } = title
+            let { Widget, props } = body
+            let isOpen = this.state[pane]
+            let {fontFamily, headerColor} = this.props.style
 
-            return (
-                <BS.Panel expanded={isOpen} onToggle={() => this.setState({ [pane]: !isOpen })}
-                          style={{fontFamily: fontFamily}}>
-                    <BS.Panel.Heading style={{background: headerColor}}>
-                        <BS.Panel.Title toggle>
-                            <PaneHeader text={text} shown={isOpen} iconClass={iconClass} />
-                        </BS.Panel.Title>
-                    </BS.Panel.Heading>
-                    <BS.Panel.Body collapsible>
-                        <Widget {...props} />
-                    </BS.Panel.Body>
-                </BS.Panel>
-            )
+            return <ExpansionPanel className="expansion-panel">
+                <ExpansionPanelSummary className="expansion-panel-summary" expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="title">{text.toUpperCase()}</Typography>
+                </ExpansionPanelSummary>
+                <div className="expansion-panel-details">
+                    <Widget {...props} />
+                </div>
+            </ExpansionPanel>
+
         }
     }
 
     render() {
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
-            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props;
+            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props
 
         let consentPaneTitle = {
             text: consentTitle,
@@ -122,7 +120,7 @@ UserPreferences.defaultProps = {
     contextTags: null,
     style: {},
     disableRevoke: {}
-};
+}
 
 UserPreferences.propTypes = {
     truConfig: propTypeTruConfig,
@@ -139,6 +137,6 @@ UserPreferences.propTypes = {
     contextTags: PropTypes.arrayOf(PropTypes.string),
     style: PropTypes.object,
     disableRevoke: PropTypes.object
-};
+}
 
 export default UserPreferences

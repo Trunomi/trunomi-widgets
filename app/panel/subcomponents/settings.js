@@ -1,14 +1,13 @@
 import * as React from 'react';
-import * as BS from 'react-bootstrap';
+import {Button} from '@material-ui/core'
 
 export default class Settings extends React.Component {
 
     render() {
-        return (
-            <BS.Button bsSize="lg" className="black-background white"
-                          onClick={()=>{this.props.stateChange([{configModal: true}])}}>
-                <BS.Glyphicon glyph="cog" />
-            </BS.Button>
-        )
+        return <Button  variant="contained"
+                        color="primary"
+                        onClick={()=>{this.props.stateChange([{configModal: true}])}}>
+            CUSTOMISE THIS PREVIEW
+        </Button>
     }
 }

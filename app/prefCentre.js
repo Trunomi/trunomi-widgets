@@ -110,8 +110,8 @@ class ManagedPrefCentre extends React.Component {
     magicLinkForm = () => {
         const {error, emailSent, usernameVerified, username} = this.state
         const {enterpriseId} = this.props
-        let formInputs;
-        let buttons;
+        let formInputs
+        let buttons
         if (usernameVerified){
             formInputs = <section>
                 <p>

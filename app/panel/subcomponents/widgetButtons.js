@@ -44,15 +44,14 @@ export default class extends React.Component {
         let {prefCentre, managed} = this.props;
 
         if (prefCentre) {
-            return (<div>
-                    {this.Button(UserPreferences, 'My Data Preferences')}
-                    {managed && <BS.Button className='widget-button' bsStyle="link" style={{width: '75%'}}
-                                           onClick={this.logOut}>
-                        Log Out
-                    </BS.Button>}
-                    {/*{this.Button(NewConsents, 'New Permissions', this.state.newConsents)}*/}
-                </div>
-            )
+            return <div>
+                {this.Button(UserPreferences, 'My Data Preferences')}
+                {managed && <BS.Button className='widget-button' bsStyle="link" style={{width: '75%'}}
+                                        onClick={this.logOut}>
+                    Log Out
+                </BS.Button>}
+                {/*{this.Button(NewConsents, 'New Permissions', this.state.newConsents)}*/}
+            </div>
         }
     };
 

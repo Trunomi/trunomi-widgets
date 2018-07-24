@@ -1,3 +1,24 @@
+:root {
+    --trunomi-blue: #0a4fa1;
+    --trunomi-green: #39A028;
+    --danger: #d32f2f;
+    --warning: #ffa000;
+}
+html {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background: linear-gradient(135.63deg, #F2F2F2 0%, #F2F2F2 49.94%, #F8FEF7 100%);
+}
+
+h1,h2,h3,h4,h5 {
+    color: var(--trunomi-blue);
+}
+
+.blue-text {
+    color: var(--trunomi-blue);
+}
+
 .btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group{
     float: none;
 }
@@ -310,4 +331,125 @@
 }
 .modal-container .modal, .modal-container .modal-backdrop {
     position: absolute;
+}
+
+.dropdown-menu {
+    z-index: 9999;
+}
+
+.expansion-panel-summary {
+    background: linear-gradient(90deg, #F7F7F7 0%, #E2E2E2 100%);
+    box-shadow: 1px 2px 4px 0 rgba(164,164,164,0.4);
+}
+
+.expansion-panel-details {
+    background: #e8e8e8;
+    padding-top: 10 0;
+}
+
+.list-table {
+    width: 100%;
+    background: #e8e8e8;
+    padding-top: 20px;
+    box-shadow: 1px 2px 4px 0 rgba(164,164,164,0.4);
+}
+
+.list-table > tbody > tr > td {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.list-table > tbody > :last-child > td {
+    border-bottom: 0px;
+}
+
+.list-table-header > th {
+    color: var(--trunomi-blue);
+    font-weight: 500;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.list-table > tbody > tr > td {
+    color: #818181;
+    background: #fff;
+}
+
+.list-table-header > tbody > tr > :last-child, .list-table > tbody > tr > :last-child {
+    width: 5%;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+/* .list-table-empty-row > :first-child {
+    border-left: 1px solid #e8e8e8;
+}
+
+.list-table-empty-row > :last-child {
+    border-right: 1px solid #e8e8e8;
+} */
+
+
+.list-table-header > th {
+    padding: 10 10 10 10;
+}
+
+.list-table > tbody > tr > td {
+    padding: 10 10 10 10;
+}
+
+.list-table > tbody > tr > td:last-child {
+    border-left: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+
+.list-table-empty-row > td {
+    background: #e8e8e8;
+    height: 10px;
+}
+
+.list-table-header > :first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+/* 
+.list-table-header > td {
+    border-bottom: 10px solid red;
+} */
+
+.list-table-header {
+    border: 1px solid white;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.action-button {
+    display: flex;
+}
+
+.info > th {
+    background: #d9edf7;
+    text-align: left;
+    padding: 10 10 10 10;
+    border-bottom: 10px solid white;
+}
+
+.form-action {
+    width: 100%;
+    background: red;
+    margin-top: 20px;
+}
+
+.form-action > div {
+    float: right;
+}
+
+.navbar-logo {
+    width: 50%;
+}
+
+.navbar-logout {
+    width: 50%;
+    text-align: right;
 }

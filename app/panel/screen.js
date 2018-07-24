@@ -11,6 +11,9 @@ import Settings from './subcomponents/settings';
 import _ from 'lodash';
 import '../assets/style/css/bootstrap.min.css'
 import API from '../config/api';
+import {Grid} from '@material-ui/core';
+import {AppBar, Toolbar} from "@material-ui/core";
+import Logo from '../assets/logo.svg'
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -162,42 +165,61 @@ class PanelScreen extends Component {
 
         if (config) {
             return (
-                <BS.Grid className="main-section">
-                    <BS.Col md={4}>
+                <Grid container className="main-section">
+                    <Grid item sm={12} hidden>
                         <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={this.props.prefCentre}
                                        newConsents={newConsents} managed={this.props.managed}/>
                         {!this.props.prefCentre && <DeveloperButton dev={dev} stateChange={this.stateChange}/>}
                         <DeveloperOptions {...this.state} updateJSON={this.updateJSON}
                                           stateChange={this.stateChange}/>
-                    </BS.Col>
-                    <BS.Col md={8}>
+                    </Grid>
+                    <Grid item sm={12}>
                         <Widget {...params} truConfig={config} key={randKey} />
-                    </BS.Col>
-                </BS.Grid>
+                    </Grid>
+                </Grid>
             )
         }
+    }
+
+    logout = () => {
+        sessionStorage.removeItem("TRUNOMI_USE_TOKEN")
+        location.reload()
     }
 
     render() {
         let {config, configModal} = this.state;
         let {title, managed} = this.props;
 
-        return <div>
-            <ConfigModal show={configModal} {...config} onSubmit={this.saveConfig}
-                         onHide={()=>{this.setState({configModal: false})}}/>
 
-            <BS.Grid>
-                <BS.Col md={12}>
-                    <h1>
-                        <b>{title}</b>
-                        {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
-                    </h1>
-                    <hr/>
-                </BS.Col>
-            </BS.Grid>
-            {this.loginScreen()}
-            {this.widgetsScreen()}
-        </div>
+        return <Grid container>
+            <AppBar color="inherit" position='sticky' style={{top: 0}}>
+                <Toolbar>
+                    <span className="navbar-logo">
+                        <img src={Logo} />
+                    </span>
+                    <span className="navbar-logout">{managed && <a onClick={this.logout}>Logout</a>}</span>
+                </Toolbar>
+            </AppBar>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={8}>
+                <h1>
+                    <b>{title}</b>
+                </h1>
+                {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
+                <ConfigModal    show={configModal}
+                                {...config}
+                                onSubmit={this.saveConfig}
+                                onHide={()=>{this.setState({configModal: false})}} />
+                <hr/>
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={8}>
+                {this.loginScreen()}
+                {this.widgetsScreen()}
+            </Grid>
+            <Grid item xs={2}></Grid>
+        </Grid>
     }
 }
 

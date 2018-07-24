@@ -3,6 +3,7 @@ import * as BS from 'react-bootstrap';
 import {closeButtonDict} from "../config/widgetDict";
 import Trucert from '../widgets/Trucert';
 import {trucertButtonTypes} from "./propTypes";
+import {Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 
 class TrucertButton extends React.Component{
     constructor(props){
@@ -15,29 +16,40 @@ class TrucertButton extends React.Component{
         this.dict = this.props.dict;
     }
 
+    componentWillMount() {
+        this.propsToState(this.props)
+    }
+
+    componentWillReceiveProps(props) {
+        this.propsToState(props)
+    }
+
+    propsToState = (props) => {
+        this.setState({show: props.show})
+    }
+
     toggleTrucert = () => {
         this.setState({show: !this.state.show})
     };
 
     render() {
-
         return <div className='text-center'>
             <BS.Button bsSize='small' bsStyle="link" onClick={this.toggleTrucert}>
                 <i className="icon-doc-text" style={{fontSize: '180%'}} aria-hidden="true"/>
             </BS.Button>
-            <BS.Modal show={this.state.show} onHide={this.toggleTrucert}>
-                <BS.Modal.Header closeButton/>
-                <BS.Modal.Body>
+            <Dialog open={this.state.show} onClose={this.toggleTrucert} scroll='body'>
+                <DialogContent>
                     <Trucert {...this.props} truConfig={this.api.truConfig} />
-                </BS.Modal.Body>
-                <BS.Modal.Footer>
-                    <BS.Button onClick={this.toggleTrucert}>{this.dict.getName(closeButtonDict)}</BS.Button>
-                </BS.Modal.Footer>
-            </BS.Modal>
+                </DialogContent>
+            </Dialog>
         </div>
     }
 }
 
 TrucertButton.propTypes = trucertButtonTypes;
+
+TrucertButton.defaultProps = {
+    show: false
+};
 
 export default TrucertButton;

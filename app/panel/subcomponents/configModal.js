@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import * as BS from 'react-bootstrap';
+import React, {Component} from 'react'
+import * as BS from 'react-bootstrap'
+import {Dialog, DialogContent, DialogTitle, Button} from '@material-ui/core'
 
 export default class ConfigModal extends Component{
     constructor(props){
@@ -20,23 +21,23 @@ export default class ConfigModal extends Component{
 
         return <div>
             <BS.FormGroup controlId="apiToken">
-                <BS.ControlLabel>API token</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>API token</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={apiToken}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
-                <BS.ControlLabel>Trunomi address</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={host_addr}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="enterpriseId">
-                <BS.ControlLabel>Enterprise ID</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Enterprise ID</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={enterpriseId}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="customerId">
-                <BS.ControlLabel>Customer ID</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Customer ID</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={customerId}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="locale">
-                <BS.ControlLabel>Locale</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Locale</BS.ControlLabel>
                 <BS.FormControl type="text" defaultValue={locale}/>
             </BS.FormGroup>
         </div>
@@ -47,11 +48,11 @@ export default class ConfigModal extends Component{
 
         return <div>
             <BS.FormGroup controlId="jwtToken">
-                <BS.ControlLabel>Validated JWT token</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Validated JWT token</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={jwtToken}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
-                <BS.ControlLabel>Trunomi address</BS.ControlLabel>
+                <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
                 <BS.FormControl type="text" required defaultValue={host_addr}/>
             </BS.FormGroup>
         </div>
@@ -61,30 +62,33 @@ export default class ConfigModal extends Component{
         let {onHide, onSubmit} = this.props,
             {show, staticAuth} = this.state;
 
-        return <BS.Modal show={show} onHide={onHide}>
-            <BS.Modal.Header closeButton>
-                <BS.Modal.Title>Previewer Configuration</BS.Modal.Title>
-            </BS.Modal.Header>
-            <BS.Modal.Body>
-                <BS.Form onSubmit={(event) => {onSubmit(event, staticAuth)}}>
-                    {
-                        staticAuth ? this.staticForm() : this.expressForm()
-                    }
-                    <BS.Modal.Footer>
-                        <div className="float-left">
-                            <BS.Radio inline onChange={()=>{this.setState({staticAuth: !staticAuth})}} checked={staticAuth}>
-                                Static
-                            </BS.Radio>
-                            <BS.Radio inline onChange={()=>{this.setState({staticAuth: !staticAuth})}} checked={!staticAuth}>
-                                Express
-                            </BS.Radio>
+        return <Dialog open={show} onClose={onHide} scroll='body'>
+            <DialogTitle>CUSTOMISE THIS PREVIEW</DialogTitle>
+            <DialogContent>
+                <form onSubmit={(event) => {onSubmit(event, staticAuth)}}>
+                    {staticAuth ? this.staticForm() : this.expressForm()}
+                    <label className='blue-text'>Authentication type</label>
+                    <br/>
+                    <div>
+                        <BS.Radio inline onChange={()=>{this.setState({staticAuth: !staticAuth})}} checked={staticAuth}>
+                            Trunomi Static Token
+                        </BS.Radio>
+                        <br/>
+                        <BS.Radio inline onChange={()=>{this.setState({staticAuth: !staticAuth})}} checked={!staticAuth}>
+                            Trunomi Express Auth API (JWT)
+                        </BS.Radio>
+                    </div>
+                    <div className="form-action">
+                        <div>
+                        <Button onClick={onHide} variant="outlined" color="primary">
+                            Cancel
+                        </Button>
+                        &nbsp;
+                        <Button type="submit" variant="contained" color="primary">Save</Button>
                         </div>
-                        <BS.Button bsStyle="success" type='submit'>
-                            Save
-                        </BS.Button>
-                    </BS.Modal.Footer>
-                </BS.Form>
-            </BS.Modal.Body>
-        </BS.Modal>
+                    </div>
+                </form>
+            </DialogContent>
+        </Dialog>
     }
 }

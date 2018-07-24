@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
-import Switch from 'react-bootstrap-switch';
-import './react-bootstrap-switch.css';
-
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
+import {Switch, FormControlLabel} from '@material-ui/core'
+import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
 
 export default class ConsentButton extends React.Component{
+
+    state = {
+        open: false
+    }
+
     sendConsentQuery = async(type, body, contextId) => {
         let {onProcessed, newConsent} = this.props;
 
@@ -23,7 +29,8 @@ export default class ConsentButton extends React.Component{
         }
     };
 
-    handleConsent = (x,event) => {
+    handleConsent = (e) => {
+        let {value} = e.target
         const {dataTypeId, consentId, contextId} = this.props;
 
         this.props.onClick()
@@ -33,36 +40,58 @@ export default class ConsentButton extends React.Component{
                 consentDefinitionId: parseInt(consentId, 10)
             }
         };
-
-        if (event){
+        if (value === 'grant')
             body.payload['dataTypeId'] = dataTypeId;
-            this.sendConsentQuery('grant', body, contextId);
-        }else{
-            this.sendConsentQuery('revoke', body, contextId);
-        }
-    };
+
+        this.sendConsentQuery(value, body, contextId);
+    }
+
+    toggleOptions = () => {
+        this.setState({open: !this.state.open})
+    }
 
     render() {
-        let buttonText = this.props.dict.getName(consentButtonDict);
-        let granted = this.props.state==='consent-grant';
-
+        let {open} = this.state
+        let {state, dict, disableRevoke, onClick, isSwitch} = this.props
+        let buttonText = dict.getName(consentButtonDict);
+        let granted = state === 'consent-grant';
+        let content
+        if (isSwitch) {
+            content = <FormControlLabel   control={<Switch checked={granted}
+                    onChange={this.handleConsent}
+                    color="primary" />} />
+        }
+        else {
+            let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
+            content = <div><span onClick={this.toggleOptions}>
+                <span className="action-button">Action <ExpandMoreIcon /></span>
+            </span>
+            <span>
+                <Select open={open}
+                        style={{position: 'absolute',width: 5,visibility: 'hidden'}}
+                        onClose={this.toggleOptions}
+                        onOpen={this.toggleOptions}
+                        onChange={this.handleConsent}
+                        margin="normal">
+                    <MenuItem value="grant">Grant</MenuItem>}
+                    <MenuItem value={secondOption}>{_.upperFirst(secondOption)}</MenuItem>}
+                </Select>
+            </span>
+            </div>
+        }
         return <div className='text-center'>
-            <Switch onChange={this.handleConsent}
-                    bsSize='mini'
-                    onText={<p>{buttonText[0]}</p>}
-                    onColor='success'
-                    offText={<p>{buttonText[1]}</p>}
-                    disabled={granted && this.props.disableRevoke}
-                    value={granted}/>
+            {content}
         </div>
     }
 }
 
 ConsentButton.defaultProps = {
     onProcessed: _.noop,
+    onClick: _.noop,
     state: 'NotActed',
     disableRevoke: false,
-    newConsent: false
+    newConsent: false,
+    iSwitch: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;

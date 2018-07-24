@@ -120,7 +120,7 @@ class DSRWidget extends BaseWidget{
                     {this.dict.getName(val.contextName)}: {this.dict.getName(val.consentDefinition.name)}
                     {(id < entry.whereItsUsed.length - 1) && <br/>}
                 </p>
-            }) 
+            })
 
             return ([
                 <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.dataType.name)}</span>,
@@ -174,7 +174,12 @@ class DSRWidget extends BaseWidget{
                 headers = this.dict.getName(dataTableDict2);
             }
 
-            display = <Table header={headers} data={body} {...table}/>
+            display = <Table    data={body}
+                                style={{margin: 0}}
+                                header={headers}
+                                {...table}
+                                className="list-table"
+                                headerClass="list-table-header" />
         }
 
 

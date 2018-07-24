@@ -21,7 +21,7 @@ class AppRouter extends React.Component {
         path += pathname.includes('preview') ? '/preview' : '';
 
         return (
-            <BrowserRouter >
+            <BrowserRouter>
                 <Switch>
                     <Route path={path + "/widgets"} component={Widgets}/>
                     <Route path={path + "/prefcentre"} component={PrefCentre}/>

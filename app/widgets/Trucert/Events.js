@@ -57,7 +57,7 @@ export default class Events extends React.Component {
                 ];
                 data = this.eventData(payload, i, header);
                 return <div key={i}>
-                    <Table header={header} headerClass={"info"} data={data}/>
+                    <Table style={{width: '100%'}} header={header} headerClass={"info"} data={data}/>
                 </div>
             })
         }

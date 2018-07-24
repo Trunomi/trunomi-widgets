@@ -109,7 +109,12 @@ class ActiveDSRWidget extends BaseWidget {
                 }catch(error){}
             });
 
-            display = <Table header={headers} data={body} {...table}/>
+            display = <Table    header={headers}
+                                data={body}
+                                {...table}
+                                style={{margin: 0}}
+                                className="list-table"
+                                headerClass="list-table-header" />
         }
 
         return <BS.Panel style={{width: '100%', minWidth: '530px'}} className={'trunomi-active-dsr'}>
