@@ -21,7 +21,7 @@ class DsrButton extends React.Component{
     toggleReasons = (event) => {
         this.setState({
             reasonsPrompt: !this.state.reasonsPrompt,
-            dsrType: event.target.value
+            dsrType: event ? event.target.value : false
         })
     }
 

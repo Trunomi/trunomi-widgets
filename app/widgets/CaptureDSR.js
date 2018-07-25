@@ -22,8 +22,6 @@ export default class CaptureDSR extends BaseWidget {
             otherReason: "",
             notice: ''
         };
-        this.sendDSRquery = this.sendDSRquery.bind(this);
-        this.closeWidget = this.closeWidget.bind(this);
     }
 
     async componentWillMount() {
@@ -86,7 +84,6 @@ export default class CaptureDSR extends BaseWidget {
                     })
                 }
             };
-
             await this.api.sendRequest(page, 'post', body);
             this.setState({
                 notice: <p>Your request has been <b>received</b>. Please note that it takes up to
