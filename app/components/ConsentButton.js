@@ -14,10 +14,10 @@ export default class ConsentButton extends React.Component{
     }
 
     sendConsentQuery = async(type, body, contextId) => {
-        let {onProcessed, newConsent} = this.props;
+        let {onProcessed, newConsent, state} = this.props;
 
         try {
-            let page = "/ledger/context/" + contextId + "/consent-" + type;
+            let page = `/ledger/context/${contextId}/${state.includes("permission") ? "permission": "consent"}-${type}`;
             await this.props.api.sendRequest(page, 'post', body);
 
             onProcessed(null, newConsent);
@@ -54,7 +54,7 @@ export default class ConsentButton extends React.Component{
         let {open} = this.state
         let {state, dict, disableRevoke, onClick, isSwitch} = this.props
         let buttonText = dict.getName(consentButtonDict);
-        let granted = state === 'consent-grant';
+        let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let content
         if (isSwitch) {
             content = <FormControlLabel   control={<Switch checked={granted}

@@ -9,9 +9,7 @@ const baseTypes = {
 
 export const consentButtonTypes = {
     ...baseTypes,
-    state: PropTypes.oneOf(
-        ['NotActed', 'consent-grant', 'consent-deny', 'consent-revoke', 'consent-expired']
-    ).isRequired
+    state: PropTypes.string.isRequired
 };
 
 export const dsrButtonTypes = {
