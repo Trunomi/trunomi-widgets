@@ -64,7 +64,7 @@ export default class ConsentButton extends React.Component{
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
             content = <div><span onClick={this.toggleOptions}>
-                <span className="action-button">Action <ExpandMoreIcon /></span>
+                <span className="action-button">Actions <ExpandMoreIcon /></span>
             </span>
             <span>
                 <Select open={open}

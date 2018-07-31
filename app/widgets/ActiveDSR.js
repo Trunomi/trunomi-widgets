@@ -114,6 +114,7 @@ class ActiveDSRWidget extends BaseWidget {
                                 {...table}
                                 style={{margin: 0}}
                                 className="list-table"
+                                id="active-dsrs"
                                 headerClass="list-table-header" />
         }
 

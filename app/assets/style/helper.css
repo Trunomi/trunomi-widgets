@@ -254,6 +254,7 @@ h1,h2,h3,h4,h5 {
 
 .main-section {
     padding-top: 30px;
+    width: 100%;
 }
 
 .black-background {background-color:#000000;}
@@ -348,6 +349,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .list-table {
+
     width: 100%;
     background: #e8e8e8;
     padding-top: 20px;
@@ -375,6 +377,10 @@ h1,h2,h3,h4,h5 {
 
 .list-table-header > tbody > tr > :last-child, .list-table > tbody > tr > :last-child {
     width: 5%;
+}
+
+#active-dsrs > tbody > tr > :last-child  {
+    width: 20%;
 }
 
 .cursor {

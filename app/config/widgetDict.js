@@ -13,13 +13,13 @@ export const consentTableDict = {
         'Purpose',
         'Permission',
         dataType['en-US'],
-        'Actions'
+        'Action'
     ],
     "es-ES": [
         'Contexto',
         'Consentimiento',
         dataType['es-ES'],
-        'Acciones'
+        'Accion'
     ]
 };
 
@@ -42,12 +42,12 @@ export const dataTableDict2 = {
     "en-US": [
         dataType['en-US'],
         "Where it's used",
-        'Actions'
+        'Action'
     ],
     "es-ES": [
         dataType['es-ES'],
         'Donde es utilizado',
-        'Acciones'
+        'Accion'
     ]
 };
 
