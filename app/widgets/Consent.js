@@ -89,6 +89,7 @@ class ConsentsWidget extends BaseWidget {
                                         contextId={contextId}
                                         onProcessed={this.onProcessed}
                                         newConsent
+                                        isSwitch
                                         api={this.api}
                                         dict={this.dict}
                                         onClick={()=> {this.setState({processing: true})}}
