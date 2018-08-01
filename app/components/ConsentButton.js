@@ -6,7 +6,6 @@ import {Switch, FormControlLabel} from '@material-ui/core'
 import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-
 export default class ConsentButton extends React.Component{
 
     state = {
@@ -57,9 +56,13 @@ export default class ConsentButton extends React.Component{
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let content
         if (isSwitch) {
-            content = <FormControlLabel   control={<Switch checked={granted}
-                    onChange={this.handleConsent}
-                    color="primary" />} />
+            content = <Switch 
+                onChange={this.handleConsent}
+                value={granted ? "revoke" : "grant"}
+                disabled={granted && disableRevoke}
+                color="primary"
+                checked={granted}
+            />
         }
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
@@ -74,7 +77,7 @@ export default class ConsentButton extends React.Component{
                         onChange={this.handleConsent}
                         margin="normal">
                     <MenuItem value="grant">Grant</MenuItem>}
-                    <MenuItem value={secondOption}>{_.upperFirst(secondOption)}</MenuItem>}
+                    <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
                 </Select>
             </span>
             </div>
