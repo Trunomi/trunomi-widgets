@@ -50,15 +50,17 @@ class NewDSR extends React.Component {
 
         return <div>
             <BS.Grid style={{padding: 0}}>
+                <BS.Col md={2}/>
                 <BS.Col md={4} style={{paddingLeft: 0}}>
                     <Select title={'Data Type'} options={dataTypeNames} keys={dataTypeIDs}
                             onSelect={id => this.setState({id: id})}/>
                 </BS.Col>
-                <BS.Col md={3} style={{paddingRight: 0}}>
+                <BS.Col md={4} style={{paddingRight: 0}}>
                     <Select title={'Request Type'} options={['Access', 'Object', 'Rectify', 'Erase']}
                             keys={['access', 'object', 'rectify', 'erasure']}
                             onSelect={type => this.setState({type: type})}/>
                 </BS.Col>
+                <BS.Col md={2}/>
             </BS.Grid>
             {widget}
         </div>

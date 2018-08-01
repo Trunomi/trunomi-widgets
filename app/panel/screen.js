@@ -46,7 +46,7 @@ class PanelScreen extends Component {
             token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
 
         let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0
-        
+
         if (token){
             config =  {
                 jwtToken: token,
@@ -187,16 +187,15 @@ class PanelScreen extends Component {
     }
 
     render() {
-        let {config, configModal} = this.state;
-        let {title, managed} = this.props;
-
-
+        let {config, configModal, Widget, newConsents} = this.state;
+        let {title, managed, prefCentre} = this.props;
         return <Grid container>
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
                 <Toolbar>
                     <span className="navbar-logo">
                         <img src={Logo} />
                     </span>
+                    <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
                     <span className="navbar-logout">{managed && <a onClick={this.logout}>Logout</a>}</span>
                 </Toolbar>
             </AppBar>

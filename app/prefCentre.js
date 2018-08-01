@@ -123,7 +123,7 @@ class ManagedPrefCentre extends React.Component {
                 </p> 
                 <BS.FormGroup>
                     <BS.ControlLabel>Password</BS.ControlLabel>
-                    <BS.FormControl placeholder="Password" type="password" name='password' required
+                    <BS.FormControl placeholder="Password" type="password" name='password' required autoFocus
                     onChange={this.onChange}/>
                 </BS.FormGroup>
             </section>
@@ -144,7 +144,7 @@ class ManagedPrefCentre extends React.Component {
             formInputs = <section>
                 <BS.FormGroup>
                     <BS.ControlLabel>User</BS.ControlLabel>
-                    <BS.FormControl placeholder="User" type="text" name='username' required 
+                    <BS.FormControl placeholder="User" type="text" name='username' required autoFocus
                     onChange={this.onChange} value={username}/>
                 </BS.FormGroup>
             </section>
