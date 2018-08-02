@@ -16,7 +16,7 @@ export default class ConsentButton extends React.Component{
         let {onProcessed, newConsent, state} = this.props;
 
         try {
-            let page = `/ledger/context/${contextId}/${state.includes("permission") ? "permission": "consent"}-${type}`;
+            let page = `/ledger/context/${contextId}/${state.includes("consent") ? "consent": "permission"}-${type}`;
             await this.props.api.sendRequest(page, 'post', body);
 
             onProcessed(null, newConsent);
@@ -59,7 +59,7 @@ export default class ConsentButton extends React.Component{
             content = <Switch 
                 onChange={this.handleConsent}
                 value={granted ? "revoke" : "grant"}
-                disabled={granted && disableRevoke}
+                disabled={granted && (disableRevoke || status==='permission-implicit')}
                 color="primary"
                 checked={granted}
             />
