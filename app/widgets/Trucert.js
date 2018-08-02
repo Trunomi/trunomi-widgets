@@ -9,7 +9,7 @@ import FingerPrint from './Trucert/Fingerprint';
 import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
-import trunomi_logo from "../assets/logo.svg";
+import trunomi_logo from "../assets/quod.png";
 
 class Trucert extends BaseWidget {
     constructor(props) {
@@ -39,8 +39,8 @@ class Trucert extends BaseWidget {
                 return res
             });
         }
-        if (enterpriseId)
-            logo = await this.api.sendRequest('/enterprise-portal/stats/enterprise-icon/' + enterpriseId);
+
+        logo = trunomi_logo
 
         this.setState({ledger, context, dataType, loaded: true, logo});
     }

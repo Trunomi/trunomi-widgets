@@ -12,8 +12,9 @@ export default createMuiTheme({
         },
     },
     typography: {
+        fontFamily : 'Halcom, "Roboto", "Helvetica", "Arial", sans-serif',
         title: {
-            color: trunomiBlue,
+            color: '#717576',
             fontWeight: 500,
             fontSize: 16,
             textTransform: 'none'

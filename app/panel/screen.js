@@ -13,7 +13,7 @@ import '../assets/style/css/bootstrap.min.css'
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar} from "@material-ui/core";
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/quod.png'
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -64,7 +64,7 @@ class PanelScreen extends Component {
             newConsents = consents.length;
         }
 
-        this.setState({config, newConsents})
+        this.setState({config, newConsents, loaded: true})
     }
 
     chooseWidget = (widget) => {
@@ -190,12 +190,11 @@ class PanelScreen extends Component {
         let {config, configModal} = this.state;
         let {title, managed} = this.props;
 
-
         return <Grid container>
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
                 <Toolbar>
                     <span className="navbar-logo">
-                        <img src={Logo} />
+                        <img style={{width: '160px'}} src={Logo} />
                     </span>
                     <span className="navbar-logout">{managed && <a onClick={this.logout}>Logout</a>}</span>
                 </Toolbar>
@@ -203,19 +202,18 @@ class PanelScreen extends Component {
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
                 <h1>
-                    <b>{title}</b>
+                    <b style={{fontFamily: 'HalcomLight', color: '#7D61F4'}}>{title}</b>
+                    {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 </h1>
-                {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 <ConfigModal    show={configModal}
                                 {...config}
                                 onSubmit={this.saveConfig}
                                 onHide={()=>{this.setState({configModal: false})}} />
-                <hr/>
             </Grid>
             <Grid item xs={2}></Grid>
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
-                {this.loginScreen()}
+                {this.state.loaded && this.loginScreen()}
                 {this.widgetsScreen()}
             </Grid>
             <Grid item xs={2}></Grid>

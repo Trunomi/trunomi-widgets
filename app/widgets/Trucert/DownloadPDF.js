@@ -138,7 +138,7 @@ export default class DownloadPDF extends React.Component {
 
     render() {
         return <div>
-            <BS.Button onClick={this.downloadTrucert} bsStyle="primary">
+            <BS.Button onClick={this.downloadTrucert} className='quod-button' bsStyle="primary">
                 <BS.Glyphicon glyph="download-alt"/>&nbsp;Download
             </BS.Button>
         </div>

@@ -2,21 +2,36 @@ import React, {Component} from 'react';
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
-import {Switch, FormControlLabel} from '@material-ui/core'
+import {Switch, FormControlLabel, withStyles} from '@material-ui/core'
 import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-export default class ConsentButton extends React.Component{
+const styles = theme => ({
+    colorSwitchBase: {
+        color: '#FAFAFA',
+        '&$colorChecked': {
+          color: '#44DF72',
+          '& + $colorBar': {
+            backgroundColor: '#44DF72',
+          },
+        }
+      },
+    colorBar: {},
+    colorChecked: {},
+})
+
+class ConsentButton extends React.Component{
 
     state = {
         open: false
     }
 
+    /// Implicit no revoke, default do consent change in the main one too
     sendConsentQuery = async(type, body, contextId) => {
         let {onProcessed, newConsent, state} = this.props;
 
         try {
-            let page = `/ledger/context/${contextId}/${state.includes("permission") ? "permission": "consent"}-${type}`;
+            let page = `/ledger/context/${contextId}/${state.includes("consent") ? "consent": "permission"}-${type}`;
             await this.props.api.sendRequest(page, 'post', body);
 
             onProcessed(null, newConsent);
@@ -51,7 +66,7 @@ export default class ConsentButton extends React.Component{
 
     render() {
         let {open} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch} = this.props
+        let {state, dict, disableRevoke, onClick, isSwitch, classes} = this.props
         let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let content
@@ -59,9 +74,14 @@ export default class ConsentButton extends React.Component{
             content = <Switch 
                 onChange={this.handleConsent}
                 value={granted ? "revoke" : "grant"}
-                disabled={granted && disableRevoke}
+                disabled={granted && (disableRevoke || state === 'permission-implicit')}
                 color="primary"
                 checked={granted}
+                classes={{
+                    switchBase: classes.colorSwitchBase,
+                    checked: classes.colorChecked,
+                    bar: classes.colorBar,
+                }}
             />
         }
         else {
@@ -97,4 +117,6 @@ ConsentButton.defaultProps = {
     iSwitch: false
 };
 
-ConsentButton.propTypes = consentButtonTypes;
+ConsentButton.propTypes = consentButtonTypes
+
+export default withStyles(styles)(ConsentButton)

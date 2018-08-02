@@ -3,7 +3,7 @@ import * as BS from 'react-bootstrap'
 import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
-import trunomi_logo from "./assets/logo.svg"
+import trunomi_logo from "./assets/quod.png"
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -50,11 +50,7 @@ class ManagedPrefCentre extends React.Component {
             error = `Enterprise with id ${enterpriseId} not found`
         })
 
-        await axios.get(`${statsAddr}/enterprise-icon/${enterpriseId}`).then((res)=>{
-            logo = res.data || trunomi_logo
-        }).catch(()=>{
-            error = `Enterprise with id ${enterpriseId} not found`
-        })
+        logo = trunomi_logo
 
         this.setState({name, logo, loggedIn, loading: false, error, magicLinksAllowed, mockAddr, statsAddr})
     }
@@ -129,7 +125,7 @@ class ManagedPrefCentre extends React.Component {
             </section>
 
             buttons = <div style={{width:'100%'}}>
-                <BS.Button bsStyle="primary" bsSize="large" type="submit" 
+                <BS.Button bsStyle="primary"  className='quod-button' bsSize="large" type="submit" 
                         style={{width: '48%'}}>
                     Sign In
                 </BS.Button>
@@ -149,7 +145,7 @@ class ManagedPrefCentre extends React.Component {
                 </BS.FormGroup>
             </section>
 
-            buttons = <BS.Button bsStyle='primary' type='submit' block>
+            buttons = <BS.Button className='quod-button' bsStyle='primary' type='submit' block>
                 Continue
             </BS.Button> 
         }
@@ -183,7 +179,7 @@ class ManagedPrefCentre extends React.Component {
             {error && <p style={{color: 'red'}}>
                 <strong><i className="icon-attention"/> {error}</strong>
             </p>}
-            <BS.Button bsStyle="primary" bsSize="large" type='submit' block>
+            <BS.Button  className='quod-button' bsStyle="primary" bsSize="large" type='submit' block>
                 Sign In
             </BS.Button>
             {this.forgotPassBtn()}
@@ -202,8 +198,9 @@ class ManagedPrefCentre extends React.Component {
 
         return  <BS.Modal show={!loggedIn} style={{minWidth: '600px'}}>
             <BS.Modal.Body style={{padding: '25px'}}>
-                <img className="enterprise-logo" style={{position: 'absolute'}} src={logo}/>
-                <h1 className="text-center">{name}</h1>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <img className="enterprise-logo" style={{width: '160px', maxWidth: 'unset'}} src={logo}/>
+                </div>
                 {magicLinksAllowed ? this.magicLinkForm() : this.baseLogInForm()}
             </BS.Modal.Body>
         </BS.Modal>

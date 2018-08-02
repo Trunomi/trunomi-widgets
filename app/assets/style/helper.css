@@ -9,6 +9,7 @@ html {
 }
 body {
     background: linear-gradient(135.63deg, #F2F2F2 0%, #F2F2F2 49.94%, #F8FEF7 100%);
+    font-family: 'Halcom, "Roboto", "Helvetica", "Arial", sans-serif'
 }
 
 h1,h2,h3,h4,h5 {
@@ -30,6 +31,11 @@ h1,h2,h3,h4,h5 {
 .greyHeader{
     background-color: #f1f1f1;
     font-weight: 300 !important;
+}
+
+td {
+    font-family: HalcomLight;
+    font-size: 14px;
 }
 
 @-webkit-keyframes fadeIn {
@@ -458,4 +464,32 @@ h1,h2,h3,h4,h5 {
 .navbar-logout {
     width: 50%;
     text-align: right;
+}
+
+@font-face {
+    font-family: Halcom;
+    src: url(Halcom.otf) format("opentype");
+}
+
+@font-face {
+    font-family: HalcomLight;
+    src: url(Halcom-Light.otf) format("opentype");
+}
+
+.quod-button {
+    background-color: #7D61F4;
+    text-transform: none;
+    font-size: 13px;
+    border-color: #7D61F4;
+    color: white;
+}
+
+.quod-button:hover{
+    background-color: #563C82;
+}
+.quod-button:active{
+    background-color: #563C82;
+}
+.quod-button:focus{
+    background-color: #563C82;
 }

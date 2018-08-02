@@ -1,8 +1,19 @@
 import React, {Component} from 'react'
 import * as BS from 'react-bootstrap'
-import {Dialog, DialogContent, DialogTitle, Button} from '@material-ui/core'
+import {Dialog, DialogContent, DialogTitle, Button, withStyles} from '@material-ui/core'
 
-export default class ConfigModal extends Component{
+const styles = theme => ({
+    button: {
+        backgroundColor: '#7D61F4',
+        '&:hover': {
+            backgroundColor: '#563C82'
+        },
+        textTransform: 'none',
+        fontSize: '13px'
+    }
+})
+
+class ConfigModal extends Component{
     constructor(props){
         super(props);
 
@@ -59,11 +70,11 @@ export default class ConfigModal extends Component{
     }
 
     render(){
-        let {onHide, onSubmit} = this.props,
+        let {onHide, onSubmit, classes} = this.props,
             {show, staticAuth} = this.state;
 
         return <Dialog open={show} onClose={onHide} scroll='body'>
-            <DialogTitle>CUSTOMISE THIS PREVIEW</DialogTitle>
+            <DialogTitle>Customise this preview</DialogTitle>
             <DialogContent>
                 <form onSubmit={(event) => {onSubmit(event, staticAuth)}}>
                     {staticAuth ? this.staticForm() : this.expressForm()}
@@ -84,7 +95,7 @@ export default class ConfigModal extends Component{
                             Cancel
                         </Button>
                         &nbsp;
-                        <Button type="submit" variant="contained" color="primary">Save</Button>
+                        <Button type="submit" variant="contained" className={classes.button} color="primary">Save</Button>
                         </div>
                     </div>
                 </form>
@@ -92,3 +103,5 @@ export default class ConfigModal extends Component{
         </Dialog>
     }
 }
+
+export default withStyles(styles)(ConfigModal)

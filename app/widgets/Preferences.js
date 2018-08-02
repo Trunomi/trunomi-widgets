@@ -8,7 +8,7 @@ import DSRWidget from "./DSR"
 import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
 import PaneHeader from './Preferences/PaneHeader'
-import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from "@material-ui/core"
+import {ExpansionPanel, Fade, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 class UserPreferences extends React.Component {
@@ -39,8 +39,8 @@ class UserPreferences extends React.Component {
             let {fontFamily, headerColor} = this.props.style
 
             return <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary className="expansion-panel-summary" expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="title">{text.toUpperCase()}</Typography>
+                <ExpansionPanelSummary style={{backgroundImage: 'linear-gradient(to right, #ffffff, #e5edff, #e5edff, #82d3f4)'}} className="expansion-panel-summary" expandIcon={<ExpandMoreIcon style={{color: '#7D61F4'}} />}>
+                    <Typography variant="title" >{text}</Typography>
                 </ExpansionPanelSummary>
                 <div className="expansion-panel-details">
                     <Widget {...props} />
@@ -97,9 +97,9 @@ class UserPreferences extends React.Component {
             <div>
                 {(title || helpLink) && <h3 id={'wTitle'}>{title}<Logo link={helpLink}/></h3>}
                 <BS.PanelGroup id='User Preferences'>
-                    {consentPane && this.panel(consentPaneTitle, consentPaneBody)}
-                    {dataPane && this.panel(dataPaneTitle, dataPaneBody)}
-                    {dsrPane && this.panel(dsrPaneTitle, dsrPaneBody)}
+                    <Fade in>{consentPane && this.panel(consentPaneTitle, consentPaneBody)}</Fade>
+                    <Fade in timeout={200} >{dataPane && this.panel(dataPaneTitle, dataPaneBody)}</Fade>
+                    <Fade in timeout={400}>{dsrPane && this.panel(dsrPaneTitle, dsrPaneBody)}</Fade>
                 </BS.PanelGroup>
             </div>
         )

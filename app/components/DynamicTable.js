@@ -15,7 +15,7 @@ export default class Table extends React.Component {
         let {header, headerClass, headerIsTable} = this.props;
 
         let content = _.map(header, (h, i) => {
-            return <th key={i}>{h}</th>
+            return <th style={{color: '#717576'}} key={i}>{h}</th>
         })
             return <tr className={headerClass}>
                 {content}

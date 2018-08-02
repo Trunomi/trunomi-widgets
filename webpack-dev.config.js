@@ -25,7 +25,7 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             },
             {
-                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
                 loader: 'url-loader',
                 options: {
                     limit: 100000000000000,// why it doesn't work with file-loader
