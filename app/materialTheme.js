@@ -30,4 +30,12 @@ export default createMuiTheme({
             fontSize: 13
         }
     },
+    overrides: {
+        MuiFormControlLabel: {
+            root: {
+                margin: 0,
+                height: '40px'
+            },
+        }
+    }
 });

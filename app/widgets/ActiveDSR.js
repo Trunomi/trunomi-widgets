@@ -84,7 +84,7 @@ class ActiveDSRWidget extends BaseWidget {
             this.dict.getName(dataType.name),
             `${capturedAt.toDateString()} ${capturedAt.toTimeString().split('GMT')[0]}`,
             // events[event.substring(2)], //For demo purposes
-            payload.message || "",
+            payload.message || "Requested",
             payload.reasons ? payload.reasons.join(", ") : ''
         ]);
         /*<td>{definitions.requestAccept.successNote[Object.keys(definitions.requestAccept.successNote)[0]]}</td>*/
