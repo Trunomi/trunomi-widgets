@@ -4,6 +4,8 @@ import * as BS from 'react-bootstrap';
 import * as _ from 'lodash';
 import moment from 'moment';
 import trunomi_logo_data from './TrunomiLogo';
+import {Button} from '@material-ui/core';
+import DownloadIcon from '@material-ui/icons/FileDownload';
 
 export default class DownloadPDF extends React.Component {
 
@@ -137,10 +139,8 @@ export default class DownloadPDF extends React.Component {
     }
 
     render() {
-        return <div>
-            <BS.Button onClick={this.downloadTrucert} bsStyle="primary">
-                <BS.Glyphicon glyph="download-alt"/>&nbsp;Download
-            </BS.Button>
-        </div>
+        return <Button onClick={this.downloadTrucert} color="primary" variant='contained' size='small'>
+            <DownloadIcon/> Download
+        </Button>
     }
 }

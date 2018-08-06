@@ -10,6 +10,7 @@ import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
 import trunomi_logo from "../assets/logo.svg";
+import ExportTrucert from './Trucert/ExportTrucert';
 
 class Trucert extends BaseWidget {
     constructor(props) {
@@ -105,7 +106,7 @@ class Trucert extends BaseWidget {
 
     renderTrucert() {
         let {general, fingerprint, ledger, loaded, logo} = this.state;
-        let {error} = this.props;
+        let {error, ledgerId} = this.props;
 
         if (loaded && !error) {
             return <div>
@@ -126,6 +127,7 @@ class Trucert extends BaseWidget {
                 </Collapse>
 
                 <DownloadPDF general={general} events={ledger} />
+                <ExportTrucert api={this.api} ledgerId={ledgerId}/>
             </div>
         }
     }
