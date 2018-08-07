@@ -73,7 +73,7 @@ class ConsentsWidget extends BaseWidget {
             disabled = true;
 
         try {
-            let isConsent = this.dict.getName(this.state.contexts[contextId].consentDefinitions[consentId].justification) === 'consent';
+            let isConsent = true;
             let uiId = i + "-" + consentId
             if (truCert)
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
@@ -115,7 +115,7 @@ class ConsentsWidget extends BaseWidget {
                 }
                 else if (this.props.showAll){
                     let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                    let isConsent = this.dict.getName(consentDefinition.justification) === 'consent';
+                    let isConsent =  true;
                     if (truCert)
                         return []
                     else {
