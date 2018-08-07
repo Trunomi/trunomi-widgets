@@ -493,3 +493,11 @@ td {
 .quod-button:focus{
     background-color: #563C82;
 }
+
+/* .modal-backdrop{
+    background: white;
+    opacity: 0;
+} */
+body > div > .modal-backdrop.in{
+    opacity: 0;
+}

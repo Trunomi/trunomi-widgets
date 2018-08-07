@@ -4,6 +4,7 @@ import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/quod.png"
+import backgroundLogo from './assets/animated-logo.gif'
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -194,16 +195,19 @@ class ManagedPrefCentre extends React.Component {
     }
 
     renderModal = () => {
-        let {loggedIn, name, logo, magicLinksAllowed} = this.state
+        let {loggedIn, logo, magicLinksAllowed} = this.state
 
-        return  <BS.Modal show={!loggedIn} style={{minWidth: '600px'}}>
-            <BS.Modal.Body style={{padding: '25px'}}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <img className="enterprise-logo" style={{width: '160px', maxWidth: 'unset'}} src={logo}/>
-                </div>
-                {magicLinksAllowed ? this.magicLinkForm() : this.baseLogInForm()}
-            </BS.Modal.Body>
-        </BS.Modal>
+        return <React.Fragment>
+            <BS.Modal show={!loggedIn} style={{minWidth: '600px'}}>
+                <BS.Modal.Body style={{padding: '25px'}}>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <img className="enterprise-logo" style={{width: '160px', maxWidth: 'unset'}} src={logo}/>
+                    </div>
+                    {magicLinksAllowed ? this.magicLinkForm() : this.baseLogInForm()}
+                </BS.Modal.Body>
+            </BS.Modal>
+            {!loggedIn && <img src={backgroundLogo} style={{height: '300px', position: 'fixed', left: 0, bottom: 0}}/>}
+        </React.Fragment>
     }
 
     render() {
@@ -212,12 +216,14 @@ class ManagedPrefCentre extends React.Component {
         let display = null
 
         if (!loading)
-            display = <section>
+            display = <div style={{background: 'white', position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%'}}>
                 {this.renderModal()}
-                {loggedIn && <section>
-                    <WidgetsPanel title="Preferences Centre" managed/>
-                </section>}
-            </section>
+                {loggedIn && <WidgetsPanel title="My Personal Data Dashboard" managed/>}
+            </div>
 
         return display
     }
@@ -231,6 +237,6 @@ export default class PrefCentre extends React.Component {
         if (managed)
             return <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} queryParams={queryParams}/>
 
-        return <WidgetsPanel title="Preferences Centre"/>
+        return <WidgetsPanel title="My Personal Data Dashboard"/>
     }
 }

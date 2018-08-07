@@ -36,7 +36,8 @@ class PanelScreen extends Component {
             dev: false,
             config: null,
             configModal: false,
-            newConsents: null
+            newConsents: null,
+            loaded: false
         };
         this.cookie = new Cookies();
     }
@@ -56,7 +57,7 @@ class PanelScreen extends Component {
         else if (cookies)
             config = cookies
 
-        if (this.props.prefCentre) {
+        if (this.props.prefCentre && false) {
             let api = new API(config);
 
             let consents = await api.getNewConsents(true);
@@ -145,7 +146,7 @@ class PanelScreen extends Component {
         let {prefCentre} = this.props;
 
         let text = prefCentre ? 'a sample Preferences Centre' : 'the Trunomi widgets using live data'
-        if (!this.state.config) {
+        if (!this.state.config || Object.keys(this.state.config).length === 0) {
             return (
                 <BS.Grid className="main-section">
                     <BS.Col md={12}>
