@@ -56,13 +56,13 @@ class PanelScreen extends Component {
         else if (cookies)
             config = cookies
 
-        if (this.props.prefCentre) {
-            let api = new API(config);
+        // if (this.props.prefCentre) {
+        //     let api = new API(config);
 
-            let consents = await api.getNewConsents(true);
+        //     let consents = await api.getNewConsents(true);
 
-            newConsents = consents.length;
-        }
+        //     newConsents = consents.length;
+        // }
 
         this.setState({config, newConsents})
     }

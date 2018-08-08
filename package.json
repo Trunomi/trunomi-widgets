@@ -20,6 +20,7 @@
     "react-bootstrap-switch": "^15.5.3",
     "react-bootstrap-toggle": "^2.2.3",
     "react-dom": "^16.4.1",
+    "react-dropzone": "^4.3.0",
     "react-router-dom": "^4.2.2",
     "typeface-roboto": "^0.0.54"
   },

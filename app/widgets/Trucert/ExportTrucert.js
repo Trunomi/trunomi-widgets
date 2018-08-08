@@ -17,7 +17,7 @@ class ExportBtn extends React.Component {
     export = async () => {
         const {api, ledgerId} = this.props
         try{
-            const receipt = await api.sendRequest('/data-model/external-receipts/' + ledgerId)
+            const receipt = await api.sendRequest('/data-model/external-receipts/export/' + ledgerId)
             const blob = new Blob([JSON.stringify(receipt, null, "\t")], {type: "application/json"})
             FileSaver.saveAs(blob, 'receipt.json')
         }catch(e){

@@ -23,6 +23,16 @@ export const consentTableDict = {
     ]
 };
 
+export const receiptsTableDict = {
+    "en-US": [
+        "Service",
+        "Purpose",
+        "Data Type",
+        "Timestamp",
+        ""
+    ]
+}
+
 export const dataTableDict = {
     "en-US": [
         dataType['en-US'],
