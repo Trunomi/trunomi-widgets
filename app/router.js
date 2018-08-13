@@ -15,7 +15,15 @@ class Test extends React.Component {
 class AppRouter extends React.Component {
 
     render() {
-        let {host, pathname} = window.location;
+        let {host, pathname, search} = window.location;
+        const urlParams = new URLSearchParams(search);
+        const jwtToken = urlParams.get('jwt');
+        if (jwtToken){
+            sessionStorage.setItem('TRUNOMI_USE_TOKEN', jwtToken);
+            const dpo = urlParams.get('dpo');
+            if (dpo)
+                sessionStorage.setItem('TRUNOMI_DPO', dpo);
+        }
 
         let path = host.includes('github') ? '/trunomi-widgets' : '';
         path += pathname.includes('preview') ? '/preview' : '';

@@ -213,12 +213,13 @@ class ManagedPrefCentre extends React.Component {
         let {loggedIn, loading} = this.state
 
         let display = null
+        const DPO = sessionStorage.getItem('TRUNOMI_DPO')
 
         if (!loading)
             display = <section>
                 {this.renderModal()}
                 {loggedIn && <section>
-                    <WidgetsPanel title="Preferences Centre" managed/>
+                    <WidgetsPanel title={<span>Preferences Centre {DPO ? <small>managed by {DPO}</small> : null}</span>} managed/>
                 </section>}
             </section>
 
