@@ -52,10 +52,14 @@ const styles = theme => ({
     },
     content: {
         height: '50px',
-        width: '100%'
+        width: '100%',
+        paddingRight: 0
     },
-    snackbar: {
-        marginRight: 0
+    close: {
+        marginLeft: 'auto'
+    },
+    maxWidth: {
+        width: '100%'
     }
 });
 
@@ -77,6 +81,7 @@ class FadeOutNotice extends React.Component{
 
         return <SnackbarContent
             className={classNames(classes[variant], classes.content)}
+            classes={{message: classes.maxWidth}}
             message={
                 <span id="snackBar" className={classes.message}>
                     <Icon className={classNames(classes.icon, classes.iconVariant)} />
@@ -99,7 +104,6 @@ class FadeOutNotice extends React.Component{
     }
 
     render() {
-        console.log(this.state)
         const {show} = this.state
         const {time, variant, forever, classes} = this.props
         return <Snackbar
