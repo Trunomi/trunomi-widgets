@@ -3,7 +3,6 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import PrefCentre from './prefCentre';
 import Widgets from './widgets';
 
-
 class Test extends React.Component {
     render() {
         console.log('Pathname: ', this.props.location.pathname)
@@ -19,10 +18,14 @@ class AppRouter extends React.Component {
         const urlParams = new URLSearchParams(search);
         const jwtToken = urlParams.get('jwt');
         if (jwtToken){
+            urlParams.delete('jwt');
             sessionStorage.setItem('TRUNOMI_USE_TOKEN', jwtToken);
             const dpo = urlParams.get('dpo');
-            if (dpo)
+            if (dpo){
+                urlParams.delete('dpo');
                 sessionStorage.setItem('TRUNOMI_DPO', dpo);
+            }
+            window.history.pushState({}, document.title, `${pathname}?${urlParams.toString()}`);
         }
 
         let path = host.includes('github') ? '/trunomi-widgets' : '';

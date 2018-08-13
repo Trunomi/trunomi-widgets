@@ -230,7 +230,7 @@ class ManagedPrefCentre extends React.Component {
 export default class PrefCentre extends React.Component {
     render() {
         let queryParams = qs.parse(this.props.location.search),
-            managed = (queryParams.managed === null)
+            managed = (queryParams.managed !== undefined)
 
         if (managed)
             return <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} queryParams={queryParams}/>

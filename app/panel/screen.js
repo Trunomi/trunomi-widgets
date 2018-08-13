@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as BS from 'react-bootstrap';
+import jwt from 'jsonwebtoken';
 import {NewConsents,
     UserPreferences} from '../index';
 import DeveloperOptions from './subcomponents/developerOptions';
@@ -13,7 +13,7 @@ import '../assets/style/css/bootstrap-theme.min.css';
 import '../assets/style/css/bootstrap.min.css';
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
-import {AppBar, Toolbar} from "@material-ui/core";
+import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
 import Logo from '../assets/logo.svg'
 
 class PanelScreen extends Component {
@@ -37,7 +37,8 @@ class PanelScreen extends Component {
             dev: false,
             config: null,
             configModal: false,
-            newConsents: null
+            newConsents: null,
+            anchorEl: false
         };
         this.cookie = new Cookies();
     }
@@ -187,8 +188,13 @@ class PanelScreen extends Component {
     }
 
     render() {
-        let {config, configModal, Widget, newConsents} = this.state;
+        let {config, configModal, Widget, newConsents, anchorEl} = this.state;
         let {title, managed, prefCentre} = this.props;
+        let customerId = ''
+        const jwtToken = sessionStorage.getItem('TRUNOMI_USE_TOKEN')
+        if (jwtToken)
+            customerId = jwt.decode(jwtToken.split(' ')[1]).aud[2]
+
         return <Grid container>
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
                 <Toolbar>
@@ -196,7 +202,24 @@ class PanelScreen extends Component {
                         <img src={Logo} />
                     </span>
                     <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
-                    <span className="navbar-logout">{managed && <a onClick={this.logout}>Logout</a>}</span>
+                    <span className="navbar-logout">
+                        {managed && <React.Fragment>
+                            <Button
+                                aria-owns={anchorEl ? 'simple-menu' : null}
+                                aria-haspopup="true"
+                                onClick={(e) => this.setState({anchorEl: e.currentTarget})}>
+                                {customerId}
+                            </Button>
+                            <Menu
+                                className='logout-drop'
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={()=>{this.setState({anchorEl: null})}}>
+                                <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                            </Menu>
+                        </React.Fragment>}
+                    </span>
                 </Toolbar>
             </AppBar>
             <Grid item xs={2}></Grid>
