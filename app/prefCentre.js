@@ -149,7 +149,7 @@ class ManagedPrefCentre extends React.Component {
                 </BS.FormGroup>
             </section>
 
-            buttons = <BS.Button bsStyle='primary' type='submit' block>
+            buttons = <BS.Button bsStyle='primary' type='submit' block disabled={username === ''}>
                 Continue
             </BS.Button> 
         }
