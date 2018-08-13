@@ -186,8 +186,8 @@ class DSRWidget extends BaseWidget{
 
         return <BS.Panel style={{width: '100%', minWidth: '530px'}}>
             <FadeOutNotice show={!!noticeMessage} text={noticeMessage}
-                           bsStyle={dsrError ? 'danger':'success'}
-                           after={()=>{this.setState({noticeMessage: ''})}}/>
+                           variant={dsrError ? 'error':'success'}
+                           onClose={()=>{this.setState({noticeMessage: ''})}}/>
             {display}
         </BS.Panel>
     }

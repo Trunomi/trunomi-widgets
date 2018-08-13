@@ -9,7 +9,8 @@ import Cookies from 'universal-cookie';
 import ConfigModal from "./subcomponents/configModal";
 import Settings from './subcomponents/settings';
 import _ from 'lodash';
-import '../assets/style/css/bootstrap.min.css'
+import '../assets/style/css/bootstrap-theme.min.css';
+import '../assets/style/css/bootstrap.min.css';
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar} from "@material-ui/core";
@@ -56,13 +57,13 @@ class PanelScreen extends Component {
         else if (cookies)
             config = cookies
 
-        if (this.props.prefCentre) {
-            let api = new API(config);
+        // if (this.props.prefCentre) {
+        //     let api = new API(config);
 
-            let consents = await api.getNewConsents(true);
+        //     let consents = await api.getNewConsents(true);
 
-            newConsents = consents.length;
-        }
+        //     newConsents = consents.length;
+        // }
 
         this.setState({config, newConsents})
     }

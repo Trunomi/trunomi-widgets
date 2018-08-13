@@ -1,73 +1,137 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import classNames from 'classnames';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import IconButton from '@material-ui/core/IconButton'; 
+import WarningIcon from '@material-ui/icons/Warning';
+import Fade from '@material-ui/core/Fade';
+import { withStyles } from '@material-ui/core/styles';
+
+const variantIcon = {
+    success: CheckCircleIcon,
+    warning: WarningIcon,
+    error: ErrorIcon,
+    info: InfoIcon,
+  };
+  
+const styles = theme => ({
+    success: {
+        backgroundColor: green[500],
+    },
+    error: {
+        backgroundColor: theme.palette.error.dark,
+    },
+    info: {
+        backgroundColor: theme.palette.primary.dark,
+    },
+    warning: {
+        backgroundColor: amber[700],
+    },
+    icon: {
+        fontSize: 20,
+    },
+    iconVariant: {
+        opacity: 0.9,
+        marginRight: theme.spacing.unit,
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    root: {
+        position: 'relative',
+        height: '60px'
+    },
+    content: {
+        height: '50px',
+        width: '100%'
+    },
+    snackbar: {
+        marginRight: 0
+    }
+});
 
 class FadeOutNotice extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            show: false,
-            fadeClass: 'fadeIn'
+            show: false
         };
     }
 
-    clearTimeouts = () => {
-        let {timeout1, timeout2} = this;
-
-        if(timeout1)
-            clearTimeout(timeout1);
-        if(timeout2)
-            clearTimeout(timeout2);
-    };
-
     componentWillReceiveProps(props){
-        this.clearTimeouts();
-        this.setState({show: props.show, fadeClass:'fadeIn'});
+        this.setState({show: props.show});
     }
 
-    componentWillUnmount(){
-        this.clearTimeouts();
+    renderText = () => {
+        const {variant, classes, text} = this.props;
+        const Icon = variantIcon[variant];
+
+        return <SnackbarContent
+            className={classNames(classes[variant], classes.content)}
+            message={
+                <span id="snackBar" className={classes.message}>
+                    <Icon className={classNames(classes.icon, classes.iconVariant)} />
+                        {text}
+                    <IconButton
+                        color="inherit"
+                        className={classes.close}
+                        onClick={this.onClose}
+                    >
+                        <CloseIcon className={classes.icon} />
+                    </IconButton>
+                </span>
+            }
+        />
     }
 
-    renderNotice = () => {
-        let {bsStyle, text, time, forever, after} = this.props;
-        let {fadeClass} = this.state;
-        let notice = <div style={{marginBottom: '5px'}} className={`alert alert-${bsStyle} ${fadeClass} fast`}>
-            {text}
-        </div>;
-
-        if(!forever) {
-            this.timeout1 = setTimeout(() => {
-                this.setState({fadeClass: 'fadeOut'})
-            }, time + 1000);
-            this.timeout2 = setTimeout(() => {
-                this.setState({show: false, fadeClass: 'fadeIn'});
-                after()
-            }, time + 2000);
-        }
-
-        return notice
-    };
-
+    onClose = () => {
+        this.props.onClose()
+        this.setState({show: false})
+    }
 
     render() {
-        return this.state.show && this.renderNotice()
+        console.log(this.state)
+        const {show} = this.state
+        const {time, variant, forever, classes} = this.props
+        return <Snackbar
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            open={show}
+            variant={variant}
+            autoHideDuration={forever ? null : time}
+            onClose={this.onClose}
+            className={classes.root}
+            TransitionComponent={Fade}
+        > 
+            {this.renderText()}
+        </Snackbar>
     }
 }
 
 FadeOutNotice.defaultProps = {
-    bsStyle: 'success',
+    variant: 'success',
     text: null,
-    time: 3000,
+    time: 5000,
     forever: false,
-    after: _.noop
+    onClose: _.noop
 };
 
 FadeOutNotice.propTypes = {
-    baStyle: PropTypes.string,
+    variant: PropTypes.string,
     text: PropTypes.node,
     time: PropTypes.number,
     forever: PropTypes.bool
 };
 
-export default FadeOutNotice;
+export default withStyles(styles)(FadeOutNotice);

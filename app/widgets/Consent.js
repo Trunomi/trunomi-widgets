@@ -177,8 +177,8 @@ class ConsentsWidget extends BaseWidget {
         return <BS.Panel style={{width: '100%'}}>
             <LoadingModal loading={processing}>
                 <FadeOutNotice show={!!actionError} text={actionError}
-                               bsStyle={'danger'}
-                               after={()=>{this.setState({actionError: ''})}}/>
+                               variant={'error'}
+                               onClose={()=>{this.setState({actionError: ''})}}/>
                 {display}
             </LoadingModal>
         </BS.Panel>

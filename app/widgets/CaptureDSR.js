@@ -5,12 +5,20 @@ import PropTypes from 'prop-types';
 import CustomPanel, {blueStyle} from "../components/CustomPanel";
 import {LoadingInline} from "../components/Loading";
 import BaseWidget from "./Base"
+import { withStyles, Button, FormControl, Radio, FormControlLabel, Fade} from '@material-ui/core';
+
+const styles = theme => ({
+    options: {
+        display: 'flex',
+        flexDirection: 'column'
+    }
+})
 
 /**
  * Data subject request widget for a data Type / dsr type. Props the user for
  * a reason and sends the request to the Trunomi platform.
  */
-export default class CaptureDSR extends BaseWidget {
+class CaptureDSR extends BaseWidget {
     constructor(props) {
         super(props);
         this.state = {
@@ -76,12 +84,12 @@ export default class CaptureDSR extends BaseWidget {
             let page = "/ledger/context/"+ dataType.id + "/" + types[type];
             let body = {
                 payload: {
-                    reasons: selectedReasons.map((id)=>{
+                    reasons: selectedReasons.length ? selectedReasons.map((id)=>{
                         let text = this.dict.getName(reasons[id]);
                         if (text.includes('Please specify'))
                             return otherReason;
                         return text
-                    })
+                    }): ["Not Specified"]
                 }
             };
             await this.api.sendRequest(page, 'post', body);
@@ -128,38 +136,32 @@ export default class CaptureDSR extends BaseWidget {
     renderReasons = (reasons, maxSelections) => {
         let {selectedReasons, otherReason} = this.state;
 
-        return <BS.FormGroup>
+        return <div className={this.props.classes.options}>
             {reasons.map((element, id)=>{
                 let text = this.dict.getName(element);
 
-                return <div key={id}>
-                    {maxSelections == 1 ?
-                        <BS.Radio name="radioGroup" required
-                                  checked={selectedReasons.includes(id)}
-                                  onChange={this.handleReasonChange.bind(this, id, maxSelections)}>
-                            {text}
-                        </BS.Radio>
-                        :
-                        <BS.Checkbox checked={selectedReasons.includes(id)}
-                                     required={selectedReasons.length < 1}
-                                     onChange={this.handleReasonChange.bind(this, id, maxSelections)}>
-                            {text}
-                        </BS.Checkbox>
-                    }
+                return <React.Fragment>
+                    <FormControlLabel
+                            key={id}
+                            control={<Radio inputProps={{required: true}} checked={selectedReasons.includes(id)} onChange={this.handleReasonChange.bind(this, id, maxSelections)} color="primary" />}
+                            label={text}
+                    />
                     {_.includes(text, 'Please specify') && _.includes(selectedReasons, id) &&
-                    <BS.FormControl type="text" required
-                                    value={otherReason}
-                                    placeholder="Specify your reason"
-                                    onChange={this.handleOtherReason.bind(this)}/>
+                        <Fade in>
+                            <BS.FormControl type="text" required
+                                value={otherReason}
+                                placeholder="Specify your reason"
+                                onChange={this.handleOtherReason.bind(this)}/>
+                        </Fade>
                     }
-                </div>;
+                </React.Fragment>;
             })}
-        </BS.FormGroup>
+        </div>
     }
 
     render() {
-        let {type, style} = this.props,
-            {dataType, loaded, finished, show, notice} = this.state, display;
+        let {type, style, classes} = this.props,
+            {dataType, loaded, finished, show, notice, selectedReasons} = this.state, display;
 
         if(!show)
             return null;
@@ -178,16 +180,16 @@ export default class CaptureDSR extends BaseWidget {
             reasons = reasons || []; //So the widget doesn't fail
 
             display = <div>
-                <strong>{this.dict.getName(title)}</strong>
-                <p style={{padding: '5px'}}>
+                <p style={{fontSize: '18px'}}>{this.dict.getName(title)}</p>
+                <p style={{padding: '5px', fontSize: '16px'}}>
                     {this.dict.getName(reasonsTitle)}
                     {selections>1 && <small> (Up to {selections} reasons can be selected)</small>}
                 </p>
                 <form onSubmit={this.sendDSRquery}>
                     {this.renderReasons(reasons, selections)}
-                    <BS.Button type='submit' className={'btn-block'} style={{maxWidth: '500px'}}>
+                    <Button type='submit' fullWidth variant="contained" color="primary" className={classes.button}>
                         Submit
-                    </BS.Button>
+                    </Button>
                     <p>{widgetData && this.dict.getName(widgetData.finalCopy)}</p>
                 </form>
             </div>
@@ -197,6 +199,8 @@ export default class CaptureDSR extends BaseWidget {
         return <CustomPanel style={style} onClose={this.closeWidget}>{display}</CustomPanel>
     }
 }
+
+export default withStyles(styles)(CaptureDSR)
 
 CaptureDSR.propTypes = {
     ...BaseWidget.propTypes,
