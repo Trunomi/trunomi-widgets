@@ -122,6 +122,7 @@ class Trucert extends BaseWidget {
                         <Events ledger={ledger}/>
                         <hr/>
                         <FingerPrint fingerprint={fingerprint} />
+                        <div className="trucert-footer">Powered by Trunomi © 2014 - {new Date().getFullYear()}. All rights reserved</div>
                     </div>
                 </Collapse>
 

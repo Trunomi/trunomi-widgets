@@ -471,3 +471,9 @@ h1,h2,h3,h4,h5 {
     text-transform: uppercase;
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+.trucert-footer {
+    padding-top: 10px;
+    height: 50px;
+    width: 100%;
+}

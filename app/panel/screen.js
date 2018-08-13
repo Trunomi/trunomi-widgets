@@ -148,15 +148,13 @@ class PanelScreen extends Component {
         let text = prefCentre ? 'a sample Preferences Centre' : 'the Trunomi widgets using live data'
         if (!this.state.config) {
             return (
-                <BS.Grid className="main-section">
-                    <BS.Col md={12}>
-                        <h1 style={{textAlign: "center"}}>
-                            <small>This page allows you to preview {text} <br/><br/>
-                            Please click on <Settings stateChange={this.stateChange}/> to configure the previewer
-                            </small>
-                        </h1>
-                    </BS.Col>
-                </BS.Grid>
+                <Grid>
+                    <h1 style={{textAlign: "center"}}>
+                        <small>This page allows you to preview {text} <br/><br/>
+                        Please click on <Settings stateChange={this.stateChange}/> to configure the previewer
+                        </small>
+                    </h1>
+                </Grid>
             )
         }
     }
@@ -202,9 +200,7 @@ class PanelScreen extends Component {
             </AppBar>
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
-                <h1>
-                    <b>{title}</b>
-                </h1>
+                <h1 className='blue-text'>{title}</h1>
                 {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 <ConfigModal    show={configModal}
                                 {...config}
@@ -213,6 +209,7 @@ class PanelScreen extends Component {
                 <hr/>
             </Grid>
             <Grid item xs={2}></Grid>
+
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
                 {this.loginScreen()}

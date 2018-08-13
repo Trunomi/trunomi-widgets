@@ -127,13 +127,16 @@ export default class DownloadPDF extends React.Component {
         let x = 0;
         let doc = new jsPDF();
         doc.setFont("helvetica");
+        doc.setFontSize(12);
+        const today = new Date();
+
+        doc.text(15, 285, 'Powered by Trunomi © 2014 - ' + today.getFullYear() + '. All rights reserved.')
         doc.setFontSize(20);
         let title = this.title(doc, x);
         let general = this.general(title.doc, title.x);
         let history = this.history(general.doc, general.x);
         doc = history.doc;
-        doc = history.doc;
-        doc.save('trucert.pdf');
+        doc.save('TruCert.pdf');
     }
 
     render() {
