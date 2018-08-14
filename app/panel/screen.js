@@ -184,6 +184,7 @@ class PanelScreen extends Component {
     logout = () => {
         sessionStorage.removeItem("TRUNOMI_USE_TOKEN")
         sessionStorage.removeItem("TRUNOMI_DPO")
+        sessionStorage.removeItem("TRUNOMI_MOC")
         location.reload()
     }
 

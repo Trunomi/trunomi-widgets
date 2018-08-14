@@ -39,6 +39,9 @@ class ConsentButton extends React.Component{
 
         this.props.onClick()
 
+        const DPO = sessionStorage.getItem("TRUNOMI_DPO")
+        const MOC = sessionStorage.getItem("TRUNOMI_MOC")
+
         let body = {
             payload: {
                 consentDefinitionId: parseInt(consentId, 10)
@@ -46,6 +49,9 @@ class ConsentButton extends React.Component{
         };
         if (value === 'grant')
             body.payload['dataTypeId'] = dataTypeId;
+
+        if (MOC && DPO)
+            body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
 
         this.sendConsentQuery(value, body, contextId);
     }

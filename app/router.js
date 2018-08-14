@@ -25,6 +25,11 @@ class AppRouter extends React.Component {
                 urlParams.delete('dpo');
                 sessionStorage.setItem('TRUNOMI_DPO', dpo);
             }
+            const moc = urlParams.get('moc');
+            if (moc){
+                urlParams.delete('moc');
+                sessionStorage.setItem('TRUNOMI_MOC', moc);
+            }
             window.history.pushState({}, document.title, `${pathname}?${urlParams.toString()}`);
         }
 

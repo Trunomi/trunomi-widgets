@@ -80,6 +80,9 @@ class CaptureDSR extends BaseWidget {
             'erasure': 'der'
         };
 
+        const DPO = sessionStorage.getItem("TRUNOMI_DPO")
+        const MOC = sessionStorage.getItem("TRUNOMI_MOC")
+
         try {
             let page = "/ledger/context/"+ dataType.id + "/" + types[type];
             let body = {
@@ -92,6 +95,10 @@ class CaptureDSR extends BaseWidget {
                     }): ["Not Specified"]
                 }
             };
+
+            if (MOC && DPO)
+                body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}.`
+
             await this.api.sendRequest(page, 'post', body);
             this.setState({
                 notice: <p>Your request has been <b>received</b>. Please note that it takes up to
