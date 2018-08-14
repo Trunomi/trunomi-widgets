@@ -2,11 +2,16 @@ import React, {Component} from 'react';
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
-import {Switch, FormControlLabel} from '@material-ui/core'
-import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
+import {MenuItem, Select, FormControlLabel, Switch, withStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-export default class ConsentButton extends React.Component{
+const styles = theme => ({
+    noMargin: {
+        marginRight: '5px'
+    }
+})
+
+class ConsentButton extends React.Component{
 
     state = {
         open: false
@@ -51,35 +56,37 @@ export default class ConsentButton extends React.Component{
 
     render() {
         let {open} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch} = this.props
+        let {state, dict, disableRevoke, onClick, isSwitch, classes} = this.props
         let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let content
         if (isSwitch) {
-            content = <Switch 
-                onChange={this.handleConsent}
-                value={granted ? "revoke" : "grant"}
-                disabled={granted && (disableRevoke || status==='permission-implicit')}
-                color="primary"
-                checked={granted}
+            content = <FormControlLabel
+                className={classes.noMargin}
+                control={<Switch
+                    onChange={this.handleConsent}
+                    value={granted ? "revoke" : "grant"}
+                    disabled={granted && (disableRevoke || status==='permission-implicit')}
+                    color="primary"
+                    checked={granted}
+                />}
+                label={granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
             />
         }
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
-            content = <div><span onClick={this.toggleOptions}>
+            content = <div><div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                 <span className="action-button">Actions <ExpandMoreIcon /></span>
-            </span>
-            <span>
-                <Select open={open}
-                        style={{position: 'absolute',width: 5,visibility: 'hidden'}}
-                        onClose={this.toggleOptions}
-                        onOpen={this.toggleOptions}
-                        onChange={this.handleConsent}
-                        margin="normal">
-                    <MenuItem value="grant">Grant</MenuItem>}
-                    <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
-                </Select>
-            </span>
+            </div>
+            <Select open={open}
+                    style={{position: 'absolute',width: 5,visibility: 'hidden'}}
+                    onClose={this.toggleOptions}
+                    onOpen={this.toggleOptions}
+                    onChange={this.handleConsent}
+                    margin="normal">
+                <MenuItem value="grant">Grant</MenuItem>}
+                <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
+            </Select>
             </div>
         }
         return <div className='text-center'>
@@ -98,3 +105,5 @@ ConsentButton.defaultProps = {
 };
 
 ConsentButton.propTypes = consentButtonTypes;
+
+export default withStyles(styles)(ConsentButton)
