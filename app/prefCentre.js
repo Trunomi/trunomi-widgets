@@ -108,10 +108,11 @@ class ManagedPrefCentre extends React.Component {
     }
 
     magicLinkForm = () => {
-        const {error, emailSent, usernameVerified, username} = this.state
+        const {error, emailSent, usernameVerified, username, password} = this.state
         const {enterpriseId} = this.props
         let formInputs
         let buttons
+        let disabled = password === ''
         if (usernameVerified){
             formInputs = <section>
                 <p>
@@ -124,12 +125,12 @@ class ManagedPrefCentre extends React.Component {
                 <BS.FormGroup>
                     <BS.ControlLabel>Password</BS.ControlLabel>
                     <BS.FormControl placeholder="Password" type="password" name='password' required autoFocus
-                    onChange={this.onChange}/>
+                    onChange={this.onChange} />
                 </BS.FormGroup>
             </section>
 
             buttons = <div style={{width:'100%'}}>
-                <BS.Button bsStyle="primary" bsSize="large" type="submit" 
+                <BS.Button bsStyle="primary" bsSize="large" type="submit"  disabled={disabled}
                         style={{width: '48%'}}>
                     Sign In
                 </BS.Button>
@@ -168,7 +169,6 @@ class ManagedPrefCentre extends React.Component {
 
     baseLogInForm = () => {
         const {error} = this.state
-
         return  <form onSubmit={this.onSubmit}>
             <BS.FormGroup>
                 <BS.ControlLabel>User</BS.ControlLabel>
