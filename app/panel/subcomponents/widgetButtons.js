@@ -7,28 +7,22 @@ import NewDSR from '../../widgets/NewDSR';
 import NewConsents from "../../widgets/NewConsents";
 import TrucertSelector from "./trucertSelector";
 import * as BS from 'react-bootstrap';
+import {Button, Typography} from '@material-ui/core'
 
 export default class extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            newConsents: this.props.newConsents
+            newConsents: this.props.newConsents,
         };
     }
 
-    Button = (widgetButton, text, newConsents) => {
-        let {widget, chooseWidget} = this.props;
-        let cName = 'widget-button';
-        cName += (widgetButton===widget) ? ' widget-button-active' : '';
-
-        return <div>
-            <button style={{width: '75%'}} className={cName}
-                    onClick={() => chooseWidget(widgetButton)}>
-                {text} {newConsents !== undefined ? `(${newConsents})` : ''}
-            </button>
-            <br/>
-        </div>
+    Button = (widgetButton, text) => {
+        let {chooseWidget} = this.props;
+        return <Button onClick={() => chooseWidget(widgetButton)} color='primary' className='navbar-menu-button'>
+            {text}
+        </Button>
     };
 
     componentWillReceiveProps = (newProps) => {
@@ -57,27 +51,24 @@ export default class extends React.Component {
 
     widgetButtons = () => {
         let {prefCentre} = this.props;
-
-        if (!prefCentre) {
-            return (<div>
-                    {this.Button(UserPreferences, 'User Preferences')}
-                    {this.Button(ConsentsWidget, 'My Permissions')}
-                    {this.Button(DSRWidget, 'My Data')}
-                    {this.Button(ActiveDSRWidget, 'Data Subject Requests')}
-                    {this.Button(NewDSR, 'New DSR')}
-                    {this.Button(NewConsents, 'New Permission')}
-                    {this.Button(TrucertSelector, 'Sample Trucert')}
-                </div>
-            )
+        if (prefCentre !== undefined && prefCentre === false) {
+            return <span>
+                {this.Button(UserPreferences, 'User Preferences')}
+                {this.Button(ConsentsWidget, 'My Permissions')}
+                {this.Button(DSRWidget, 'My Data')}
+                {this.Button(ActiveDSRWidget, 'DSR')}
+                {this.Button(NewDSR, 'New DSR')}
+                {this.Button(NewConsents, 'New Permission')}
+                {this.Button(TrucertSelector, 'Sample Trucert')}
+            </span>
         }
+
     };
 
 
     render() {
-        return (<div>
-                {this.widgetButtons()}
-                {this.prefCentreButtons()}
-            </div>
-        )
+        return <span className='widget-buttons'>
+            {this.widgetButtons()}
+        </span>
     }
 }

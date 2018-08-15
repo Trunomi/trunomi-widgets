@@ -266,30 +266,9 @@ td {
 .black-background {background-color:#000000;}
 .white {color:#ffffff;}
 
-.widget-button {
-    font-family: Helvetica;
-    border: none;
-    display: inline-block;
-    padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    white-space: no-wrap;
-    color: #fff !important;
-    background-color: #111 !important;
-}
-
 .widget-button-active {
     color: #fff !important;
     background-color: #616161 !important;
-}
-
-.widget-button:hover {
-    background-color: #919191 !important;
 }
 
 .black-button {
@@ -458,11 +437,10 @@ td {
 }
 
 .navbar-logo {
-    width: 50%;
+    width: 125px;
 }
 
 .navbar-logout {
-    width: 50%;
     text-align: right;
 }
 
@@ -500,4 +478,51 @@ td {
 } */
 body > div > .modal-backdrop.in{
     opacity: 0;
+}
+
+.widget-buttons {
+    padding-left: 40px;
+    width: 100%;
+    text-align: left;
+}
+
+.widget-button {
+    margin-left: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--trunomi-blue);
+    text-transform: uppercase;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+.widget-button:hover {
+    text-decoration: none;
+}
+
+.container {
+    width: 100%;
+}
+
+.navbar-menu-button {
+    margin: 20 20 20 20;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--trunomi-blue);
+    text-transform: uppercase;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.trucert-footer {
+    padding-top: 10px;
+    height: 50px;
+    width: 100%;
+}
+
+.logout-drop{
+    margin-top: 35px;
+}
+
+.status-label{
+    margin-right: 5px;
 }

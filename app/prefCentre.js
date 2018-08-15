@@ -105,10 +105,11 @@ class ManagedPrefCentre extends React.Component {
     }
 
     magicLinkForm = () => {
-        const {error, emailSent, usernameVerified, username} = this.state
+        const {error, emailSent, usernameVerified, username, password} = this.state
         const {enterpriseId} = this.props
         let formInputs
         let buttons
+        let disabled = password === ''
         if (usernameVerified){
             formInputs = <section>
                 <p>
@@ -120,8 +121,8 @@ class ManagedPrefCentre extends React.Component {
                 </p> 
                 <BS.FormGroup>
                     <BS.ControlLabel>Password</BS.ControlLabel>
-                    <BS.FormControl placeholder="Password" type="password" name='password' required
-                    onChange={this.onChange}/>
+                    <BS.FormControl placeholder="Password" type="password" name='password' required autoFocus
+                    onChange={this.onChange} />
                 </BS.FormGroup>
             </section>
 
@@ -141,12 +142,12 @@ class ManagedPrefCentre extends React.Component {
             formInputs = <section>
                 <BS.FormGroup>
                     <BS.ControlLabel>User</BS.ControlLabel>
-                    <BS.FormControl placeholder="User" type="text" name='username' required 
+                    <BS.FormControl placeholder="User" type="text" name='username' required autoFocus
                     onChange={this.onChange} value={username}/>
                 </BS.FormGroup>
             </section>
 
-            buttons = <BS.Button className='quod-button' bsStyle='primary' type='submit' block>
+            buttons = <BS.Button className='quod-button' bsStyle='primary' type='submit' block disabled={username === ''}>
                 Continue
             </BS.Button> 
         }
@@ -165,7 +166,6 @@ class ManagedPrefCentre extends React.Component {
 
     baseLogInForm = () => {
         const {error} = this.state
-
         return  <form onSubmit={this.onSubmit}>
             <BS.FormGroup>
                 <BS.ControlLabel>User</BS.ControlLabel>
@@ -214,6 +214,7 @@ class ManagedPrefCentre extends React.Component {
         let {loggedIn, loading} = this.state
 
         let display = null
+        const DPO = sessionStorage.getItem('TRUNOMI_DPO')
 
         if (!loading)
             display = <div style={{background: 'white', position: 'absolute',
@@ -222,7 +223,9 @@ class ManagedPrefCentre extends React.Component {
                     width: '100%',
                     height: '100%'}}>
                 {this.renderModal()}
-                {loggedIn && <WidgetsPanel title="My Personal Data Dashboard" managed/>}
+                {loggedIn && <section>
+                    <WidgetsPanel title={<span>Preferences Centre {DPO ? <small>managed by {DPO}</small> : null}</span>} managed/>
+                </section>}
             </div>
 
         return display
@@ -232,7 +235,7 @@ class ManagedPrefCentre extends React.Component {
 export default class PrefCentre extends React.Component {
     render() {
         let queryParams = qs.parse(this.props.location.search),
-            managed = (queryParams.managed === null)
+            managed = (queryParams.managed !== undefined)
 
         if (managed)
             return <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} queryParams={queryParams}/>

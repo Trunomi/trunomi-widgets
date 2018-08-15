@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as BS from 'react-bootstrap';
+import jwt from 'jsonwebtoken';
 import {NewConsents,
     UserPreferences} from '../index';
 import DeveloperOptions from './subcomponents/developerOptions';
@@ -9,11 +9,12 @@ import Cookies from 'universal-cookie';
 import ConfigModal from "./subcomponents/configModal";
 import Settings from './subcomponents/settings';
 import _ from 'lodash';
-import '../assets/style/css/bootstrap.min.css'
+import '../assets/style/css/bootstrap-theme.min.css';
+import '../assets/style/css/bootstrap.min.css';
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
-import {AppBar, Toolbar} from "@material-ui/core";
-import Logo from '../assets/quod.png'
+import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
+import Logo from '../assets/logo.svg'
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class PanelScreen extends Component {
             config: null,
             configModal: false,
             newConsents: null,
-            loaded: false
+            anchorEl: false
         };
         this.cookie = new Cookies();
     }
@@ -47,7 +48,7 @@ class PanelScreen extends Component {
             token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
 
         let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0
-        
+
         if (token){
             config =  {
                 jwtToken: token,
@@ -57,13 +58,13 @@ class PanelScreen extends Component {
         else if (cookies)
             config = cookies
 
-        if (this.props.prefCentre && false) {
-            let api = new API(config);
+        // if (this.props.prefCentre) {
+        //     let api = new API(config);
 
-            let consents = await api.getNewConsents(true);
+        //     let consents = await api.getNewConsents(true);
 
-            newConsents = consents.length;
-        }
+        //     newConsents = consents.length;
+        // }
 
         this.setState({config, newConsents, loaded: true})
     }
@@ -148,15 +149,13 @@ class PanelScreen extends Component {
         let text = prefCentre ? 'a sample Preferences Centre' : 'the Trunomi widgets using live data'
         if (!this.state.config || Object.keys(this.state.config).length === 0) {
             return (
-                <BS.Grid className="main-section">
-                    <BS.Col md={12}>
-                        <h1 style={{textAlign: "center"}}>
-                            <small>This page allows you to preview {text} <br/><br/>
-                            Please click on <Settings stateChange={this.stateChange}/> to configure the previewer
-                            </small>
-                        </h1>
-                    </BS.Col>
-                </BS.Grid>
+                <Grid>
+                    <h1 style={{textAlign: "center"}}>
+                        <small>This page allows you to preview {text} <br/><br/>
+                        Please click on <Settings stateChange={this.stateChange}/> to configure the previewer
+                        </small>
+                    </h1>
+                </Grid>
             )
         }
     }
@@ -184,12 +183,18 @@ class PanelScreen extends Component {
 
     logout = () => {
         sessionStorage.removeItem("TRUNOMI_USE_TOKEN")
+        sessionStorage.removeItem("TRUNOMI_DPO")
+        sessionStorage.removeItem("TRUNOMI_MOC")
         location.reload()
     }
 
     render() {
-        let {config, configModal} = this.state;
-        let {title, managed} = this.props;
+        let {config, configModal, Widget, newConsents, anchorEl} = this.state;
+        let {title, managed, prefCentre} = this.props;
+        let customerId = ''
+        const jwtToken = sessionStorage.getItem('TRUNOMI_USE_TOKEN')
+        if (jwtToken)
+            customerId = jwt.decode(jwtToken.split(' ')[1]).aud[2]
 
         return <Grid container>
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
@@ -197,7 +202,25 @@ class PanelScreen extends Component {
                     <span className="navbar-logo">
                         <img style={{width: '160px'}} src={Logo} />
                     </span>
-                    <span className="navbar-logout">{managed && <a onClick={this.logout}>Logout</a>}</span>
+                    <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
+                    <span className="navbar-logout">
+                        {managed && <React.Fragment>
+                            <Button
+                                aria-owns={anchorEl ? 'simple-menu' : null}
+                                aria-haspopup="true"
+                                onClick={(e) => this.setState({anchorEl: e.currentTarget})}>
+                                {customerId}
+                            </Button>
+                            <Menu
+                                className='logout-drop'
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={()=>{this.setState({anchorEl: null})}}>
+                                <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                            </Menu>
+                        </React.Fragment>}
+                    </span>
                 </Toolbar>
             </AppBar>
             <Grid item xs={2}></Grid>
@@ -212,6 +235,7 @@ class PanelScreen extends Component {
                                 onHide={()=>{this.setState({configModal: false})}} />
             </Grid>
             <Grid item xs={2}></Grid>
+
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
                 {this.state.loaded && this.loginScreen()}

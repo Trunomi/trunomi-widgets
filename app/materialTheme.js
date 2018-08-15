@@ -1,7 +1,7 @@
 import blue from '@material-ui/core/colors/blue'
 import {createMuiTheme} from '@material-ui/core/styles'
 
-let trunomiBlue = '#0265B0'
+let trunomiBlue = '#0a4fa1'
 export default createMuiTheme({
     palette: {
         primary: {
@@ -31,6 +31,11 @@ export default createMuiTheme({
         }
     },
     overrides: {
+        MuiButton: {
+            label: {
+                fontSize: 14,
+            }
+        },
         MuiFormControlLabel: {
             root: {
                 margin: 0,

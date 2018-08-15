@@ -16,6 +16,9 @@ const styles = theme => ({
           },
         }
       },
+    noMargin: {
+        marginRight: '5px'
+    },
     colorBar: {},
     colorChecked: {},
 })
@@ -49,6 +52,9 @@ class ConsentButton extends React.Component{
 
         this.props.onClick()
 
+        const DPO = sessionStorage.getItem("TRUNOMI_DPO")
+        const MOC = sessionStorage.getItem("TRUNOMI_MOC")
+
         let body = {
             payload: {
                 consentDefinitionId: parseInt(consentId, 10)
@@ -56,6 +62,9 @@ class ConsentButton extends React.Component{
         };
         if (value === 'grant')
             body.payload['dataTypeId'] = dataTypeId;
+
+        if (MOC && DPO)
+            body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
 
         this.sendConsentQuery(value, body, contextId);
     }
@@ -71,35 +80,38 @@ class ConsentButton extends React.Component{
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let content
         if (isSwitch) {
-            content = <Switch 
-                onChange={this.handleConsent}
-                value={granted ? "revoke" : "grant"}
-                disabled={granted && (disableRevoke || state === 'permission-implicit')}
-                color="primary"
-                checked={granted}
-                classes={{
-                    switchBase: classes.colorSwitchBase,
-                    checked: classes.colorChecked,
-                    bar: classes.colorBar,
-                }}
+            content = <FormControlLabel
+                className={classes.noMargin}
+                control={<Switch
+                    onChange={this.handleConsent}
+                    value={granted ? "revoke" : "grant"}
+                    disabled={granted && (disableRevoke || status==='permission-implicit')}
+                    color="primary"
+                    checked={granted}
+                    classes={{
+                        switchBase: classes.colorSwitchBase,
+                        checked: classes.colorChecked,
+                        bar: classes.colorBar,
+                    }}
+                />}
+                label={granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
             />
         }
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
-            content = <div><span onClick={this.toggleOptions}>
+            content = <div><div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                 <span className="action-button">Actions <ExpandMoreIcon /></span>
-            </span>
-            <span>
-                <Select open={open}
-                        style={{position: 'absolute',width: 5,visibility: 'hidden'}}
-                        onClose={this.toggleOptions}
-                        onOpen={this.toggleOptions}
-                        onChange={this.handleConsent}
-                        margin="normal">
-                    <MenuItem value="grant">Grant</MenuItem>}
-                    <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
-                </Select>
-            </span>
+
+            </div>
+            <Select open={open}
+                    style={{position: 'absolute',width: 5,visibility: 'hidden'}}
+                    onClose={this.toggleOptions}
+                    onOpen={this.toggleOptions}
+                    onChange={this.handleConsent}
+                    margin="normal">
+                <MenuItem value="grant">Grant</MenuItem>}
+                <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
+            </Select>
             </div>
         }
         return <div className='text-center'>

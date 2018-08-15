@@ -11,13 +11,8 @@ import NewConsents from './widgets/NewConsents';
 
 import {startSession, stopSession} from "./config/api";
 
-import './assets/style/css/bootstrap-theme.min.css';
-import './assets/style/css/bootstrap.min.css';
-import './assets/style/css/bootstrap-toggle.min.css';
 import './assets/style/helper.css';
 import './assets/icons/css/fontello.css';
-
-
 
 export {
     UserPreferences,

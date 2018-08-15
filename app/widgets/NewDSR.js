@@ -5,6 +5,7 @@ import _ from 'lodash';
 import CaptureDSR from './CaptureDSR';
 import WaitingConfig from "../components/WaitingConfig";
 import Select from "../components/Selector";
+import {Grid} from '@material-ui/core'
 
 class NewDSR extends React.Component {
     constructor(props) {
@@ -49,17 +50,20 @@ class NewDSR extends React.Component {
         }
 
         return <div>
-            <BS.Grid style={{padding: 0}}>
-                <BS.Col md={4} style={{paddingLeft: 0}}>
+            <Grid container spacing={16}>
+                <Grid item xs={2}/>
+                <Grid item xs={4} style={{paddingLeft: 0}}>
                     <Select title={'Data Type'} options={dataTypeNames} keys={dataTypeIDs}
                             onSelect={id => this.setState({id: id})}/>
-                </BS.Col>
-                <BS.Col md={3} style={{paddingRight: 0}}>
+                </Grid>
+                <Grid item xs={4} style={{paddingRight: 0}}>
                     <Select title={'Request Type'} options={['Access', 'Object', 'Rectify', 'Erase']}
                             keys={['access', 'object', 'rectify', 'erasure']}
                             onSelect={type => this.setState({type: type})}/>
-                </BS.Col>
-            </BS.Grid>
+                </Grid>
+                <Grid item xs={2}/>
+            </Grid>
+            <br/>
             {widget}
         </div>
     }
