@@ -9,12 +9,10 @@ import Cookies from 'universal-cookie';
 import ConfigModal from "./subcomponents/configModal";
 import Settings from './subcomponents/settings';
 import _ from 'lodash';
-import '../assets/style/css/bootstrap-theme.min.css';
-import '../assets/style/css/bootstrap.min.css';
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/quod.png'
 
 class PanelScreen extends Component {
     constructor(props) {

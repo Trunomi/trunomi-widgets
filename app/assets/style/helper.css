@@ -5,7 +5,7 @@
     --warning: #ffa000;
 }
 html {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Halcom, Roboto, Helvetica, Arial, sans-serif;
 }
 body {
     background: linear-gradient(135.63deg, #F2F2F2 0%, #F2F2F2 49.94%, #F8FEF7 100%);
@@ -120,7 +120,7 @@ td {
     background: #0143a6;
     background: linear-gradient(to right,#0143a6 0,#0567c0 52%,#9dcde2 100%);
     color: white;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    font-family: Halcom, Montserrat,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
     font-weight: 100;
     margin: 0;
 }
@@ -492,7 +492,7 @@ body > div > .modal-backdrop.in{
     font-weight: 500;
     color: var(--trunomi-blue);
     text-transform: uppercase;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Halcom, Roboto, Helvetica, Arial, sans-serif;
 
 }
 
@@ -510,7 +510,7 @@ body > div > .modal-backdrop.in{
     font-size: 16px;
     color: var(--trunomi-blue);
     text-transform: uppercase;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Halcom, Roboto, Helvetica, Arial, sans-serif;
 }
 
 .trucert-footer {
