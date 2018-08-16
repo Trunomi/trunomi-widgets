@@ -224,7 +224,7 @@ class ManagedPrefCentre extends React.Component {
                     height: '100%'}}>
                 {this.renderModal()}
                 {loggedIn && <section>
-                    <WidgetsPanel title={<span>Preferences Centre {DPO ? <small>managed by {DPO}</small> : null}</span>} managed/>
+                    <WidgetsPanel title={<span>My Personal Data Dashboard {DPO ? <small>managed by {DPO}</small> : null}</span>} managed/>
                 </section>}
             </div>
 
