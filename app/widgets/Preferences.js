@@ -55,6 +55,7 @@ class UserPreferences extends React.Component {
     }
 
     render() {
+        console.log(sessionStorage.getItem("test"), "SessionStorageIframeTest")
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props
 
