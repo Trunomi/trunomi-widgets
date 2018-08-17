@@ -4,21 +4,27 @@ import Logo from '../components/Logo'
 import ConsentsWidget from "./Consent"
 import ActiveDSRWidget from "./ActiveDSR"
 import DSRWidget from "./DSR"
-
 import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
-import PaneHeader from './Preferences/PaneHeader'
 import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+const styles = {
+    header: {
+        background: 'red'
+    },
+    paneHeaderFont: {
+        fontFamily: 'Arial',
+        fontSize: 30,
+        color: 'orange',
+    }
+}
 
 class UserPreferences extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            pane1: false,
-            pane2: false,
-            pane3: false
         }
     }
 
@@ -33,14 +39,12 @@ class UserPreferences extends React.Component {
 
     panel = (title = {}, body = {}) => {
         if (_.size(title) && _.size(body)) {
-            let { pane, iconClass, text } = title
+            let { text } = title
             let { Widget, props } = body
-            let isOpen = this.state[pane]
-            let {fontFamily, headerColor} = this.props.style
 
             return <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary className="expansion-panel-summary" expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="title">{text.toUpperCase()}</Typography>
+                <ExpansionPanelSummary style={styles.header} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
+                    <Typography style={styles.paneHeaderFont} variant="title">{text.toUpperCase()}</Typography>
                 </ExpansionPanelSummary>
                 <div className="expansion-panel-details">
                     <Widget {...props} />

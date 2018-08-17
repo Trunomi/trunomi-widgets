@@ -11,23 +11,16 @@ import Settings from './subcomponents/settings';
 import _ from 'lodash';
 import '../assets/style/css/bootstrap-theme.min.css';
 import '../assets/style/css/bootstrap.min.css';
-import API from '../config/api';
+import API, {parseToken} from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
-import Logo from '../assets/logo.svg'
+import TrunomiLogo from '../assets/logo.svg'
 
 class PanelScreen extends Component {
     constructor(props) {
         super(props);
 
         this.prefParams = UserPreferences.defaultProps
-        this.prefParams.onProcessed = (err, newConsent) => {
-            if (!err && newConsent)
-                this.setState({newConsents: this.state.newConsents - 1})
-        }
-
-        this.newConsentParams = NewConsents.defaultProps
-        this.newConsentParams.onSuccess = () => {this.setState({newConsents: this.state.newConsents - 1})}
 
         this.state = {
             show: true,
@@ -38,7 +31,9 @@ class PanelScreen extends Component {
             config: null,
             configModal: false,
             newConsents: null,
-            anchorEl: false
+            anchorEl: false,
+            loading: true,
+            Logo: null
         };
         this.cookie = new Cookies();
     }
@@ -47,7 +42,7 @@ class PanelScreen extends Component {
         let cookies = this.cookie.get('tru_config'),
             token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
 
-        let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0
+        let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0, Logo
 
         if (token){
             config =  {
@@ -58,6 +53,14 @@ class PanelScreen extends Component {
         else if (cookies)
             config = cookies
 
+        if (config){
+            const api = new API(config);
+            const enterpriseId = config.enterpriseId || parseToken(config.jwtToken).enterpriseId
+            try{
+                Logo = await api.sendRequest(`/enterprise-portal/stats/enterprise-icon/${enterpriseId}`)
+            }catch(e){}
+        }
+
         // if (this.props.prefCentre) {
         //     let api = new API(config);
 
@@ -66,7 +69,7 @@ class PanelScreen extends Component {
         //     newConsents = consents.length;
         // }
 
-        this.setState({config, newConsents})
+        this.setState({config, newConsents, Logo, loading: false})
     }
 
     chooseWidget = (widget) => {
@@ -189,8 +192,13 @@ class PanelScreen extends Component {
     }
 
     render() {
-        let {config, configModal, Widget, newConsents, anchorEl} = this.state;
+        let {config, configModal, Widget, newConsents, anchorEl, loading, Logo} = this.state;
         let {title, managed, prefCentre} = this.props;
+
+        if(loading){
+            return null
+        }
+
         let customerId = ''
         const jwtToken = sessionStorage.getItem('TRUNOMI_USE_TOKEN')
         if (jwtToken)
@@ -200,7 +208,7 @@ class PanelScreen extends Component {
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
                 <Toolbar>
                     <span className="navbar-logo">
-                        <img src={Logo} />
+                        <img src={Logo || TrunomiLogo} />
                     </span>
                     <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
                     <span className="navbar-logout">

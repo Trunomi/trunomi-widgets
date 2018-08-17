@@ -241,5 +241,18 @@ export function stopSession(){
     console.log('Session stopped')
 }
 
+export function parseToken(token){
+    if (!token)
+        return {}
+
+    token = token.split(' ')[1]
+
+    let params = JSON.parse(window.atob(a.split('.')[1]))
+    params["enterpriseId"] = params.aud[1]
+    params["customerId"] = params.aud[2]
+
+    return params 
+}
+
 export {Session}
 export default trunomiAPI
