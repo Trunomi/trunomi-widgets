@@ -150,6 +150,7 @@ class DSRWidget extends BaseWidget{
             if (showAll) {
                 body = _.map(data_types, this.genRowArray);
                 headers = this.dict.getName(dataTableDict);
+                headers = headers.map((el, id) => this.props.headers[id] || el)
             }else{
                 let processed = {};
                 _.forEach(rights, (contextRights) => {
@@ -172,6 +173,7 @@ class DSRWidget extends BaseWidget{
                     return this.genRightRowArray(dataType, i)
                 })
                 headers = this.dict.getName(dataTableDict2);
+                headers = headers.map((el, id) => this.props.headers[id] || el)
             }
 
             display = <Table    data={body}
@@ -198,14 +200,16 @@ DSRWidget.propTypes = {
     table: PropTypes.object,
     dataTypeIds: PropTypes.arrayOf(PropTypes.string),
     showAll: PropTypes.bool,
-    contextTags: PropTypes.arrayOf(PropTypes.string)
+    contextTags: PropTypes.arrayOf(PropTypes.string),
+    headers: PropTypes.arrayOf(PropTypes.string)
 };
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
     dataTypeIds: null,
     showAll: false,
-    contextTags: null
+    contextTags: null,
+    headers: []
 };
 
 export default DSRWidget;

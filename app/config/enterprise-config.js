@@ -1,4 +1,5 @@
 import API from './api'
+import Axios from 'axios'
 
 export var pcConfig = {}
 export var enterprise_logo = undefined
@@ -21,19 +22,21 @@ export async function loadConfigurations(enterpriseId){
 
     try{
         const id = enterpriseId || api.truConfig.enterpriseId
-        let data = await api.sendRequest('/enterprise-portal/stats/preferenceCentre-config/' + id)
-        pcConfig = data || {}
+        const host_addr = window.location.protocol + '//' + window.location.hostname
 
-        data = await api.sendRequest('/enterprise-portal/stats/enterprise-icon/' + id)
-        enterprise_logo = data || undefined
+        let req = await Axios.get(host_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
+        pcConfig = req.data || {}
 
-        data = await api.sendRequest('/enterprise-portal/stats/magicLink-allowed/' + id)
-        enterprise_magicLink_allowed = data || undefined
+        req = await Axios.get(host_addr + '/enterprise-portal/stats/enterprise-icon/' + id)
+        enterprise_logo = req.data || undefined
 
-        data = await api.sendRequest('/enterprise-portal/stats/enterprise-name/' + id)
-        enterprise_name = data || undefined
+        req = await Axios.get(host_addr + '/enterprise-portal/stats/magicLink-allowed/' + id)
+        enterprise_magicLink_allowed = req.data || undefined
+
+        req = await Axios.get(host_addr + '/enterprise-portal/stats/enterprise-name/' + id)
+        enterprise_name = req.data || undefined
     }catch(e){
-        console.log('Failed to load enterprise custom prefrence centre configuration')
+        console.log('Failed to load enterprise custom prefrence centre configuration', e)
         return false
     }
     return true

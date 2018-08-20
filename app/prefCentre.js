@@ -4,7 +4,9 @@ import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/logo.svg"
-import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed} from './config/enterprise-config'
+import {MuiThemeProvider} from '@material-ui/core'
+import theme from './materialTheme'
+import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed, pcConfig} from './config/enterprise-config'
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -20,12 +22,10 @@ class ManagedPrefCentre extends React.Component {
         this.setState({loading: true})
         const {protocol, hostname, pathname} = window.location
         let host_addr = protocol + "//" + hostname,
-            {enterpriseId, queryParams} = this.props
+            {enterpriseId, queryParams, error} = this.props
 
         const mockAddr = host_addr + (host_addr.includes("localhost") ? ":8343/api" : "/mock/api")
         const statsAddr = host_addr + "/enterprise-portal/stats"
-
-        const correctEnterpriseId = await loadConfigurations(enterpriseId)
 
         if (queryParams.magicToken && enterprise_magicLink_allowed) {
             await axios.post(`${mockAddr}/passwordless/login`, {magicToken: queryParams.magicToken}
@@ -43,7 +43,7 @@ class ManagedPrefCentre extends React.Component {
         this.setState({ 
             loggedIn, 
             loading: false, 
-            error: correctEnterpriseId ? '' : `Enterprise with ID: ${enterpriseId} not found`, 
+            error: error, 
             mockAddr, 
             statsAddr
         })
@@ -218,13 +218,35 @@ class ManagedPrefCentre extends React.Component {
 }
 
 export default class PrefCentre extends React.Component {
+    state = {
+        queryParams: null,
+        loaded: false,
+        error: ''
+    }
+
+    componentWillMount = async () => {
+        const queryParams = qs.parse(this.props.location.search)
+        const {enterpriseId} = queryParams
+
+        const idOk = await loadConfigurations(enterpriseId)
+        this.setState({loaded: true, error: idOk ? '' : `Enterprise with ID: ${enterpriseId} not found`, queryParams})
+    }
+
     render() {
-        let queryParams = qs.parse(this.props.location.search),
-            managed = (queryParams.managed !== undefined)
+        const {queryParams, loaded, error} = this.state
+        if (!loaded)
+            return null
 
-        if (managed)
-            return <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} queryParams={queryParams}/>
+        const managed = (queryParams.managed !== undefined) 
+        const {background} = pcConfig
 
-        return <WidgetsPanel title="Preferences Centre"/>
+        return <div style={{height: '100%', overflowY: 'scroll', ...background}}>
+            <MuiThemeProvider theme={theme()}>
+                {managed ? 
+                    <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} error={error} queryParams={queryParams}/>
+                :
+                    <WidgetsPanel title="Preferences Centre"/>}
+            </MuiThemeProvider>
+        </div>
     }
 }

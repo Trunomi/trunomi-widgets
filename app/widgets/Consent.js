@@ -11,6 +11,7 @@ import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
 import LoadingModal from "../components/Loading";
+
 class ConsentsWidget extends BaseWidget {
     constructor(props) {
         super(props);
@@ -154,7 +155,8 @@ class ConsentsWidget extends BaseWidget {
             display = <LoadingInline/>
         }
         else {
-            let headers = this.dict.getName(consentTableDict);
+            let headers = this.dict.getName(consentTableDict)
+            headers = headers.map((el, id) => this.props.headers[id] || el)
 
             this.i = 0
             let contextRows = _.map(contexts, (element) => {
@@ -190,13 +192,15 @@ ConsentsWidget.propTypes = {
     contextIds: PropTypes.arrayOf(PropTypes.string),
     disableRevoke: PropTypes.object,
     contextTags: PropTypes.arrayOf(PropTypes.string),
-    showAll: PropTypes.bool
+    showAll: PropTypes.bool,
+    headers: PropTypes.arrayOf(PropTypes.string)
 };
 ConsentsWidget.defaultProps = {
     contextIds: null,
     contextTags: null,
     table: TableX.widgetTableProps,
     disableRevoke: {},
-    showAll: true
+    showAll: true,
+    headers: []
 };
 export default ConsentsWidget;

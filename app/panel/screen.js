@@ -15,18 +15,7 @@ import API, {parseToken} from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
 import TrunomiLogo from '../assets/logo.svg'
-import {loadConfigurations, enterprise_logo} from '../config/enterprise-config'
-
-const styles = {
-    topBar: {
-        backGroundColor: 'red'
-    },
-    title: {
-        fontFamily: 'Arial',
-        fontSize: 30,
-        color: 'orange',
-    }
-}
+import {loadConfigurations, enterprise_logo, pcConfig} from '../config/enterprise-config'
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -38,7 +27,6 @@ class PanelScreen extends Component {
             show: true,
             Widget: UserPreferences,
             params: UserPreferences.defaultProps,
-            randKey: Math.random(),
             dev: false,
             config: null,
             configModal: false,
@@ -76,12 +64,11 @@ class PanelScreen extends Component {
 
         if(existing_value !== null && typeof existing_value !== typeof new_value)
             return false;
-
-        //The random key is to force the component to remount after a change in the props
+s
         if(config)
-            this.setState({config: updated_src, randKey: Math.random()});
+            this.setState({config: updated_src});
         else
-            this.setState({params: updated_src, randKey: Math.random()});
+            this.setState({params: updated_src});
     }
 
     saveConfig = async (event, staticAuth) => {
@@ -109,14 +96,7 @@ class PanelScreen extends Component {
 
         this.cookie.set('tru_config', config)
 
-        await loadConfigurations()
-
-        this.setState({
-            config,
-            configModal: false,
-            randKey: Math.random(),
-            //newConsents: consents.length
-        });
+        window.location.reload()
     }
 
     stateChange = (states) => {
@@ -152,7 +132,7 @@ class PanelScreen extends Component {
     }
 
     widgetsScreen = () => {
-        let {Widget, dev, config, randKey, params, newConsents} = this.state;
+        let {Widget, dev, config, params, newConsents} = this.state;
 
         if (config) {
             return (
@@ -165,7 +145,7 @@ class PanelScreen extends Component {
                                           stateChange={this.stateChange}/>
                     </Grid>
                     <Grid item sm={12}>
-                        <Widget {...params} truConfig={config} key={randKey} />
+                        <Widget {...params} truConfig={config} />
                     </Grid>
                 </Grid>
             )
@@ -182,6 +162,8 @@ class PanelScreen extends Component {
     render() {
         let {config, configModal, Widget, newConsents, anchorEl, loading} = this.state;
         let {title, managed, prefCentre} = this.props;
+        
+        title = pcConfig.title ? pcConfig.title.text || title : title
 
         if(loading){
             return null
@@ -193,8 +175,8 @@ class PanelScreen extends Component {
             customerId = jwt.decode(jwtToken.split(' ')[1]).aud[2]
 
         return <Grid container>
-            <AppBar color="inherit" position='sticky' style={{top: 0}}>
-                <Toolbar style={styles.topBar}>
+            <AppBar color="inherit" position='sticky' style={{top: 0, ...pcConfig.topBar}}>
+                <Toolbar>
                     <span className="navbar-logo">
                         <img src={enterprise_logo || TrunomiLogo} />
                     </span>
@@ -221,7 +203,7 @@ class PanelScreen extends Component {
             </AppBar>
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
-                <h1 className='blue-text' style={styles.title}>{title}</h1>
+                <h1 className='blue-text' style={pcConfig.titleFont}>{title}</h1>
                 {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 <ConfigModal    show={configModal}
                                 {...config}

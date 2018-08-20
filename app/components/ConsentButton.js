@@ -4,6 +4,7 @@ import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
 import {MenuItem, Select, FormControlLabel, Switch, withStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { pcConfig } from '../config/enterprise-config';
 
 const styles = theme => ({
     noMargin: {
@@ -76,7 +77,9 @@ class ConsentButton extends React.Component{
                     color="primary"
                     checked={granted}
                 />}
-                label={granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
+                label={<span style={pcConfig.tableBody}>
+                    {granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
+                </span>}
             />
         }
         else {
@@ -90,7 +93,7 @@ class ConsentButton extends React.Component{
                     onOpen={this.toggleOptions}
                     onChange={this.handleConsent}
                     margin="normal">
-                <MenuItem value="grant">Grant</MenuItem>}
+                <MenuItem value="grant" >Grant</MenuItem>}
                 <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
             </Select>
             </div>

@@ -6,19 +6,9 @@ import ActiveDSRWidget from "./ActiveDSR"
 import DSRWidget from "./DSR"
 import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
-import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from "@material-ui/core"
+import {ExpansionPanel, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
-const styles = {
-    header: {
-        background: 'red'
-    },
-    paneHeaderFont: {
-        fontFamily: 'Arial',
-        fontSize: 30,
-        color: 'orange',
-    }
-}
+import {pcConfig} from '../config/enterprise-config'
 
 class UserPreferences extends React.Component {
 
@@ -41,10 +31,11 @@ class UserPreferences extends React.Component {
         if (_.size(title) && _.size(body)) {
             let { text } = title
             let { Widget, props } = body
+            const {paneHeadersFont, paneBackground} = pcConfig
 
             return <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary style={styles.header} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
-                    <Typography style={styles.paneHeaderFont} variant="title">{text.toUpperCase()}</Typography>
+                <ExpansionPanelSummary style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
+                    <Typography style={paneHeadersFont} variant="title">{text.toUpperCase()}</Typography>
                 </ExpansionPanelSummary>
                 <div className="expansion-panel-details">
                     <Widget {...props} />
@@ -55,12 +46,13 @@ class UserPreferences extends React.Component {
     }
 
     render() {
-        console.log(sessionStorage.getItem("test"), "SessionStorageIframeTest")
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
-            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, onProcessed} = this.props
+            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds} = this.props
+
+        const {paneHeadersText, columnHeaders1, columnHeaders2, columnHeaders3} = pcConfig
 
         let consentPaneTitle = {
-            text: consentTitle,
+            text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
             pane: 'pane1',
             iconClass: 'icon-commenting-o'
         }, consentPaneBody = {
@@ -70,10 +62,11 @@ class UserPreferences extends React.Component {
                 onProcessed: this.refreshData,
                 contextIds,
                 disableRevoke,
-                contextTags
+                contextTags,
+                headers: columnHeaders1
             }
         }, dataPaneTitle = {
-            text: dataTitle,
+            text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
             pane: 'pane2',
             iconClass: "icon-address-card-o"
         }, dataPaneBody = {
@@ -83,10 +76,11 @@ class UserPreferences extends React.Component {
                 onProcessed: this.refreshRights,
                 ref: "MyData",
                 dataTypeIds,
-                contextTags
+                contextTags,
+                headers: columnHeaders2
             }
         }, dsrPaneTitle = {
-            text: dsrTitle,
+            text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
             pane: 'pane3',
             iconClass: "icon-exchange"
         }, dsrPaneBody = {
@@ -94,7 +88,8 @@ class UserPreferences extends React.Component {
             props: {
                 truConfig: truConfig,
                 ref: "ActiveDSR",
-                dataTypeIds
+                dataTypeIds,
+                headers: columnHeaders3
             }
         }
 
