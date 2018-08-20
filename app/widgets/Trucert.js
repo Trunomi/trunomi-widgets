@@ -10,6 +10,7 @@ import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
 import trunomi_logo from "../assets/logo.svg";
+import { enterprise_logo } from '../config/enterprise-config';
 
 class Trucert extends BaseWidget {
     constructor(props) {
@@ -26,7 +27,7 @@ class Trucert extends BaseWidget {
     }
 
     trucertRequest = async (id = "") => {
-        let dataType, context, {enterpriseId} = this.props.truConfig, logo;
+        let dataType, context, {enterpriseId} = this.props.truConfig;
         let ledger = await this.api.sendRequest("/enterprise-portal/stats/trucert/ledger/history/" + id)
 
         //Only get the context if it's not a data subject request
@@ -39,10 +40,8 @@ class Trucert extends BaseWidget {
                 return res
             });
         }
-        if (enterpriseId)
-            logo = await this.api.sendRequest('/enterprise-portal/stats/enterprise-icon/' + enterpriseId);
 
-        this.setState({ledger, context, dataType, loaded: true, logo});
+        this.setState({ledger, context, dataType, loaded: true});
     }
 
     arrayToString = (input) => {
@@ -104,13 +103,13 @@ class Trucert extends BaseWidget {
     }
 
     renderTrucert() {
-        let {general, fingerprint, ledger, loaded, logo} = this.state;
+        let {general, fingerprint, ledger, loaded} = this.state;
         let {error} = this.props;
 
         if (loaded && !error) {
             return <div>
                 <h2>
-                    <img className="enterprise-logo" src={logo || trunomi_logo}/>
+                    <img className="enterprise-logo" src={enterprise_logo || trunomi_logo}/>
                     TruCert <small>for {ledger[0].customerId}</small>
                 </h2>
                 <hr/>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
 import Locale from './locale';
+import Cookies from 'universal-cookie';
 
 function addID(page, id){
     return page + (id ? '/'+id : '')
@@ -12,7 +13,7 @@ class trunomiAPI{
     constructor(truConfig, refreshToken=false){
         this.truConfig = truConfig;
 
-        let {jwtToken} = truConfig;
+        let jwtToken = truConfig && truConfig.jwtToken;
 
         if(jwtToken){
             //decode jwt and add parameters to truConfig
@@ -29,6 +30,29 @@ class trunomiAPI{
                 this.intervalID = setInterval(this.refreshToken.bind(this), 5000);
             }
         }
+    }
+
+    loadConfig () {
+        const cookies = new Cookies()
+        const cookieConfig = cookies.get('tru_config');
+        const token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
+        const host_addr = window.location.protocol + "//" + window.location.hostname
+
+        if (token){
+            const {enterpriseId, customerId} = parseToken(token)
+            this.truConfig =  {
+                jwtToken: token,
+                host_addr: host_addr,
+                enterpriseId,
+                customerId
+            }
+        }
+        else if (cookieConfig)
+            this.truConfig = cookieConfig
+    }
+
+    isConfigured () {
+        return this.truConfig ? Object.keys(this.truConfig).length !== 0 : false
     }
 
     removeRefreshInterval(){
@@ -82,7 +106,6 @@ class trunomiAPI{
 
     async sendRequest(page = '', method = 'GET', body = null, additionalHeaders=null) {
         const {apiToken, enterpriseId, customerId, host_addr, jwtToken} = this.truConfig;
-
 
         let headers = {
             "Content-Type": "application/json",
@@ -246,8 +269,7 @@ export function parseToken(token){
         return {}
 
     token = token.split(' ')[1]
-
-    let params = JSON.parse(window.atob(a.split('.')[1]))
+    let params = JSON.parse(window.atob(token.split('.')[1]))
     params["enterpriseId"] = params.aud[1]
     params["customerId"] = params.aud[2]
 

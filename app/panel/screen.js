@@ -15,6 +15,18 @@ import API, {parseToken} from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
 import TrunomiLogo from '../assets/logo.svg'
+import {loadConfigurations, enterprise_logo} from '../config/enterprise-config'
+
+const styles = {
+    topBar: {
+        backGroundColor: 'red'
+    },
+    title: {
+        fontFamily: 'Arial',
+        fontSize: 30,
+        color: 'orange',
+    }
+}
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -30,46 +42,20 @@ class PanelScreen extends Component {
             dev: false,
             config: null,
             configModal: false,
-            newConsents: null,
             anchorEl: false,
-            loading: true,
-            Logo: null
+            newConsens: null,
+            loading: true
         };
         this.cookie = new Cookies();
     }
 
     async componentWillMount() {
-        let cookies = this.cookie.get('tru_config'),
-            token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
+        const api = new API();
+        api.loadConfig();
 
-        let host_addr = window.location.protocol + "//" + window.location.hostname, config, newConsents = 0, Logo
+        await loadConfigurations();
 
-        if (token){
-            config =  {
-                jwtToken: token,
-                host_addr: host_addr
-            }
-        }
-        else if (cookies)
-            config = cookies
-
-        if (config){
-            const api = new API(config);
-            const enterpriseId = config.enterpriseId || parseToken(config.jwtToken).enterpriseId
-            try{
-                Logo = await api.sendRequest(`/enterprise-portal/stats/enterprise-icon/${enterpriseId}`)
-            }catch(e){}
-        }
-
-        // if (this.props.prefCentre) {
-        //     let api = new API(config);
-
-        //     let consents = await api.getNewConsents(true);
-
-        //     newConsents = consents.length;
-        // }
-
-        this.setState({config, newConsents, Logo, loading: false})
+        this.setState({config: api.truConfig, loading: false})
     }
 
     chooseWidget = (widget) => {
@@ -118,16 +104,18 @@ class PanelScreen extends Component {
             };
         }
 
-        let api = new API(config),
-            consents = await api.getNewConsents(true);
+        //let api = new API(config)
+        //consents = await api.getNewConsents(true);
 
         this.cookie.set('tru_config', config)
+
+        await loadConfigurations()
 
         this.setState({
             config,
             configModal: false,
             randKey: Math.random(),
-            newConsents: consents.length
+            //newConsents: consents.length
         });
     }
 
@@ -192,7 +180,7 @@ class PanelScreen extends Component {
     }
 
     render() {
-        let {config, configModal, Widget, newConsents, anchorEl, loading, Logo} = this.state;
+        let {config, configModal, Widget, newConsents, anchorEl, loading} = this.state;
         let {title, managed, prefCentre} = this.props;
 
         if(loading){
@@ -206,9 +194,9 @@ class PanelScreen extends Component {
 
         return <Grid container>
             <AppBar color="inherit" position='sticky' style={{top: 0}}>
-                <Toolbar>
+                <Toolbar style={styles.topBar}>
                     <span className="navbar-logo">
-                        <img src={Logo || TrunomiLogo} />
+                        <img src={enterprise_logo || TrunomiLogo} />
                     </span>
                     <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
                     <span className="navbar-logout">
@@ -233,13 +221,12 @@ class PanelScreen extends Component {
             </AppBar>
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
-                <h1 className='blue-text'>{title}</h1>
+                <h1 className='blue-text' style={styles.title}>{title}</h1>
                 {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 <ConfigModal    show={configModal}
                                 {...config}
                                 onSubmit={this.saveConfig}
                                 onHide={()=>{this.setState({configModal: false})}} />
-                <hr/>
             </Grid>
             <Grid item xs={2}></Grid>
 

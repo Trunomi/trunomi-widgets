@@ -4,6 +4,7 @@ import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/logo.svg"
+import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed} from './config/enterprise-config'
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -18,20 +19,15 @@ class ManagedPrefCentre extends React.Component {
     componentWillMount = async () => {
         this.setState({loading: true})
         const {protocol, hostname, pathname} = window.location
-        let host_addr = protocol + "//" + hostname, name, logo,
-            {enterpriseId, queryParams} = this.props, error = ''
-        let magicLinksAllowed;
+        let host_addr = protocol + "//" + hostname,
+            {enterpriseId, queryParams} = this.props
 
         const mockAddr = host_addr + (host_addr.includes("localhost") ? ":8343/api" : "/mock/api")
         const statsAddr = host_addr + "/enterprise-portal/stats"
 
-        await axios.get(`${statsAddr}/magicLink-allowed/${enterpriseId}`).then((res)=>{
-            magicLinksAllowed = res.data
-        }).catch(()=>{
-            error = `Enterprise with id ${enterpriseId} not found`
-        })
+        const correctEnterpriseId = await loadConfigurations(enterpriseId)
 
-        if (queryParams.magicToken && magicLinksAllowed) {
+        if (queryParams.magicToken && enterprise_magicLink_allowed) {
             await axios.post(`${mockAddr}/passwordless/login`, {magicToken: queryParams.magicToken}
             ).then((res) => {
                 sessionStorage.setItem("TRUNOMI_USE_TOKEN", res.headers['www-authenticate'])
@@ -44,19 +40,13 @@ class ManagedPrefCentre extends React.Component {
 
         let loggedIn = sessionStorage.getItem("TRUNOMI_USE_TOKEN") !== null
 
-        await axios.get(`${statsAddr}/enterprise-name/${enterpriseId}`).then((res)=>{
-            name = res.data || "Trunomi"
-        }).catch(()=>{
-            error = `Enterprise with id ${enterpriseId} not found`
+        this.setState({ 
+            loggedIn, 
+            loading: false, 
+            error: correctEnterpriseId ? '' : `Enterprise with ID: ${enterpriseId} not found`, 
+            mockAddr, 
+            statsAddr
         })
-
-        await axios.get(`${statsAddr}/enterprise-icon/${enterpriseId}`).then((res)=>{
-            logo = res.data || trunomi_logo
-        }).catch(()=>{
-            error = `Enterprise with id ${enterpriseId} not found`
-        })
-
-        this.setState({name, logo, loggedIn, loading: false, error, magicLinksAllowed, mockAddr, statsAddr})
     }
 
     onSubmit = async (event) => {
@@ -198,13 +188,13 @@ class ManagedPrefCentre extends React.Component {
     }
 
     renderModal = () => {
-        let {loggedIn, name, logo, magicLinksAllowed} = this.state
+        let {loggedIn} = this.state
 
         return  <BS.Modal show={!loggedIn} style={{minWidth: '600px'}}>
             <BS.Modal.Body style={{padding: '25px'}}>
-                <img className="enterprise-logo" style={{position: 'absolute'}} src={logo}/>
-                <h1 className="text-center">{name}</h1>
-                {magicLinksAllowed ? this.magicLinkForm() : this.baseLogInForm()}
+                <img className="enterprise-logo" style={{position: 'absolute'}} src={enterprise_logo || trunomi_logo}/>
+                <h1 className="text-center">{enterprise_name}</h1>
+                {enterprise_magicLink_allowed ? this.magicLinkForm() : this.baseLogInForm()}
             </BS.Modal.Body>
         </BS.Modal>
     }
