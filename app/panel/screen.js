@@ -41,8 +41,6 @@ class PanelScreen extends Component {
         const api = new API();
         api.loadConfig();
 
-        await loadConfigurations();
-
         this.setState({config: api.truConfig, loading: false})
     }
 
