@@ -49,7 +49,7 @@ class UserPreferences extends React.Component {
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds} = this.props
 
-        const {paneHeadersText, columnHeaders1, columnHeaders2, columnHeaders3} = pcConfig
+        const {paneHeadersText, columnHeaders0, columnHeaders1, columnHeaders2, show} = pcConfig
 
         let consentPaneTitle = {
             text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
@@ -63,7 +63,7 @@ class UserPreferences extends React.Component {
                 contextIds,
                 disableRevoke,
                 contextTags,
-                headers: columnHeaders1
+                headers: columnHeaders0
             }
         }, dataPaneTitle = {
             text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
@@ -77,7 +77,7 @@ class UserPreferences extends React.Component {
                 ref: "MyData",
                 dataTypeIds,
                 contextTags,
-                headers: columnHeaders2
+                headers: columnHeaders1
             }
         }, dsrPaneTitle = {
             text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
@@ -89,7 +89,7 @@ class UserPreferences extends React.Component {
                 truConfig: truConfig,
                 ref: "ActiveDSR",
                 dataTypeIds,
-                headers: columnHeaders3
+                headers: columnHeaders2
             }
         }
 
@@ -97,9 +97,9 @@ class UserPreferences extends React.Component {
             <div>
                 {(title || helpLink) && <h3 id={'wTitle'}>{title}<Logo link={helpLink}/></h3>}
                 <BS.PanelGroup id='User Preferences'>
-                    {consentPane && this.panel(consentPaneTitle, consentPaneBody)}
-                    {dataPane && this.panel(dataPaneTitle, dataPaneBody)}
-                    {dsrPane && this.panel(dsrPaneTitle, dsrPaneBody)}
+                    {(!show || show[0]) && consentPane && this.panel(consentPaneTitle, consentPaneBody)}
+                    {(!show || show[1]) && dataPane && this.panel(dataPaneTitle, dataPaneBody)}
+                    {(!show || show[2]) && dsrPane && this.panel(dsrPaneTitle, dsrPaneBody)}
                 </BS.PanelGroup>
             </div>
         )
