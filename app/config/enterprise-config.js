@@ -37,7 +37,6 @@ export async function loadConfigurations(enterpriseId){
             req = await Axios.get(host_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
             pcConfig = req.data || {}
         }
-        console.log("AAAAAA")
     }catch(e){
         console.log('Failed to load enterprise custom prefrence centre configuration', e)
         return false
