@@ -124,7 +124,7 @@ class DSRWidget extends BaseWidget{
 
             return ([
                 <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.dataType.name)}</span>,
-                <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-all"}}>
+                <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-word"}}>
                     {where}
                 </span>,
                 <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
