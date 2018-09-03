@@ -5,6 +5,7 @@ export var pcConfig = {}
 export var enterprise_logo = undefined
 export var enterprise_name = undefined
 export var enterprise_magicLink_allowed = undefined
+export var isPreview = true
 
 export async function loadConfigurations(enterpriseId){
     const api = new API()
@@ -26,6 +27,7 @@ export async function loadConfigurations(enterpriseId){
             pcConfig = fromSession.pcConfig || {}
             enterprise_logo = fromSession.icon || undefined
             enterprise_magicLink_allowed = fromSession.magicLink || undefined
+            isPreview = true
         }
         else{
             req = await Axios.get(host_addr + '/enterprise-portal/stats/enterprise-icon/' + id)
@@ -36,6 +38,8 @@ export async function loadConfigurations(enterpriseId){
 
             req = await Axios.get(host_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
             pcConfig = req.data || {}
+
+            isPreview = false
         }
     }catch(e){
         console.log('Failed to load enterprise custom prefrence centre configuration', e)

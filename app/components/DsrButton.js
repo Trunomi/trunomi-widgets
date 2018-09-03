@@ -7,6 +7,7 @@ import {dsrButtonTypes} from "./propTypes"
 import _ from 'lodash'
 import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import {isPreview} from '../config/enterprise-config'
 
 class DsrButton extends React.Component{
     constructor(props){
@@ -69,10 +70,10 @@ class DsrButton extends React.Component{
                         onOpen={this.toggleOptions}
                         onChange={this.toggleReasons}
                         margin="normal">
-                    {(dataType.accessDefinition) && <MenuItem value="dar">{buttonText[1]}</MenuItem>}
-                    {(dataType.erasureDefinition) && <MenuItem value="der">{buttonText[2]}</MenuItem>}
-                    {(dataType.rectifyDefinition) && <MenuItem value="drr">{buttonText[3]}</MenuItem>}
-                    {(dataType.objectDefinition) && <MenuItem value="dor">{buttonText[4]}</MenuItem>}
+                    {(dataType.accessDefinition) && <MenuItem disabled={isPreview} value="dar">{buttonText[1]}</MenuItem>}
+                    {(dataType.erasureDefinition) && <MenuItem disabled={isPreview} value="der">{buttonText[2]}</MenuItem>}
+                    {(dataType.rectifyDefinition) && <MenuItem disabled={isPreview} value="drr">{buttonText[3]}</MenuItem>}
+                    {(dataType.objectDefinition) && <MenuItem disabled={isPreview} value="dor">{buttonText[4]}</MenuItem>}
                 </Select>
             </span>
             {reasons}

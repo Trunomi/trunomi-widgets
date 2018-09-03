@@ -4,7 +4,7 @@ import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
 import {MenuItem, Select, FormControlLabel, Switch, withStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { pcConfig } from '../config/enterprise-config';
+import { pcConfig, isPreview } from '../config/enterprise-config';
 
 const styles = theme => ({
     noMargin: {
@@ -73,7 +73,7 @@ class ConsentButton extends React.Component{
                 control={<Switch
                     onChange={this.handleConsent}
                     value={granted ? "revoke" : "grant"}
-                    disabled={granted && (disableRevoke || status==='permission-implicit')}
+                    disabled={isPreview || (granted && (disableRevoke || status==='permission-implicit'))}
                     color="primary"
                     checked={granted}
                 />}
@@ -93,8 +93,8 @@ class ConsentButton extends React.Component{
                     onOpen={this.toggleOptions}
                     onChange={this.handleConsent}
                     margin="normal">
-                <MenuItem value="grant" >Grant</MenuItem>}
-                <MenuItem value={secondOption} disabled={disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
+                <MenuItem value="grant" disabled={isPreview}>Grant</MenuItem>}
+                <MenuItem value={secondOption} disabled={isPreview || disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
             </Select>
             </div>
         }
