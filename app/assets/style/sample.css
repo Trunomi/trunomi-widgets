@@ -1,0 +1,22 @@
+.body{
+    background: darkgray;
+    font-family: Arial;
+}
+
+.navbar-logo{
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+#title{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3em
+}
+
+#pane1{
+    background: gray
+}
+
+#pane2{
+    display: none;
+}

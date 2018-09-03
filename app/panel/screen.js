@@ -173,7 +173,7 @@ s
             customerId = jwt.decode(jwtToken.split(' ')[1]).aud[2]
 
         return <Grid container>
-            <AppBar color="inherit" position='sticky' style={{top: 0, ...pcConfig.topBar}}>
+            <AppBar id='navbar' color="inherit" position='sticky' style={{top: 0, ...pcConfig.topBar}}>
                 <Toolbar>
                     <span className="navbar-logo">
                         <img src={enterprise_logo || TrunomiLogo} />
@@ -201,7 +201,7 @@ s
             </AppBar>
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
-                <h1 className='blue-text' style={pcConfig.titleFont}>{title}</h1>
+                <h1 className='blue-text' id='title' style={pcConfig.titleFont}>{title}</h1>
                 {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
                 <ConfigModal    show={configModal}
                                 {...config}

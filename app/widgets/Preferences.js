@@ -29,12 +29,12 @@ class UserPreferences extends React.Component {
 
     panel = (title = {}, body = {}) => {
         if (_.size(title) && _.size(body)) {
-            let { text } = title
+            let { text, pane } = title
             let { Widget, props } = body
             const {paneHeadersFont, paneBackground} = pcConfig
 
             return <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanelSummary id={pane} style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
                     <Typography style={paneHeadersFont} variant="title">{text.toUpperCase()}</Typography>
                 </ExpansionPanelSummary>
                 <div className="expansion-panel-details">
