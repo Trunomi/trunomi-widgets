@@ -1,13 +1,19 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('../font/fontello.eot?4427338');
-  src: url('../font/fontello.eot?4427338#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?4427338') format('woff2'),
-       url('../font/fontello.woff?4427338') format('woff'),
-       url('../font/fontello.ttf?4427338') format('truetype'),
-       url('../font/fontello.svg?4427338#fontello') format('svg');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Montserrat';
+  src: url('../../style/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../style/Montserrat/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../style/Montserrat/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
 }
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
@@ -21,7 +27,7 @@
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "fontello";
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: normal;
   speak: none;

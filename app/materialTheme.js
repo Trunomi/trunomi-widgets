@@ -15,6 +15,7 @@ export default function getTheme() {
             },
         },
         typography: {
+            fontFamily: 'Montserrat',
             title: {
                 color: trunomiBlue,
                 fontWeight: 500,

@@ -4,10 +4,32 @@
     --danger: #d32f2f;
     --warning: #ffa000;
 }
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
 html {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    
 }
 body {
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135.63deg, #F2F2F2 0%, #F2F2F2 49.94%, #F8FEF7 100%);
 }
 
@@ -17,6 +39,7 @@ h1,h2,h3,h4,h5 {
 
 .blue-text {
     color: var(--trunomi-blue);
+    text-transform: uppercase;
 }
 
 .btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group{
@@ -101,7 +124,7 @@ h1,h2,h3,h4,h5 {
 #wTitle{
     margin-top: 5px;
     margin-left: 10px;
-    font-family: 'Salesforce Sans',Arial,sans-serif;
+    /* font-family: 'Salesforce Sans',Arial,sans-serif; */
     height: 20px;
     font-weight: 200;
 }
@@ -114,7 +137,7 @@ h1,h2,h3,h4,h5 {
     background: #0143a6;
     background: linear-gradient(to right,#0143a6 0,#0567c0 52%,#9dcde2 100%);
     color: white;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    /* font-family: Montserrat,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif; */
     font-weight: 100;
     margin: 0;
 }
@@ -450,7 +473,7 @@ h1,h2,h3,h4,h5 {
     font-weight: 500;
     color: var(--trunomi-blue);
     text-transform: uppercase;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
 
 }
 
@@ -468,7 +491,7 @@ h1,h2,h3,h4,h5 {
     font-size: 16px;
     color: var(--trunomi-blue);
     text-transform: uppercase;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
 }
 
 .trucert-footer {
