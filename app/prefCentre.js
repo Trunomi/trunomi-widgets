@@ -4,7 +4,7 @@ import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/logo.svg"
-import {MuiThemeProvider} from '@material-ui/core'
+import {MuiThemeProvider, Button} from '@material-ui/core'
 import theme from './materialTheme'
 import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed, pcConfig} from './config/enterprise-config'
 
@@ -121,11 +121,11 @@ class ManagedPrefCentre extends React.Component {
 
             buttons = <div style={{width:'100%'}}>
                 <BS.Button bsStyle="primary" bsSize="large" type="submit"  disabled={disabled}
-                        style={{width: '48%'}}>
+                        style={{width: '48%', fontSize: 14}}>
                     Sign In
                 </BS.Button>
-                <p style={{display: 'inline'}}> or </p>
-                <BS.Button bsStyle="success" bsSize="large" onClick={this.magicLink} style={{width:'48%'}}>
+                <p style={{display: 'inline', width: '5%'}}> or </p>
+                <BS.Button bsStyle="success" bsSize="large" onClick={this.magicLink} style={{width:'47%', fontSize: 14}}>
                     Get a direct link in your email
                 </BS.Button>
                 {this.forgotPassBtn()}
@@ -181,7 +181,7 @@ class ManagedPrefCentre extends React.Component {
     }
 
     forgotPassBtn = () => {
-        return  <BS.Button bsStyle="link" className="float-right" bsSize="large" style={{paddingTop: '7px'}}
+        return  <BS.Button bsStyle="link" className="float-right" bsSize="large" style={{paddingTop: '7px', fontSize: 14}}
             href={"/portal/forgot-password/" + this.props.enterpriseId}>
             Forgot Password?
         </BS.Button>
