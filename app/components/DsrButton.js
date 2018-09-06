@@ -7,7 +7,7 @@ import {dsrButtonTypes} from "./propTypes"
 import _ from 'lodash'
 import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {isPreview} from '../config/enterprise-config'
+import {isPreview, pcConfig} from '../config/enterprise-config'
 
 class DsrButton extends React.Component{
     constructor(props){
@@ -65,15 +65,16 @@ class DsrButton extends React.Component{
             </span>
             <span>
                 <Select open={open}
+                        MenuProps={{id: 'consent-select'}}
                         style={{position: 'absolute',width: 5,visibility: 'hidden'}}
                         onClose={this.toggleOptions}
                         onOpen={this.toggleOptions}
                         onChange={this.toggleReasons}
                         margin="normal">
-                    {(dataType.accessDefinition) && <MenuItem disabled={isPreview} value="dar">{buttonText[1]}</MenuItem>}
-                    {(dataType.erasureDefinition) && <MenuItem disabled={isPreview} value="der">{buttonText[2]}</MenuItem>}
-                    {(dataType.rectifyDefinition) && <MenuItem disabled={isPreview} value="drr">{buttonText[3]}</MenuItem>}
-                    {(dataType.objectDefinition) && <MenuItem disabled={isPreview} value="dor">{buttonText[4]}</MenuItem>}
+                    {(dataType.accessDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="dar">{buttonText[1]}</MenuItem>}
+                    {(dataType.erasureDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="der">{buttonText[2]}</MenuItem>}
+                    {(dataType.rectifyDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="drr">{buttonText[3]}</MenuItem>}
+                    {(dataType.objectDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="dor">{buttonText[4]}</MenuItem>}
                 </Select>
             </span>
             {reasons}

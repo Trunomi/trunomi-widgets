@@ -92,9 +92,14 @@ class ConsentButton extends React.Component{
                     onClose={this.toggleOptions}
                     onOpen={this.toggleOptions}
                     onChange={this.handleConsent}
+                    MenuProps={{id: 'consent-select'}}
                     margin="normal">
-                <MenuItem value="grant" disabled={isPreview}>Grant</MenuItem>}
-                <MenuItem value={secondOption} disabled={isPreview || disableRevoke}>{_.upperFirst(secondOption)}</MenuItem>}
+                <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
+                    Grant
+                </MenuItem>
+                <MenuItem value={secondOption} disabled={isPreview || disableRevoke} style={pcConfig.tableBody}>
+                    {_.upperFirst(secondOption)}
+                </MenuItem>}
             </Select>
             </div>
         }

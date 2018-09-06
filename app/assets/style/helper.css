@@ -484,3 +484,7 @@ h1,h2,h3,h4,h5 {
 .status-label{
     margin-right: 5px;
 }
+
+#consent-select ul{
+    padding: 0;
+}

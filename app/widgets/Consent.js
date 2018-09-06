@@ -11,6 +11,7 @@ import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
 import LoadingModal from "../components/Loading";
+import { pcConfig } from '../config/enterprise-config';
 
 class ConsentsWidget extends BaseWidget {
     constructor(props) {
@@ -176,7 +177,7 @@ class ConsentsWidget extends BaseWidget {
                                 headerClass="list-table-header"
                                 />
         }
-        return <BS.Panel style={{width: '100%'}}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}}>
             <LoadingModal loading={processing}>
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}

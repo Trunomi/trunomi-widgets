@@ -9,6 +9,8 @@ import {dsrTableDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
+import { pcConfig } from '../config/enterprise-config';
+
 
 let events = {
     'r': 'Request is being reviewed. Please check back here to view its status.',
@@ -119,7 +121,7 @@ class ActiveDSRWidget extends BaseWidget {
                                 headerClass="list-table-header" />
         }
 
-        return <BS.Panel style={{width: '100%', minWidth: '530px'}} className={'trunomi-active-dsr'}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}} className={'trunomi-active-dsr'}>
             {display}
         </BS.Panel>
     }

@@ -10,6 +10,7 @@ import {dataTableDict, dataTableDict2} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
+import { pcConfig } from '../config/enterprise-config';
 
 class DSRWidget extends BaseWidget{
 
@@ -186,7 +187,7 @@ class DSRWidget extends BaseWidget{
 
 
 
-        return <BS.Panel style={{width: '100%', minWidth: '530px'}}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}}>
             <FadeOutNotice show={!!noticeMessage} text={noticeMessage}
                            variant={dsrError ? 'error':'success'}
                            onClose={()=>{this.setState({noticeMessage: ''})}}/>

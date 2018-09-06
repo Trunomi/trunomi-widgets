@@ -31,7 +31,7 @@ class UserPreferences extends React.Component {
         if (_.size(title) && _.size(body)) {
             let { text, pane } = title
             let { Widget, props } = body
-            const {paneHeadersFont, paneBackground} = pcConfig
+            const {paneHeadersFont, paneBackground, tableBody} = pcConfig
 
             return <ExpansionPanel className="expansion-panel">
                 <ExpansionPanelSummary id={pane} style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
