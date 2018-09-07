@@ -63,9 +63,10 @@ class ConsentButton extends React.Component{
 
     render() {
         let {open} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch, classes} = this.props
-        let buttonText = dict.getName(consentButtonDict);
+        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny} = this.props
+        // let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
+        let denied = ['consent-deny', 'permission-deny'].includes(state);
         let content
         if (isSwitch) {
             content = <FormControlLabel
@@ -73,7 +74,7 @@ class ConsentButton extends React.Component{
                 control={<Switch
                     onChange={this.handleConsent}
                     value={granted ? "revoke" : "grant"}
-                    disabled={isPreview || (granted && (disableRevoke || status==='permission-implicit'))}
+                    disabled={isPreview || (denied || granted && (disableRevoke || status==='permission-implicit'))}
                     color="primary"
                     checked={granted}
                 />}
@@ -94,10 +95,10 @@ class ConsentButton extends React.Component{
                     onChange={this.handleConsent}
                     MenuProps={{id: 'consent-select'}}
                     margin="normal">
-                <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
+                {grant && <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
                     Grant
-                </MenuItem>
-                <MenuItem value={secondOption} disabled={isPreview || disableRevoke} style={pcConfig.tableBody}>
+                </MenuItem>}
+                {deny && <MenuItem value={secondOption} disabled={isPreview || disableRevoke} style={pcConfig.tableBody}>
                     {_.upperFirst(secondOption)}
                 </MenuItem>}
             </Select>
@@ -115,7 +116,9 @@ ConsentButton.defaultProps = {
     state: 'NotActed',
     disableRevoke: false,
     newConsent: false,
-    iSwitch: false
+    iSwitch: false,
+    grant: true,
+    deny: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;

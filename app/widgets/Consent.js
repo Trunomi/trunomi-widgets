@@ -27,6 +27,7 @@ class ConsentsWidget extends BaseWidget {
             actionError: ''
         };
     }
+
     loadData = async () => {
         let {contextIds, contextTags} = this.props;
         try {
@@ -40,6 +41,7 @@ class ConsentsWidget extends BaseWidget {
             this.setState({error: error.toString()})
         }
     }
+
     checkIfIsRight = (contextId, consentId) => {
         if (this.state.rights[contextId] !== undefined) {
             if(this.state.rights[contextId][consentId.toString()] !== undefined) {
@@ -48,6 +50,7 @@ class ConsentsWidget extends BaseWidget {
         }
         return false;
     }
+
     onProcessed = async(error, newConsent) => {
         let {onProcessed} = this.props;
         
@@ -59,6 +62,7 @@ class ConsentsWidget extends BaseWidget {
             onProcessed(error, newConsent);
         this.setState({processing: false})
     }
+
     async componentDidMount() {
         try {
             this.dataTypes = await this.api.getDataTypes();
@@ -67,16 +71,22 @@ class ConsentsWidget extends BaseWidget {
         }
         this.loadData();
     }
+
     genRightRowArray = (contextId, consentId, aux, dataTypeId, i, truCert = false) => {
-        let right = this.state.rights[contextId][consentId];
+        let {contexts, rights} = this.state
+        let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
-        let {disableRevoke} = this.props, disabled = false;
-        if (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId))
+        let cd = contexts[contextId].consentDefinitions[consentId]
+        let {revoke} = cd
+
+        let {disableRevoke} = this.props,
+        disabled = false
+        if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
             disabled = true;
 
         try {
-            let isConsent = this.dict.getName(this.state.contexts[contextId].consentDefinitions[consentId].justification) === 'consent';
-            let uiId = i + "-" + consentId
+            // let isConsent = this.dict.getName(justification) === 'consent';
+            // let uiId = i + "-" + consentId
             if (truCert)
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
             else {
@@ -84,7 +94,6 @@ class ConsentsWidget extends BaseWidget {
                     <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
                     <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataType.name)}</span>,
-                    isConsent ?
                         <ConsentButton  dataTypeId={dataType.id}
                                         consentId={consentId}
                                         state={right.consentState}
@@ -96,11 +105,11 @@ class ConsentsWidget extends BaseWidget {
                                         dict={this.dict}
                                         onClick={()=> {this.setState({processing: true})}}
                                         disableRevoke={disabled} />
-                        : null
                 ])
             }
         }catch(e) {}
     }
+
     genContextRowArray = (context, truCert = false) => {
         let aux = 0;
         let {id, name} = context;
@@ -116,27 +125,29 @@ class ConsentsWidget extends BaseWidget {
                     return this.genRightRowArray(id, consentId, aux, consentDefinition.dataTypeId, i, truCert)
                 }
                 else if (this.props.showAll){
-                    let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                    let isConsent = this.dict.getName(consentDefinition.justification) === 'consent';
                     if (truCert)
                         return []
                     else {
                         try {
-                            let uiId = aux + "-" + consentId
+                            let dataT = this.dataTypes[consentDefinition.dataTypeId];
+                            let {grant, deny, name} = consentDefinition
+                            // let uiId = aux + "-" + consentId
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{aux === 1 ? this.dict.getName(name) : ''}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
                                 <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataT.name)}</span>,
-                                isConsent ? <span className={'text-center'}>
+                                <span className={'text-center'}>
                                     <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
                                                     consentId={consentId}
                                                     state="NotActed"
                                                     contextId={id}
+                                                    grant={grant}
+                                                    deny={deny}
                                                     onProcessed={this.onProcessed.bind(null, null, true)}
                                                     onClick={() => {this.setState({processing: true})}}
                                                     api={this.api}
                                                     dict={this.dict}/>
-                                    </span> : null
+                                    </span>
                             ])
                         }catch (e){}
                     }
@@ -146,6 +157,7 @@ class ConsentsWidget extends BaseWidget {
         //to remove undefineds
         return _.compact(elements)
     }
+
     render() {
         let display, {error, loaded, contexts, actionError, processing} = this.state;
         let {table} = this.props;
@@ -187,6 +199,7 @@ class ConsentsWidget extends BaseWidget {
         </BS.Panel>
     }
 }
+
 ConsentsWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
@@ -196,6 +209,7 @@ ConsentsWidget.propTypes = {
     showAll: PropTypes.bool,
     headers: PropTypes.arrayOf(PropTypes.string)
 };
+
 ConsentsWidget.defaultProps = {
     contextIds: null,
     contextTags: null,
@@ -204,4 +218,5 @@ ConsentsWidget.defaultProps = {
     showAll: true,
     headers: []
 };
+
 export default ConsentsWidget;
