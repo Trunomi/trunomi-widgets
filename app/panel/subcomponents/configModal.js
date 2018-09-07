@@ -16,8 +16,19 @@ export default class ConfigModal extends Component{
         this.setState({show: nextprops.show})
     }
 
+    getHost = () => {
+        let res = this.props.host_addr
+
+        if (res === undefined) {
+            let {hostname, protocol} = window.location
+            res = hostname === 'localhost' ? 'http://trunomi.local' : protocol + '//' + hostname
+        }
+
+        return res
+    }
+
     staticForm(){
-        let {apiToken, enterpriseId, customerId, host_addr, locale} = this.props;
+        let {apiToken, enterpriseId, customerId, locale} = this.props;
 
         return <div>
             <BS.FormGroup controlId="apiToken">
@@ -26,7 +37,7 @@ export default class ConfigModal extends Component{
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
                 <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
-                <BS.FormControl type="text" required defaultValue={host_addr}/>
+                <BS.FormControl type="text" required defaultValue={this.getHost()}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="enterpriseId">
                 <BS.ControlLabel className='blue-text'>Enterprise ID</BS.ControlLabel>
@@ -44,7 +55,7 @@ export default class ConfigModal extends Component{
     }
 
     expressForm(){
-        let {jwtToken, host_addr} = this.props;
+        let {jwtToken} = this.props;
 
         return <div>
             <BS.FormGroup controlId="jwtToken">
@@ -53,7 +64,7 @@ export default class ConfigModal extends Component{
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
                 <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
-                <BS.FormControl type="text" required defaultValue={host_addr}/>
+                <BS.FormControl type="text" required defaultValue={this.getHost()}/>
             </BS.FormGroup>
         </div>
     }

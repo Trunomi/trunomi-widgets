@@ -121,7 +121,7 @@ class ActiveDSRWidget extends BaseWidget {
                                 headerClass="list-table-header" />
         }
 
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}} className={'trunomi-active-dsr'}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}} className={'trunomi-active-dsr'}>
             {display}
         </BS.Panel>
     }

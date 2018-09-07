@@ -177,7 +177,7 @@ class ConsentsWidget extends BaseWidget {
                                 headerClass="list-table-header"
                                 />
         }
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
             <LoadingModal loading={processing}>
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}

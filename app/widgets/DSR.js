@@ -186,8 +186,7 @@ class DSRWidget extends BaseWidget{
         }
 
 
-
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: pcConfig.columnHeaders.background}}>
+        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
             <FadeOutNotice show={!!noticeMessage} text={noticeMessage}
                            variant={dsrError ? 'error':'success'}
                            onClose={()=>{this.setState({noticeMessage: ''})}}/>
