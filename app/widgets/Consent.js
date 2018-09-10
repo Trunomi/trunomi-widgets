@@ -72,12 +72,30 @@ class ConsentsWidget extends BaseWidget {
         this.loadData();
     }
 
+    // for backwards compatibility ever since we introduced the custom actions per legal basis
+    getLegalBasisDefaults = (justification = '', grant, deny, revoke) => {
+        let legalBasis = this.dict.getName(justification)
+        grant = _.isUndefined(grant) ? true : false
+        deny = _.isUndefined(deny) && ('consent','other').includes(legalBasis) ? true : false
+        revoke = _.isUndefined(revoke) && ('consent','other').includes(legalBasis) ? true : false
+
+        return {
+            grant: grant,
+            deny: deny,
+            revoke: revoke
+        }
+    }
+
     genRightRowArray = (contextId, consentId, aux, dataTypeId, i, truCert = false) => {
         let {contexts, rights} = this.state
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
-        let {revoke, grant, deny} = cd
+        let {revoke, grant, deny, justification} = cd
+        let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
+        grant = defaults.grant
+        deny = defaults.deny
+        revoke = defaults.revoke
         let {disableRevoke} = this.props,
         disabled = false
         if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
@@ -132,7 +150,11 @@ class ConsentsWidget extends BaseWidget {
                     else {
                         try {
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                            let {grant, deny} = consentDefinition
+                            let {grant, deny, revoke, justification} = consentDefinition
+                            let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
+                            grant = defaults.grant
+                            deny = defaults.deny
+                            revoke = defaults.revoke
                             // let uiId = aux + "-" + consentId
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{aux === 1 ? this.dict.getName(name) : ''}</span>,
@@ -146,6 +168,7 @@ class ConsentsWidget extends BaseWidget {
                                                         contextId={id}
                                                         grant={grant}
                                                         deny={deny}
+                                                        revoke={revoke}
                                                         onProcessed={this.onProcessed.bind(null, null, true)}
                                                         onClick={() => {this.setState({processing: true})}}
                                                         api={this.api}
