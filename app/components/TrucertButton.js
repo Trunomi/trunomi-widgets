@@ -4,6 +4,7 @@ import {closeButtonDict} from "../config/widgetDict";
 import Trucert from '../widgets/Trucert';
 import {trucertButtonTypes} from "./propTypes";
 import {Dialog, DialogContent, DialogTitle } from '@material-ui/core'
+import NoteIcon from '@material-ui/icons/Note';
 
 class TrucertButton extends React.Component{
     constructor(props){
@@ -35,7 +36,7 @@ class TrucertButton extends React.Component{
     render() {
         return <div className='text-center'>
             <BS.Button bsSize='small' bsStyle="link" onClick={this.toggleTrucert}>
-                <i className="icon-doc-text" style={{fontSize: '180%'}} aria-hidden="true"/>
+                <NoteIcon/>
             </BS.Button>
             <Dialog open={this.state.show} onClose={this.toggleTrucert} scroll='body'>
                 <DialogContent>

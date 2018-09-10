@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 
 class Logo extends React.Component{
 
@@ -7,7 +8,7 @@ class Logo extends React.Component{
         let {link} = this.props;
 
         return link && <a href={this.props.link} target="_blank" color='blue' id='truLogo' rel="noopener noreferrer">
-            <i className="icon-question-circle-o" aria-hidden="true"/>
+            <HelpIcon/>
         </a>
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Panel} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import ErrorIcon from '@material-ui/icons/Warning';
 
 class ErrorPanel extends React.Component {
 
@@ -10,7 +11,7 @@ class ErrorPanel extends React.Component {
         return <Panel bsStyle="danger">
             <Panel.Heading>
                 <Panel.Title style={{fontWeight: 'bold'}}>
-                    <i className="icon-attention"/> {header}
+                    <ErrorIcon/>  {header}
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>

@@ -53,8 +53,7 @@ class UserPreferences extends React.Component {
 
         let consentPaneTitle = {
             text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
-            pane: 'pane1',
-            iconClass: 'icon-commenting-o'
+            pane: 'pane1'
         }, consentPaneBody = {
             Widget: ConsentsWidget,
             props: {
@@ -67,8 +66,7 @@ class UserPreferences extends React.Component {
             }
         }, dataPaneTitle = {
             text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
-            pane: 'pane2',
-            iconClass: "icon-address-card-o"
+            pane: 'pane2'
         }, dataPaneBody = {
             Widget: DSRWidget,
             props: {
@@ -81,8 +79,7 @@ class UserPreferences extends React.Component {
             }
         }, dsrPaneTitle = {
             text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
-            pane: 'pane3',
-            iconClass: "icon-exchange"
+            pane: 'pane3'
         }, dsrPaneBody = {
             Widget: ActiveDSRWidget,
             props: {

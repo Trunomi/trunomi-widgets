@@ -7,6 +7,7 @@ import trunomi_logo from "./assets/logo.svg"
 import {MuiThemeProvider, Button} from '@material-ui/core'
 import theme from './materialTheme'
 import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed, pcConfig} from './config/enterprise-config'
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -148,7 +149,7 @@ class ManagedPrefCentre extends React.Component {
         return <form onSubmit={(usernameVerified) ? this.onSubmit : this.verifyUsername}>
             {formInputs}
             {error && <p style={{color: 'red'}}>
-                <strong><i className="icon-attention"/> {error}</strong>
+                <strong><ErrorIcon/> {error}</strong>
             </p>}
             {emailSent && <p style={{color: 'green'}}>
                 <strong><BS.Glyphicon glyph="envelope" /> An email was sent to your email address</strong>
@@ -171,7 +172,7 @@ class ManagedPrefCentre extends React.Component {
                 onChange={this.onChange}/>
             </BS.FormGroup>
             {error && <p style={{color: 'red'}}>
-                <strong><i className="icon-attention"/> {error}</strong>
+                <strong><ErrorIcon/> {error}</strong>
             </p>}
             <BS.Button bsStyle="primary" bsSize="large" type='submit' block>
                 Sign In
