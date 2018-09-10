@@ -20,3 +20,27 @@
 #pane2{
     display: none;
 }
+
+#capture-dsr-button{
+    color: red;
+    background: aqua;
+    width: 50%;
+}
+
+#capture-dsr-title{
+    color: red;
+    font-family: 'Courier New', Courier, monospace
+}
+
+#capture-dsr-help{
+    color: blue;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#DSR-dialog>div{
+    background: red
+}
+
+#capture-dsr-body span{
+    font-size: 20;
+}

@@ -186,18 +186,18 @@ class CaptureDSR extends BaseWidget {
 
             reasons = reasons || []; //So the widget doesn't fail
 
-            display = <div>
-                <p style={{fontSize: '18px'}}>{this.dict.getName(title)}</p>
-                <p style={{padding: '5px', fontSize: '16px'}}>
+            display = <div id='capture-dsr'>
+                <p id='capture-dsr-title' style={{fontSize: '18px'}}>{this.dict.getName(title)}</p>
+                <p id='capture-dsr-help' style={{padding: '5px', fontSize: '16px'}}>
                     {this.dict.getName(reasonsTitle)}
                     {selections>1 && <small> (Up to {selections} reasons can be selected)</small>}
                 </p>
-                <form onSubmit={this.sendDSRquery}>
+                <form onSubmit={this.sendDSRquery} id='capture-dsr-body'>
                     {this.renderReasons(reasons, selections)}
-                    <Button type='submit' fullWidth variant="contained" color="primary" className={classes.button}>
+                    <Button id='capture-dsr-button' type='submit' fullWidth variant="contained" color="primary" className={classes.button}>
                         Submit
                     </Button>
-                    <p>{widgetData && this.dict.getName(widgetData.finalCopy)}</p>
+                    <p id='capture-dsr-bottom-help'>{widgetData && this.dict.getName(widgetData.finalCopy)}</p>
                 </form>
             </div>
         }

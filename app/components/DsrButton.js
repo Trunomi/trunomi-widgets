@@ -48,7 +48,7 @@ class DsrButton extends React.Component{
         let reasons
 
         if(reasonsPrompt) {
-            reasons = <Dialog open={reasonsPrompt} onClose={this.toggleReasons} scroll='body'>
+            reasons = <Dialog open={reasonsPrompt} onClose={this.toggleReasons} scroll='body' PaperProps={{id: 'DSR-dialog'}}>
                 <CaptureDSR dataType={dataType} truConfig={this.props.truConfig} onClose={this.toggleReasons}
                             dataTypeId={dataType.id} type={eventDict[dsrType].toLowerCase()}
                             onError={this.onProcessed} onSuccess={this.onProcessed}/>

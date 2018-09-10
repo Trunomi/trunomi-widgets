@@ -5,7 +5,7 @@ export var pcConfig = {}
 export var enterprise_logo = undefined
 export var enterprise_name = undefined
 export var enterprise_magicLink_allowed = undefined
-export var isPreview = true
+export var isPreview = false
 
 export async function loadConfigurations(enterpriseId){
     const api = new API()
