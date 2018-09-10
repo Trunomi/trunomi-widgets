@@ -77,8 +77,7 @@ class ConsentsWidget extends BaseWidget {
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
-        let {revoke} = cd
-
+        let {revoke, grant, deny} = cd
         let {disableRevoke} = this.props,
         disabled = false
         if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
@@ -104,6 +103,9 @@ class ConsentsWidget extends BaseWidget {
                                         api={this.api}
                                         dict={this.dict}
                                         onClick={()=> {this.setState({processing: true})}}
+                                        grant={grant}
+                                        deny={deny}
+                                        revoke={revoke}
                                         disableRevoke={disabled} />
                 ])
             }
@@ -130,24 +132,25 @@ class ConsentsWidget extends BaseWidget {
                     else {
                         try {
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                            let {grant, deny, name} = consentDefinition
+                            let {grant, deny} = consentDefinition
                             // let uiId = aux + "-" + consentId
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{aux === 1 ? this.dict.getName(name) : ''}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
                                 <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataT.name)}</span>,
                                 <span className={'text-center'}>
-                                    <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
-                                                    consentId={consentId}
-                                                    state="NotActed"
-                                                    contextId={id}
-                                                    grant={grant}
-                                                    deny={deny}
-                                                    onProcessed={this.onProcessed.bind(null, null, true)}
-                                                    onClick={() => {this.setState({processing: true})}}
-                                                    api={this.api}
-                                                    dict={this.dict}/>
-                                    </span>
+                                    {(grant || deny) &&
+                                        <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
+                                                        consentId={consentId}
+                                                        state="NotActed"
+                                                        contextId={id}
+                                                        grant={grant}
+                                                        deny={deny}
+                                                        onProcessed={this.onProcessed.bind(null, null, true)}
+                                                        onClick={() => {this.setState({processing: true})}}
+                                                        api={this.api}
+                                                        dict={this.dict}/>}
+                                </span>
                             ])
                         }catch (e){}
                     }

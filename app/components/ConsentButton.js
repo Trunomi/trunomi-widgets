@@ -63,7 +63,7 @@ class ConsentButton extends React.Component{
 
     render() {
         let {open} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny} = this.props
+        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke} = this.props
         // let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let denied = ['consent-deny', 'permission-deny'].includes(state);
@@ -74,7 +74,7 @@ class ConsentButton extends React.Component{
                 control={<Switch
                     onChange={this.handleConsent}
                     value={granted ? "revoke" : "grant"}
-                    disabled={isPreview || (denied || granted && (disableRevoke || status==='permission-implicit'))}
+                    disabled={isPreview || (denied || granted && (disableRevoke || status==='permission-implicit') || (revoke && (!grant || !deny)))}
                     color="primary"
                     checked={granted}
                 />}
@@ -118,7 +118,8 @@ ConsentButton.defaultProps = {
     newConsent: false,
     iSwitch: false,
     grant: true,
-    deny: false
+    deny: false,
+    revoke: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;
