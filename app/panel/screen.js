@@ -91,6 +91,7 @@ s
         //consents = await api.getNewConsents(true);
 
         this.cookie.set('tru_config', config)
+        sessionStorage.removeItem('TRUNOMI_USE_TOKEN')
 
         window.location.reload()
     }
