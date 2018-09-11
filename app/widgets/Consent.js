@@ -75,9 +75,9 @@ class ConsentsWidget extends BaseWidget {
     // for backwards compatibility ever since we introduced the custom actions per legal basis
     getLegalBasisDefaults = (justification = '', grant, deny, revoke) => {
         let legalBasis = this.dict.getName(justification)
-        grant = _.isUndefined(grant) ? true : false
-        deny = _.isUndefined(deny) && ('consent','other').includes(legalBasis) ? true : false
-        revoke = _.isUndefined(revoke) && ('consent','other').includes(legalBasis) ? true : false
+        grant = _.isUndefined(grant) ? true : grant
+        deny = _.isUndefined(deny) && ('consent,other').includes(legalBasis) ? true : deny
+        revoke = _.isUndefined(revoke) && ('consent,other').includes(legalBasis) ? true : revoke
 
         return {
             grant: grant,
