@@ -74,7 +74,7 @@ class ConsentButton extends React.Component{
                 control={<Switch
                     onChange={this.handleConsent}
                     value={granted ? "revoke" : "grant"}
-                    disabled={isPreview || (denied || granted && (disableRevoke || status==='permission-implicit') || (revoke && (!grant || !deny)))}
+                    disabled={isPreview || ((denied || granted) && (disableRevoke || status==='permission-implicit')) || (!granted && !grant && revoke)}
                     color="primary"
                     checked={granted}
                 />}
