@@ -47,8 +47,14 @@ class trunomiAPI{
                 customerId
             }
         }
-        else if (cookieConfig)
+        else if (cookieConfig){
             this.truConfig = cookieConfig
+            if (!this.truConfig.enterpriseId || !this.truConfig.enterpriseId){
+                const {enterpriseId, customerId} = parseToken(this.truConfig.jwtToken)
+                this.truConfig.enterpriseId = enterpriseId
+                this.truConfig.customerId = customerId
+            }
+        }
     }
 
     isConfigured () {
