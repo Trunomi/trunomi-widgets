@@ -182,7 +182,7 @@ class ManagedPrefCentre extends React.Component {
     }
 
     forgotPassBtn = () => {
-        return  <BS.Button bsStyle="link" className="float-right" bsSize="large" style={{paddingTop: '7px', fontSize: 14}}
+        return <BS.Button bsStyle="link" className="float-right" bsSize="large" style={{paddingTop: '7px', fontSize: 14}}
             href={"/portal/forgot-password/" + this.props.enterpriseId}>
             Forgot Password?
         </BS.Button>

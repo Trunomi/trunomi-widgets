@@ -422,3 +422,8 @@ h1,h2,h3,h4,h5 {
 #consent-select ul{
     padding: 0;
 }
+
+.logo-preview {
+    max-width: 120px;
+    max-height: 60px;
+ }

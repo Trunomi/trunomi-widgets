@@ -76,8 +76,8 @@ class ConsentsWidget extends BaseWidget {
     getLegalBasisDefaults = (justification = '', grant, deny, revoke) => {
         let legalBasis = this.dict.getName(justification)
         grant = _.isUndefined(grant) ? true : grant
-        deny = _.isUndefined(deny) && ('consent,other').includes(legalBasis) ? true : deny
-        revoke = _.isUndefined(revoke) && ('consent,other').includes(legalBasis) ? true : revoke
+        deny = _.isUndefined(deny) && !('contract,legal,protection,public,legitimate').includes(legalBasis) ? true : deny
+        revoke = _.isUndefined(revoke) && !('contract,legal,protection,public,legitimate').includes(legalBasis) ? true : revoke
 
         return {
             grant: grant,

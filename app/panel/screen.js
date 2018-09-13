@@ -176,7 +176,7 @@ s
             <AppBar id='navbar' color="inherit" position='sticky' style={{top: 0, ...pcConfig.topBar}}>
                 <Toolbar>
                     <span className="navbar-logo">
-                        <img src={enterprise_logo || TrunomiLogo} />
+                        <img className="logo-preview" src={enterprise_logo || TrunomiLogo} />
                     </span>
                     <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
                     <span className="navbar-logout">
