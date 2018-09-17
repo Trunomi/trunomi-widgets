@@ -101,6 +101,9 @@ class ConsentsWidget extends BaseWidget {
         if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
             disabled = true;
 
+        if (right.consentState.includes('update'))
+            right.consentState = right.coreState
+
         try {
             // let isConsent = this.dict.getName(justification) === 'consent';
             // let uiId = i + "-" + consentId
