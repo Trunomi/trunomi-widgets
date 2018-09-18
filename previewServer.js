@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 
 app.use('/preview', express.static(path.join(__dirname, 'demo')));
+app.use('', express.static(path.join(__dirname, 'demo'))); // For when using a custom address
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/public/index.html'));
