@@ -41,7 +41,8 @@ class AppRouter extends React.Component {
                 <Switch>
                     <Route path={path + "/widgets"} component={Widgets}/>
                     <Route path={path + "/prefcentre"} component={PrefCentre}/>
-                    <Route component={Test} />
+                    <Route path={"/"} component={PrefCentre}/>
+                    <Route path={"/test"} component={Test}/>
                 </Switch>
             </BrowserRouter>
         )
