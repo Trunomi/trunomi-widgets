@@ -4,10 +4,12 @@ import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
 import trunomi_logo from "./assets/logo.svg"
-import {MuiThemeProvider, Button} from '@material-ui/core'
+import {MuiThemeProvider} from '@material-ui/core'
 import theme from './materialTheme'
 import {loadConfigurations, enterprise_logo, enterprise_name, enterprise_magicLink_allowed, pcConfig} from './config/enterprise-config'
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import ErrorIcon from '@material-ui/icons/ErrorOutline'
+import api_addr from './config/env'
+import Cookies from 'universal-cookie';
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -21,19 +23,22 @@ class ManagedPrefCentre extends React.Component {
 
     componentWillMount = async () => {
         this.setState({loading: true})
-        const {protocol, hostname, pathname} = window.location
-        let host_addr = protocol + "//" + hostname,
-            {enterpriseId, queryParams, error} = this.props
+        const {origin, pathname} = window.location
+        let {queryParams, error} = this.props
 
-        const mockAddr = host_addr + (host_addr.includes("localhost") ? ":8343/api" : "/mock/api")
-        const statsAddr = host_addr + "/enterprise-portal/stats"
+        // For when preview has been used right before using ?managed
+        const cookie = new Cookies()
+        cookie.remove("tru_config")
+
+        const mockAddr = api_addr + (api_addr.includes("local") ? ":8343/api" : "/mock/api")
+        const statsAddr = api_addr + "/enterprise-portal/stats"
 
         if (queryParams.magicToken && enterprise_magicLink_allowed) {
             await axios.post(`${mockAddr}/passwordless/login`, {magicToken: queryParams.magicToken}
             ).then((res) => {
                 sessionStorage.setItem("TRUNOMI_USE_TOKEN", res.headers['www-authenticate'])
                 delete queryParams.magicToken
-                window.location = host_addr + pathname + "?" + qs.stringify(queryParams)
+                window.location = origin + pathname + "?" + qs.stringify(queryParams)
             }).catch((err) => {
                 error = err.response.data
             })

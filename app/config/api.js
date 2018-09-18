@@ -3,6 +3,7 @@ import _ from 'lodash';
 import jwt from 'jsonwebtoken';
 import Locale from './locale';
 import Cookies from 'universal-cookie';
+import api_addr from './env';
 
 function addID(page, id){
     return page + (id ? '/'+id : '')
@@ -36,13 +37,12 @@ class trunomiAPI{
         const cookies = new Cookies()
         const cookieConfig = cookies.get('tru_config');
         const token = window.sessionStorage.getItem('TRUNOMI_USE_TOKEN');
-        const host_addr = window.location.protocol + "//" + window.location.hostname
 
         if (token){
             const {enterpriseId, customerId} = parseToken(token)
             this.truConfig =  {
                 jwtToken: token,
-                host_addr: host_addr,
+                host_addr: api_addr,
                 enterpriseId,
                 customerId
             }

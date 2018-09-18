@@ -1,5 +1,6 @@
 import API from './api'
 import Axios from 'axios'
+import api_addr from './env'
 
 export var pcConfig = {}
 export var enterprise_logo = undefined
@@ -16,9 +17,8 @@ export async function loadConfigurations(enterpriseId){
 
     try{
         const id = enterpriseId || api.truConfig.enterpriseId
-        const host_addr = window.location.protocol + '//' + window.location.hostname
 
-        let req = await Axios.get(host_addr + '/enterprise-portal/stats/enterprise-name/' + id)
+        let req = await Axios.get(api_addr + '/enterprise-portal/stats/enterprise-name/' + id)
         enterprise_name = req.data || undefined
 
         // For the preview through the portal
@@ -30,13 +30,13 @@ export async function loadConfigurations(enterpriseId){
             isPreview = true
         }
         else{
-            req = await Axios.get(host_addr + '/enterprise-portal/stats/enterprise-icon/' + id)
+            req = await Axios.get(api_addr + '/enterprise-portal/stats/enterprise-icon/' + id)
             enterprise_logo = req.data || undefined
     
-            req = await Axios.get(host_addr + '/enterprise-portal/stats/magicLink-allowed/' + id)
+            req = await Axios.get(api_addr + '/enterprise-portal/stats/magicLink-allowed/' + id)
             enterprise_magicLink_allowed = req.data || undefined
 
-            req = await Axios.get(host_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
+            req = await Axios.get(api_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
             pcConfig = req.data || {}
 
             isPreview = false

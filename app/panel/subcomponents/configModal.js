@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import * as BS from 'react-bootstrap'
 import {Dialog, DialogContent, DialogTitle, Button} from '@material-ui/core'
+import api_addr from '../../config/env'
 
 export default class ConfigModal extends Component{
     constructor(props){
@@ -16,16 +17,7 @@ export default class ConfigModal extends Component{
         this.setState({show: nextprops.show})
     }
 
-    getHost = () => {
-        let res = this.props.host_addr
-
-        if (res === undefined) {
-            let {hostname, protocol} = window.location
-            res = hostname === 'localhost' ? 'http://trunomi.local' : protocol + '//' + hostname
-        }
-
-        return res
-    }
+    getHost = this.props.host_addr || api_addr
 
     staticForm(){
         let {apiToken, enterpriseId, customerId, locale} = this.props;
@@ -37,7 +29,7 @@ export default class ConfigModal extends Component{
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
                 <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
-                <BS.FormControl type="text" required defaultValue={this.getHost()}/>
+                <BS.FormControl type="text" required defaultValue={this.getHost}/>
             </BS.FormGroup>
             <BS.FormGroup controlId="enterpriseId">
                 <BS.ControlLabel className='blue-text'>Enterprise ID</BS.ControlLabel>
@@ -64,7 +56,7 @@ export default class ConfigModal extends Component{
             </BS.FormGroup>
             <BS.FormGroup controlId="host_addr">
                 <BS.ControlLabel className='blue-text'>Environment URL</BS.ControlLabel>
-                <BS.FormControl type="text" required defaultValue={this.getHost()}/>
+                <BS.FormControl type="text" required defaultValue={this.getHost}/>
             </BS.FormGroup>
         </div>
     }
