@@ -19,11 +19,12 @@ class UserPreferences extends React.Component {
     }
 
     refreshRights = () => {
-        this.refs.ActiveDSR.refreshData()
+        if (this.refs.ActiveDSR)
+            this.refs.ActiveDSR.refreshData()
     }
 
     refreshData = (err, newConsent) => {
-        if(!err && newConsent)
+        if(!err && newConsent && this.refs.MyData)
             this.refs.MyData.refreshData()
     }
 
