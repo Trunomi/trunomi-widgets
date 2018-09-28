@@ -5,8 +5,8 @@
   "main": "app/index.js",
   "module": "dist/bundle.min.js",
   "dependencies": {
-    "@material-ui/core": "1.4.0",
-    "@material-ui/icons": "^1.1.0",
+    "@material-ui/core": "^3.1.1",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.17.1",
     "babel-core": "^6.24.1",
     "class-names": "^1.0.0",
@@ -15,11 +15,9 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "query-string": "^6.0.0",
-    "react": "^16.4.1",
     "react-bootstrap": "^0.32.0",
     "react-bootstrap-switch": "^15.5.3",
     "react-bootstrap-toggle": "^2.2.3",
-    "react-dom": "^16.4.1",
     "react-router-dom": "^4.2.2",
     "typeface-roboto": "^0.0.54"
   },
@@ -30,7 +28,13 @@
     "demo": "webpack --env.demo",
     "clean": "rm -rf node_modules && rm -rf dist && rm -rf demo"
   },
+  "peerDependencies": {
+    "react": "16.4.1",
+    "react-dom": "16.4.1"
+  },
   "devDependencies": {
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
