@@ -91,7 +91,7 @@ class ConsentsWidget extends BaseWidget {
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
-        let {revoke, grant, deny, justification} = cd
+        let {revoke, grant, deny, extend, justification} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
         grant = defaults.grant
         deny = defaults.deny
@@ -107,6 +107,7 @@ class ConsentsWidget extends BaseWidget {
         try {
             // let isConsent = this.dict.getName(justification) === 'consent';
             // let uiId = i + "-" + consentId
+            let expired = right.consentState === 'permission-expired' || right.consentState === 'consent-expired'
             if (truCert)
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
             else {
@@ -120,6 +121,8 @@ class ConsentsWidget extends BaseWidget {
                                         contextId={contextId}
                                         onProcessed={this.onProcessed}
                                         newConsent
+                                        expired={expired}
+                                        extend={extend}
                                         isSwitch
                                         api={this.api}
                                         dict={this.dict}

@@ -48,7 +48,7 @@ class ConsentButton extends React.Component{
                 consentDefinitionId: parseInt(consentId, 10)
             }
         };
-        if (value === 'grant')
+        if (value === 'grant' || value === 'extend')
             body.payload['dataTypeId'] = dataTypeId;
 
         if (MOC && DPO)
@@ -63,12 +63,12 @@ class ConsentButton extends React.Component{
 
     render() {
         let {open} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke} = this.props
+        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke, expired, extend} = this.props
         // let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let denied = ['consent-deny', 'permission-deny'].includes(state);
-        let content
-        if (isSwitch) {
+        let content, options
+        if (isSwitch && !expired) {
             content = <FormControlLabel
                 className={classes.noMargin}
                 control={<Switch
@@ -79,31 +79,39 @@ class ConsentButton extends React.Component{
                     checked={granted}
                 />}
                 label={<span style={pcConfig.tableBody}>
+
                     {granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
                 </span>}
             />
         }
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
-            content = <div><div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
-                <span className="action-button">Actions <ExpandMoreIcon /></span>
-            </div>
-            <Select open={open}
-                    style={{position: 'absolute',width: 5,visibility: 'hidden'}}
-                    onClose={this.toggleOptions}
-                    onOpen={this.toggleOptions}
-                    onChange={this.handleConsent}
-                    MenuProps={{id: 'consent-select'}}
-                    margin="normal">
-                {grant && <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
-                    Grant
-                </MenuItem>}
-                {deny && <MenuItem value={secondOption} disabled={isPreview || disableRevoke} style={pcConfig.tableBody}>
-                    {_.upperFirst(secondOption)}
-                </MenuItem>}
-            </Select>
+            content = <div>
+                <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
+                    <span className="action-button">
+                        {expired ? 'Expired' : 'Actions'}
+                        {((expired && extend) || !expired) && <ExpandMoreIcon />}
+                    </span>
+                </div>
+                {((expired && extend) || !expired) && <Select open={open}
+                        style={{position: 'absolute',width: 5,visibility: 'hidden'}}
+                        onClose={this.toggleOptions}
+                        onOpen={this.toggleOptions}
+                        onChange={this.handleConsent}
+                        MenuProps={{id: 'consent-select'}}
+                        margin="normal">
+                    {(expired && extend) && <MenuItem value="extend">Extend</MenuItem>}
+                    {(!expired && grant) && <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
+                        Grant
+                    </MenuItem>}
+                    {(!expired && deny) && <MenuItem value={secondOption} disabled={isPreview || disableRevoke} style={pcConfig.tableBody}>
+                        {_.upperFirst(secondOption)}
+                    </MenuItem>}
+                </Select>
+                }
             </div>
         }
+
         return <div className='text-center'>
             {content}
         </div>
@@ -119,7 +127,9 @@ ConsentButton.defaultProps = {
     iSwitch: false,
     grant: true,
     deny: false,
-    revoke: false
+    revoke: false,
+    expired: false,
+    extend: false
 };
 
 ConsentButton.propTypes = consentButtonTypes;
