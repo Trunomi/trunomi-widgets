@@ -93,7 +93,7 @@ class ConsentButton extends React.Component{
                         {!expired && <ExpandMoreIcon />}
                     </span>
                 </div>
-                {((expired && extend) || !expired) && <Select open={open}
+                {!expired && <Select open={open}
                         style={{position: 'absolute',width: 5,visibility: 'hidden'}}
                         onClose={this.toggleOptions}
                         onOpen={this.toggleOptions}
