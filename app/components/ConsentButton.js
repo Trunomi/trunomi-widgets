@@ -90,7 +90,7 @@ class ConsentButton extends React.Component{
                 <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                     <span className="action-button">
                         {expired ? 'Expired' : 'Actions'}
-                        {((expired && extend) || !expired) && <ExpandMoreIcon />}
+                        {!expired && <ExpandMoreIcon />}
                     </span>
                 </div>
                 {((expired && extend) || !expired) && <Select open={open}
@@ -100,7 +100,6 @@ class ConsentButton extends React.Component{
                         onChange={this.handleConsent}
                         MenuProps={{id: 'consent-select'}}
                         margin="normal">
-                    {(expired && extend) && <MenuItem value="extend">Extend</MenuItem>}
                     {(!expired && grant) && <MenuItem value="grant" disabled={isPreview} style={pcConfig.tableBody} id="">
                         Grant
                     </MenuItem>}
