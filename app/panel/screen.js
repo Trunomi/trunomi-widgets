@@ -12,7 +12,7 @@ import _ from 'lodash';
 import API from '../config/api';
 import {Grid} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
-import Logo from '../assets/quod.png'
+import Logo from '../assets/logo.svg'
 
 class PanelScreen extends Component {
     constructor(props) {

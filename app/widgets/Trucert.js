@@ -9,7 +9,7 @@ import FingerPrint from './Trucert/Fingerprint';
 import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
-import trunomi_logo from "../assets/quod.png";
+import trunomi_logo from "../assets/logo.svg";
 
 class Trucert extends BaseWidget {
     constructor(props) {

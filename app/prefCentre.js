@@ -3,8 +3,8 @@ import * as BS from 'react-bootstrap'
 import WidgetsPanel from './panel/screen'
 import qs from "query-string"
 import axios from 'axios'
-import trunomi_logo from "./assets/quod.png"
-import backgroundLogo from './assets/animated-logo.gif'
+import trunomi_logo from "./assets/logo.svg"
+//import backgroundLogo from './assets/logo.svg'
 
 class ManagedPrefCentre extends React.Component {
     state = {
@@ -206,7 +206,7 @@ class ManagedPrefCentre extends React.Component {
                     {magicLinksAllowed ? this.magicLinkForm() : this.baseLogInForm()}
                 </BS.Modal.Body>
             </BS.Modal>
-            {!loggedIn && <img src={backgroundLogo} style={{height: '300px', position: 'fixed', left: 0, bottom: 0}}/>}
+            {/* {!loggedIn && <img src={backgroundLogo} style={{height: '200px', position: 'fixed', left: 0, bottom: 0}}/>} */}
         </React.Fragment>
     }
 
@@ -223,7 +223,7 @@ class ManagedPrefCentre extends React.Component {
                     width: '100%',
                     height: '100%'}}>
                 {this.renderModal()}
-                {loggedIn && <section>
+                {loggedIn && <section style={{background: 'white'}}>
                     <WidgetsPanel title={<span>My Personal Data Dashboard {DPO ? <small>managed by {DPO}</small> : null}</span>} managed/>
                 </section>}
             </div>
