@@ -41,9 +41,16 @@ class DsrButton extends React.Component{
         this.setState({open: !this.state.open})
     }
 
+    menuItem = (definition, value, text) => {
+        if (!definition || definition === "null")
+            return null
+
+        return <MenuItem style={pcConfig.tableBody} disabled={isPreview} value={value}>{text}</MenuItem>
+    }
+
     render() {
         const {reasonsPrompt, dsrType, open} = this.state
-        const {dataType, id} = this.props
+        const {dataType} = this.props
 
         let reasons
 
@@ -56,11 +63,17 @@ class DsrButton extends React.Component{
         }
 
         let buttonText = this.props.dict.getName(dsrButtonDict)
+        const definitions = [dataType.accessDefinition, dataType.erasureDefinition, dataType.rectifyDefinition, 
+            dataType.objectDefinition]
+        const menuValues = ["dar", "der", "drr", "dor"]
+
+        if (!definitions.find(val => val && val !== "null"))
+            return null
 
         return <div>
             <span onClick={this.toggleOptions}>
                 <i className="dsr-actions-label-icon fa fas fa-chevron-down"/>
-                <span className="action-button">Actions <ExpandMoreIcon /></span>
+                <span className="action-button">{buttonText[0]}<ExpandMoreIcon /></span>
 
             </span>
             <span>
@@ -71,10 +84,7 @@ class DsrButton extends React.Component{
                         onOpen={this.toggleOptions}
                         onChange={this.toggleReasons}
                         margin="normal">
-                    {(dataType.accessDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="dar">{buttonText[1]}</MenuItem>}
-                    {(dataType.erasureDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="der">{buttonText[2]}</MenuItem>}
-                    {(dataType.rectifyDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="drr">{buttonText[3]}</MenuItem>}
-                    {(dataType.objectDefinition) && <MenuItem style={pcConfig.tableBody} disabled={isPreview} value="dor">{buttonText[4]}</MenuItem>}
+                    {definitions.map((el, id) => this.menuItem(el, menuValues[id], buttonText[id + 1]))}
                 </Select>
             </span>
             {reasons}
