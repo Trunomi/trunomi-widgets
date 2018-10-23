@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import _ from 'lodash';
 import * as BS from 'react-bootstrap';
 import DSRButton from "../components/DsrButton";
@@ -18,61 +18,87 @@ class DSRWidget extends BaseWidget{
         super(props);
         this.state = {
             loaded: false,
-            contexts: '',
-            data_types: '',
             noticeMessage: '',
-            error: false
+            error: '',
+            dsrError: false,
+            data: []
         };
 
-        this.genRowArray = this.genRowArray.bind(this);
     }
 
-    async loadData(){
-        try {
-            let {contexts, data_types} = this.state;
+    loadRights = async() => {
+        try{
+            const {contextTags, dataTypeIds} = this.props
+            const rights = await this.api.getRights(null, contextTags)
+            const dataTypes = await this.api.getDataTypes(dataTypeIds);
+            let data = []
 
-            _.map(data_types, (data_type)=>{
-                data_type["consentNames"] = [];
-                data_type["basis"] = [];
-            });
+            _.forEach(rights, context => {
+                _.forEach(context, consent => {
+                    const {consentState, consentDefinition} = consent
+                    const {name, justification, dataTypeId} = consentDefinition
+                    const dt = dataTypes[dataTypeId]
+                    const granted = consentState.includes('grant') || consentState.includes('implicit') || consentState.includes('mandate')
+                    if (!dt || !granted)
+                        return
 
-            contexts.forEach((context) => {
-                let contextName = this.dict.getName(context.name).toLowerCase(), basis = "Consent";
-
-                if (_.includes(contextName, 'banking'))
-                    basis = 'Government Law';
-                else if (_.includes(contextName, 'loan'))
-                    basis = 'Contract';
-                context.consentDefinitions.map((consent) => {
-                    name = this.dict.getName(consent.name);
-
-                    if (data_types[consent.dataTypeId]) { // If the data type doesn't exist -> bad data on db
-                        data_types[consent.dataTypeId].consentNames.push(name);
-                        data_types[consent.dataTypeId].basis.push(basis);
-                    }
+                    data.push({
+                        name: this.dict.getName(dt.name),
+                        permission: this.dict.getName(name),
+                        justification: this.dict.getName(justification),
+                        dataType: dt
+                    })
                 })
-            });
+            })
 
-            this.setState({contexts, data_types, loaded: true});
-        }
-        catch(error){
+            this.setState({data, loaded: true})
+        }catch(error){
             this.setState({error: error.toString()})
         }
     }
 
-    async loadRights(){
-        try {
-            let {contextTags} = this.props,
-                rights = await this.api.getRights(null, contextTags)
+    loadAll = async() => {
+        try{
+            const {contextTags, dataTypeIds} = this.props
+            const contexts = await this.api.getContexts(null, true, contextTags)
+            const dataTypes = await this.api.getDataTypes(dataTypeIds);
+            let data = []
 
-            this.setState({rights, loaded: true});
-        }
-        catch(e){
+            contexts.forEach(context => {
+                context.consentDefinitions.forEach(consent => {
+                    const {name, justification, dataTypeId} = consent
+                    const dt = dataTypes[dataTypeId]
+
+                    data.push({
+                        name: this.dict.getName(dt.name),
+                        permission: this.dict.getName(name),
+                        justification: this.dict.getName(justification),
+                        dataType: dt
+                    })
+                })
+            })
+
+            this.setState({data, loaded: true})
+        }catch(error){
             this.setState({error: error.toString()})
         }
     }
 
-    onProcessed(eventProcessed){
+    genenerateRowData = (entry, i) => {
+        const {name, permission, justification, dataType} = entry
+
+        return ([
+            <span id={"my-data-personal-info-" + i}>{name}</span>,
+            <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-word"}}>
+                {permission}
+            </span>,
+            <span>{_.capitalize(justification)}</span>,
+            <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
+                       dataType={dataType} onProcessed={this.onProcessed}/>
+        ])
+    }
+
+    onProcessed = (eventProcessed) => {
         let {onProcessed} = this.props;
 
         let noticeMessage, {code, dataType, action} = eventProcessed;
@@ -89,93 +115,28 @@ class DSRWidget extends BaseWidget{
         }
     }
 
-    async componentDidMount() {
-        let {contextTags, dataTypeIds} = this.props;
-        let contexts = await this.api.getRights(null, false, contextTags);
-        let data_types = await this.api.getDataTypes(dataTypeIds);
-        this.setState({contexts, data_types});
-
+    componentDidMount = () => {
         this.refreshData()
     }
 
     refreshData = () => {
-        return this.props.showAll ? this.loadData() : this.loadRights()
-    }
-
-    genRowArray(data_type){
-        try {
-            return ([
-                <span>{this.dict.getName(data_type.name)}</span>,
-                <span style={{wordBreak: "break-all"}}>{(data_type.consentNames.length) ? data_type.consentNames.join(", ") : "None"}</span>,
-                <span>{(data_type.basis.length) ? data_type.basis.join(", ") : "None"}</span>,
-                <DSRButton dict={this.dict} truConfig={this.props.truConfig} dataType={data_type}
-                           onProcessed={this.onProcessed.bind(this)}/>
-            ])
-        }catch(e){}//Sometimes the data sent by right api is corrupted
-    }
-
-    genRightRowArray(entry, i){
-        try {
-            let where = entry.whereItsUsed.map((val, id)=>{
-                return <p key={id}>
-                    {this.dict.getName(val.contextName)}: {this.dict.getName(val.consentDefinition.name)}
-                    {(id < entry.whereItsUsed.length - 1) && <br/>}
-                </p>
-            })
-
-            return ([
-                <span id={"my-data-personal-info-" + i}>{this.dict.getName(entry.dataType.name)}</span>,
-                <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-word"}}>
-                    {where}
-                </span>,
-                <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
-                           dataType={entry.dataType} onProcessed={this.onProcessed.bind(this)}/>
-            ])
-        }catch(e){}//Sometimes the data sent by right api is corrupted
+        return this.props.showAll ? this.loadAll() : this.loadRights()
     }
 
 
     render() {
         let display;
-        let {error, loaded, data_types, dsrError, noticeMessage, rights} = this.state,
-            {table, showAll, dataTypeIds} = this.props;
+        let {error, loaded, dsrError, noticeMessage, data} = this.state,
+            {table, showAll} = this.props;
 
         if(error)
             display = <ErrorPanel/>;
         else if(!loaded)
             display = <LoadingInline/>;
         else{
-            let headers;
-            let body;
-
-            if (showAll) {
-                body = _.map(data_types, this.genRowArray);
-                headers = this.dict.getName(dataTableDict);
-                headers = headers.map((el, id) => this.props.headers[id] || el)
-            }else{
-                let processed = {};
-                _.forEach(rights, (contextRights) => {
-                    return _.forEach(contextRights, (right) => {
-                        let {dataTypeId} = right.consentDefinition;
-                        if (dataTypeIds && !dataTypeIds.includes(dataTypeId))
-                            return
-                        if(!processed[dataTypeId]) {
-                            processed[dataTypeId] = {
-                                dataType: data_types[dataTypeId],
-                                whereItsUsed: []
-                            };
-                        }
-                        processed[dataTypeId].whereItsUsed.push(right);
-                    })
-                });
-                let i = 0
-                body = _.map(processed, (dataType) => {
-                    i++
-                    return this.genRightRowArray(dataType, i)
-                })
-                headers = this.dict.getName(dataTableDict2);
-                headers = headers.map((el, id) => this.props.headers[id] || el)
-            }
+            const body = data.map(this.genenerateRowData);
+            let headers = this.dict.getName(showAll ? dataTableDict : dataTableDict2)
+            headers = headers.map((el, id) => this.props.headers[id] || el)
 
             display = <Table    data={body}
                                 style={{margin: 0}}
