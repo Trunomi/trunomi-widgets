@@ -40,8 +40,9 @@ export const dataTableDict = {
 
 export const dataTableDict2 = {
     "en-US": [
-        dataType['en-US'],
-        "Where it's used",
+        'What Data?',
+        'What will it be used for?',
+        'Legal Basis',
         'Action'
     ],
     "es-ES": [

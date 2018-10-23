@@ -36,7 +36,7 @@ class UserPreferences extends React.Component {
 
             return <ExpansionPanel className="expansion-panel">
                 <ExpansionPanelSummary id={pane} style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
-                    <Typography style={paneHeadersFont} variant="title">{text.toUpperCase()}</Typography>
+                    <Typography style={paneHeadersFont} variant="title">{text}</Typography>
                 </ExpansionPanelSummary>
                 <div className="expansion-panel-details">
                     <Widget {...props} />
@@ -107,9 +107,9 @@ class UserPreferences extends React.Component {
 UserPreferences.defaultProps = {
     title: '',
     consentPane: true,
-    consentTitle: 'My Permissions',
+    consentTitle: 'Manage My Consents',
     dataPane: true,
-    dataTitle: 'My Data',
+    dataTitle: 'My Data Permissions',
     dsrPane: true,
     dsrTitle: 'My Data Requests',
     helpLink: '',

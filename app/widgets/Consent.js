@@ -86,7 +86,7 @@ class ConsentsWidget extends BaseWidget {
         }
     }
 
-    genRightRowArray = (contextId, consentId, aux, dataTypeId, i, truCert = false) => {
+    genRightRowArray = (contextId, consentId, dataTypeId, i, truCert = false) => {
         let {contexts, rights} = this.state
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
@@ -112,9 +112,9 @@ class ConsentsWidget extends BaseWidget {
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
             else {
                 return ([
-                    <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{(aux === 1) ? this.dict.getName(right.contextName) : ''}</span>,
+                    <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataType.name)}</span>,
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                    <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataType.name)}</span>,
+                    <span>{['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ? "ON" : "OFF"}</span>,
                         <ConsentButton  dataTypeId={dataType.id}
                                         consentId={consentId}
                                         state={right.consentState}
@@ -137,18 +137,17 @@ class ConsentsWidget extends BaseWidget {
     }
 
     genContextRowArray = (context, truCert = false) => {
-        let aux = 0;
-        let {id, name} = context;
+        let {id} = context;
         let elements = context.consentDefinitions
             .map((consentDefinition, consentId) => {
-                if(consentDefinition===null)
-                return;
-                aux = aux +1;
+                // Only show processing definitions with consent as it's legal basis
+                if(consentDefinition===null || !this.dict.getName(consentDefinition.justification).includes('consent'))
+                    return;
             
                 this.i++
                 let {i} = this
                 if (this.checkIfIsRight(id, consentId)) {
-                    return this.genRightRowArray(id, consentId, aux, consentDefinition.dataTypeId, i, truCert)
+                    return this.genRightRowArray(id, consentId, consentDefinition.dataTypeId, i, truCert)
                 }
                 else if (this.props.showAll){
                     if (truCert)
@@ -161,11 +160,10 @@ class ConsentsWidget extends BaseWidget {
                             grant = defaults.grant
                             deny = defaults.deny
                             revoke = defaults.revoke
-                            // let uiId = aux + "-" + consentId
                             return ([
-                                <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{aux === 1 ? this.dict.getName(name) : ''}</span>,
+                                <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataT.name)}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
-                                <span id={"my-permissions-personal-info-"+i}>{this.dict.getName(dataT.name)}</span>,
+                                <span>OFF</span>,
                                 <span className={'text-center'}>
                                     {(grant || deny) &&
                                         <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
