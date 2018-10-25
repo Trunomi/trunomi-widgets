@@ -46,11 +46,11 @@ class ManagedPrefCentre extends React.Component {
 
         let loggedIn = sessionStorage.getItem("TRUNOMI_USE_TOKEN") !== null
 
-        this.setState({ 
-            loggedIn, 
-            loading: false, 
-            error: error, 
-            mockAddr, 
+        this.setState({
+            loggedIn,
+            loading: false,
+            error: error,
+            mockAddr,
             statsAddr
         })
     }
@@ -71,7 +71,7 @@ class ManagedPrefCentre extends React.Component {
     magicLink = async () => {
         let {username, mockAddr} = this.state, {enterpriseId} = this.props
 
-        await axios.post(mockAddr + "/passwordless", {enterpriseId, username}).then(()=>{
+        await axios.post(mockAddr + "/passwordless", {enterpriseId, email:username}).then(()=>{
             this.setState({emailSent: true, error: ''})
         }).catch((err)=>{
             this.setState({error: err.response.data, emailSent: false})
@@ -88,8 +88,8 @@ class ManagedPrefCentre extends React.Component {
         event.preventDefault()
         const {statsAddr, username} = this.state
         const {enterpriseId} = this.props
-    
-        await axios.post(statsAddr + "/username-exists", {enterpriseId, username}).then((res)=>{
+
+        await axios.get(statsAddr + `/email-exists/${username}/${enterpriseId}`).then((res)=>{
             let error = ''
             let usernameVerified = false
             if (res.data === true)
@@ -113,11 +113,11 @@ class ManagedPrefCentre extends React.Component {
             formInputs = <section>
                 <p>
                     {username}
-                    <BS.Button bsStyle='link' 
+                    <BS.Button bsStyle='link'
                         onClick={()=>{this.setState({usernameVerified: false, error: '', emailSent: false})}}>
                         Change
-                    </BS.Button> 
-                </p> 
+                    </BS.Button>
+                </p>
                 <BS.FormGroup>
                     <BS.ControlLabel>Password</BS.ControlLabel>
                     <BS.FormControl placeholder="Password" type="password" name='password' required autoFocus
@@ -148,7 +148,7 @@ class ManagedPrefCentre extends React.Component {
 
             buttons = <BS.Button bsStyle='primary' type='submit' block disabled={username === ''}>
                 Continue
-            </BS.Button> 
+            </BS.Button>
         }
 
         return <form onSubmit={(usernameVerified) ? this.onSubmit : this.verifyUsername}>
@@ -168,7 +168,7 @@ class ManagedPrefCentre extends React.Component {
         return  <form onSubmit={this.onSubmit}>
             <BS.FormGroup>
                 <BS.ControlLabel>User</BS.ControlLabel>
-                <BS.FormControl placeholder="User" type="text" name='username' required 
+                <BS.FormControl placeholder="User" type="text" name='username' required
                 onChange={this.onChange}/>
             </BS.FormGroup>
             <BS.FormGroup>
@@ -243,13 +243,13 @@ export default class PrefCentre extends React.Component {
         if (!loaded)
             return null
 
-        const managed = (queryParams.managed !== undefined) 
+        const managed = (queryParams.managed !== undefined)
         const {background, cssUrl} = pcConfig
 
         return <div style={{height: '100%', overflowY: 'scroll', ...background}}>
             {cssUrl && <link itemProp="url" rel="stylesheet" href={cssUrl}/>}
             <MuiThemeProvider theme={theme()}>
-                {managed ? 
+                {managed ?
                     <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} error={error} queryParams={queryParams}/>
                 :
                     <WidgetsPanel title="Preferences Centre"/>}
