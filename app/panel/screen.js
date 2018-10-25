@@ -193,7 +193,7 @@ s
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={()=>{this.setState({anchorEl: null})}}>
-                                <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                                <MenuItem onClick={this.logout}>SIGN OUT</MenuItem>
                             </Menu>
                         </React.Fragment>}
                     </span>
