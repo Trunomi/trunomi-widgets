@@ -1,14 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
-import {MenuItem, Select, FormControlLabel, Switch, withStyles} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import {FormControlLabel, Switch, withStyles, Button} from '@material-ui/core'
 import { pcConfig, isPreview } from '../config/enterprise-config';
+import classnames from 'classnames';
 
 const styles = theme => ({
-    noMargin: {
-        marginRight: '5px'
+    centered: {
+        margin: '0 auto'
+    },
+    btnContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        float: 'left',
+    },
+    btn: {
+        padding: '10px',
+        color: 'var(--trunomi-blue)',
+    },
+    btnFont: {
+        fontSize: '12px',
+        textTransform: 'none'
     }
 })
 
@@ -35,7 +48,7 @@ class ConsentButton extends React.Component{
     };
 
     handleConsent = (e) => {
-        let {value} = e.target
+        const {value} = e.target
         const {dataTypeId, consentId, contextId} = this.props;
 
         this.props.onClick()
@@ -69,31 +82,46 @@ class ConsentButton extends React.Component{
         let denied = ['consent-deny', 'permission-deny'].includes(state);
         let content, options
         if (isSwitch && !expired) {
+            let disabled = isPreview || ((denied || granted) && (disableRevoke || status==='permission-implicit')) || (!granted && !grant && revoke)
             content = <FormControlLabel
-                className={classes.noMargin}
+                className={classes.centered}
                 control={<Switch
                     onChange={this.handleConsent}
                     value={granted ? "revoke" : "grant"}
-                    disabled={isPreview || ((denied || granted) && (disableRevoke || status==='permission-implicit')) || (!granted && !grant && revoke)}
+                    disabled={disabled}
                     color="primary"
                     checked={granted}
                 />}
-                label={<span style={pcConfig.tableBody}>
-
-                    {granted ? "Granted" : state.includes("revoke") ? "Revoked" : "Denied"}
+                label={<span style={{...pcConfig.tableBody, color: disabled ? 'grey' : 'var(--trunomi-blue)'}}>
+                    {granted ? "Revoke?" : "Grant?"}
+                    {/* {granted ? "Revoke" : state.includes("revoke") ? "Revoked" : "Denied"} */}
                 </span>}
             />
         }
         else {
             let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
             content = <div>
-                <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
+                {/* <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                     <span className="action-button">
                         {expired ? 'Expired' : 'Actions'}
                         {!expired && <ExpandMoreIcon />}
                     </span>
+                </div> */}
+                <div className={classes.btnContainer}>
+                    {expired && <span className={classes.centered}>Expired</span>}
+                    {!expired && 
+                    <Button className={classnames(classes.btn, classes.centered)} 
+                        disabled={isPreview || granted || !grant} variant="outlined"
+                        onClick={() => this.handleConsent({target: {value: 'grant'}})}>
+                        <span className={classes.btnFont}>Grant</span>
+                    </Button>}
+                    {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined" 
+                        onClick={() => this.handleConsent({target: {value: secondOption}})}
+                        disabled={isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny}>
+                        <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
+                    </Button>}
                 </div>
-                {!expired && <Select open={open}
+                {/* {!expired && <Select open={open}
                         style={{position: 'absolute',width: 5,visibility: 'hidden'}}
                         onClose={this.toggleOptions}
                         onOpen={this.toggleOptions}
@@ -107,7 +135,7 @@ class ConsentButton extends React.Component{
                         {_.upperFirst(secondOption)}
                     </MenuItem>}
                 </Select>
-                }
+                } */}
             </div>
         }
 

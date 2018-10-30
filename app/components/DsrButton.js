@@ -1,11 +1,10 @@
 import React from 'react'
-import * as BS from 'react-bootstrap'
 import CaptureDSR from "../widgets/CaptureDSR"
 import {eventDict} from "../config/dataTypes"
 import {dsrButtonDict} from "../config/widgetDict"
 import {dsrButtonTypes} from "./propTypes"
 import _ from 'lodash'
-import {MenuItem, Select, Dialog, DialogContent, DialogTitle} from '@material-ui/core'
+import {MenuItem, Select, Dialog} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {isPreview, pcConfig} from '../config/enterprise-config'
 
@@ -45,7 +44,7 @@ class DsrButton extends React.Component{
         if (!definition || definition === "null")
             return null
 
-        return <MenuItem style={pcConfig.tableBody} disabled={isPreview} value={value}>{text}</MenuItem>
+        return <MenuItem key={value} style={pcConfig.tableBody} disabled={isPreview} value={value}>{text}</MenuItem>
     }
 
     render() {
