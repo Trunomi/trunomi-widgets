@@ -10,10 +10,10 @@ let customerID = {
 
 export const consentTableDict = {
     "en-US": [
-        'Purpose',
-        'Processing Reason',
-        dataType['en-US'],
-        'Permission'
+        'What Data?',
+        'What will it be used for?',
+        'Status',
+        'Actions'
     ],
     "es-ES": [
         'Contexto',
@@ -28,13 +28,13 @@ export const dataTableDict = {
         dataType['en-US'],
         'Justification',
         'Basis of Processing',
-        'Action'
+        'Actions'
     ],
     "es-ES": [
         dataType['es-ES'],
         'Justificante (Definicion del consentimiento)',
         'Base de Procesamiento',
-        'Acción'
+        'Acciónes'
     ]
 };
 

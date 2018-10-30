@@ -8,6 +8,8 @@ export var enterprise_name = undefined
 export var enterprise_magicLink_allowed = undefined
 export var isPreview = false
 
+export const iframeHost = 'https://d3q8etrhaoye5l.cloudfront.net'
+
 export async function loadConfigurations(enterpriseId){
     const api = new API()
     api.loadConfig()
@@ -17,8 +19,9 @@ export async function loadConfigurations(enterpriseId){
 
     try{
         const id = enterpriseId || api.truConfig.enterpriseId
+        const addr = (api.truConfig && api.truConfig.host_addr) || api_addr
 
-        let req = await Axios.get(api_addr + '/enterprise-portal/stats/enterprise-name/' + id)
+        let req = await Axios.get(addr + '/enterprise-portal/stats/enterprise-name/' + id)
         enterprise_name = req.data || undefined
 
         // For the preview through the portal
@@ -30,13 +33,13 @@ export async function loadConfigurations(enterpriseId){
             isPreview = true
         }
         else{
-            req = await Axios.get(api_addr + '/enterprise-portal/stats/enterprise-icon/' + id)
+            req = await Axios.get(addr + '/enterprise-portal/stats/enterprise-icon/' + id)
             enterprise_logo = req.data || undefined
     
-            req = await Axios.get(api_addr + '/enterprise-portal/stats/magicLink-allowed/' + id)
+            req = await Axios.get(addr + '/enterprise-portal/stats/magicLink-allowed/' + id)
             enterprise_magicLink_allowed = req.data || undefined
 
-            req = await Axios.get(api_addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
+            req = await Axios.get(addr + '/enterprise-portal/stats/preferenceCentre-config/' + id)
             pcConfig = req.data || {}
 
             isPreview = false

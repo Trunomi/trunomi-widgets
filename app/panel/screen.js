@@ -14,6 +14,7 @@ import {Grid, Typography} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
 import TrunomiLogo from '../assets/logo.svg'
 import {enterprise_logo, pcConfig, isPreview} from '../config/enterprise-config'
+import Iframe from './subcomponents/iframe';
 
 class PanelScreen extends Component {
     constructor(props) {
@@ -130,20 +131,22 @@ s
 
     widgetsScreen = () => {
         let {Widget, dev, config, params, newConsents} = this.state;
+        const {prefCentre} = this.props
 
         if (config) {
             return (
                 <Grid container className="main-section">
                     {isPreview && <Typography variant='body1'>* all actions disabled on preview</Typography>}
                     <Grid item sm={12} hidden>
-                        <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={this.props.prefCentre}
+                        <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre}
                                        newConsents={newConsents} managed={this.props.managed}/>
-                        {!this.props.prefCentre && <DeveloperButton dev={dev} stateChange={this.stateChange}/>}
+                        {!prefCentre && <DeveloperButton dev={dev} stateChange={this.stateChange}/>}
                         <DeveloperOptions {...this.state} updateJSON={this.updateJSON}
                                           stateChange={this.stateChange}/>
                     </Grid>
                     <Grid item sm={12}>
                         <Widget {...params} truConfig={config} />
+                        {!prefCentre && <Iframe name={Widget.name} truConfig={config}/>}
                     </Grid>
                 </Grid>
             )

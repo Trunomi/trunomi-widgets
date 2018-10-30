@@ -10,6 +10,7 @@ import NewDSR from './widgets/NewDSR';
 import NewConsents from './widgets/NewConsents';
 
 import {startSession, stopSession} from "./config/api";
+import {loadConfigurations} from './config/enterprise-config'
 
 import './assets/style/css/bootstrap-theme.css';
 import './assets/style/helper.css';
@@ -26,5 +27,6 @@ export {
     NewConsents,
     Trucert,
     startSession,
-    stopSession
+    stopSession,
+    loadConfigurations,
 }
