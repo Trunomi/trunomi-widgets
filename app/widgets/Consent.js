@@ -114,23 +114,27 @@ class ConsentsWidget extends BaseWidget {
                 return ([
                     <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataType.name)}</span>,
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                    <span>{['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ? "ON" : "OFF"}</span>,
-                        <ConsentButton  dataTypeId={dataType.id}
-                                        consentId={consentId}
-                                        state={right.consentState}
-                                        contextId={contextId}
-                                        onProcessed={this.onProcessed}
-                                        newConsent
-                                        expired={expired}
-                                        extend={extend}
-                                        isSwitch
-                                        api={this.api}
-                                        dict={this.dict}
-                                        onClick={()=> {this.setState({processing: true})}}
-                                        grant={grant}
-                                        deny={deny}
-                                        revoke={revoke}
-                                        disableRevoke={disabled} />
+                    <span>{
+                        ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ? 
+                            "ON" : 
+                            "OFF"
+                            //right.consentState.includes('deny') ? 'Denied' : 'Revoked'
+                    }</span>,
+                    <ConsentButton  dataTypeId={dataType.id}
+                                    consentId={consentId}
+                                    state={right.consentState}
+                                    contextId={contextId}
+                                    onProcessed={this.onProcessed}
+                                    newConsent
+                                    expired={expired}
+                                    extend={extend}
+                                    api={this.api}
+                                    dict={this.dict}
+                                    onClick={()=> {this.setState({processing: true})}}
+                                    grant={grant}
+                                    deny={deny}
+                                    revoke={revoke}
+                                    disableRevoke={disabled} />
                 ])
             }
         }catch(e) {}
@@ -163,21 +167,18 @@ class ConsentsWidget extends BaseWidget {
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataT.name)}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
-                                <span>OFF</span>,
-                                <span className={'text-center'}>
-                                    {(grant || deny) &&
-                                        <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
-                                                        consentId={consentId}
-                                                        state="NotActed"
-                                                        contextId={id}
-                                                        grant={grant}
-                                                        deny={deny}
-                                                        revoke={revoke}
-                                                        onProcessed={this.onProcessed.bind(null, null, true)}
-                                                        onClick={() => {this.setState({processing: true})}}
-                                                        api={this.api}
-                                                        dict={this.dict}/>}
-                                </span>
+                                <span>NEW</span>,
+                                <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
+                                                consentId={consentId}
+                                                state="NotActed"
+                                                contextId={id}
+                                                grant={grant}
+                                                deny={deny}
+                                                revoke={revoke}
+                                                onProcessed={this.onProcessed.bind(null, null, true)}
+                                                onClick={() => {this.setState({processing: true})}}
+                                                api={this.api}
+                                                dict={this.dict}/>
                             ])
                         }catch (e){}
                     }
