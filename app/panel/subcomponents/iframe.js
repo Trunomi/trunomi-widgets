@@ -46,11 +46,11 @@ class Iframe extends Component {
         
         switch(widget){
             case "capture_consent":
-                return `${addr}&contextId=${'-----------Add Context ID-----------'}`
+                return `${addr}&contextId=${'-----------Add-Context-ID-----------'}`
             case "capture_dsr":
-                return `${addr}&dataTypeId=${'----------Add Data Type ID----------'}&type=${'----Add data subject request type----'}`
+                return `${addr}&dataTypeId=${'----------Add-Data-Type-ID----------'}&type=${'----Add-data-subject-request-type----'}`
             case "trucert":
-                return `${addr}&ledgerId=${'-----------Add Ledger  ID-----------'}`
+                return `${addr}&ledgerId=${'------------Add-Ledger-ID-----------'}`
             default:
                 return addr
         }

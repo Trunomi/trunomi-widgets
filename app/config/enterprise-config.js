@@ -10,7 +10,7 @@ export var isPreview = false
 
 export const iframeHost = 'https://d3q8etrhaoye5l.cloudfront.net'
 
-export async function loadConfigurations(enterpriseId){
+export async function loadConfigurations(enterpriseId, api_addr_custom){
     const api = new API()
     api.loadConfig()
 
@@ -19,7 +19,7 @@ export async function loadConfigurations(enterpriseId){
 
     try{
         const id = enterpriseId || api.truConfig.enterpriseId
-        const addr = (api.truConfig && api.truConfig.host_addr) || api_addr
+        const addr = api_addr_custom || (api.truConfig && api.truConfig.host_addr) || api_addr
 
         let req = await Axios.get(addr + '/enterprise-portal/stats/enterprise-name/' + id)
         enterprise_name = req.data || undefined
