@@ -13,7 +13,7 @@ export const consentTableDict = {
         'What Data?',
         'What will it be used for?',
         'Status',
-        'Actions'
+        'Action'
     ],
     "es-ES": [
         'Contexto',
