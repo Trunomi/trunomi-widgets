@@ -59,21 +59,35 @@ class Trucert extends BaseWidget {
         let {dataType, context, ledger} = this.state;
         let firstLedger = ledger[0];
         let general = [];
+        let payload
+        let consentDef
+        if (firstLedger.payload)
+            payload = JSON.parse(firstLedger.payload)
         if (dataType)
             general.push(['Data Type', _.startCase(dataType.name[Object.keys(dataType.name)[0]])]);
-        if (context)
-            general.push(['Purpose', _.startCase(context.name[Object.keys(context.name)[0]])]);
+        if (context){
+            consentDef = context ? context.consentDefinitions[payload.consent_definition_id] : null
+            general.push(['Purpose', _.startCase(context.name[Object.keys(context.name)[0]])])
+            if (consentDef){
+                general.push(['Processing Permission', _.startCase(consentDef.name[Object.keys(consentDef.name)[0]])])
+            }
+        }
         else
             general.push(['Purpose', `Data ${eventDict[firstLedger.event.substring(0,3)]} Request`]);
-        if (firstLedger.payload) {
-            let payload = JSON.parse(firstLedger.payload);
+        if (payload) {
             if (_.size(payload.gf_products)) {
                 let product = this.arrayToString(payload.gf_products);
                 general.push(['Product', product]);
             }
             if (payload.gf_jurisdiction)
                 general.push(['Jurisdiction', payload.gf_jurisdiction]);
-
+            if (consentDef && consentDef.extraData) {
+                _.forEach(JSON.parse(consentDef.extraData), (val, key) => {
+                    general.push([[key], val])
+                })
+            }
+            if (payload.custom_data && payload.custom_data !== '')
+                general.push(['Custom Data', payload.custom_data])
         }
         let fingerprint = ledger[0].trucert;
 
