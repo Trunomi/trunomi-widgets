@@ -200,7 +200,8 @@ class ConsentsWidget extends BaseWidget {
         }
         else {
             let headers = this.dict.getName(consentTableDict)
-            headers = headers.map((el, id) => this.props.headers[id] || el)
+            const customHeaders = pcConfig ? pcConfig.columnHeaders0 || [] : []
+            headers = headers.map((el, id) => customHeaders[id] || el)
 
             this.i = 0
             let contextRows = _.map(contexts, (element) => {
@@ -237,8 +238,7 @@ ConsentsWidget.propTypes = {
     contextIds: PropTypes.arrayOf(PropTypes.string),
     disableRevoke: PropTypes.object,
     contextTags: PropTypes.arrayOf(PropTypes.string),
-    showAll: PropTypes.bool,
-    headers: PropTypes.arrayOf(PropTypes.string)
+    showAll: PropTypes.bool
 };
 
 ConsentsWidget.defaultProps = {
@@ -246,8 +246,7 @@ ConsentsWidget.defaultProps = {
     contextTags: null,
     table: TableX.widgetTableProps,
     disableRevoke: {},
-    showAll: true,
-    headers: []
+    showAll: true
 };
 
 export default ConsentsWidget;

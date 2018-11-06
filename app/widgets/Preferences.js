@@ -50,7 +50,7 @@ class UserPreferences extends React.Component {
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds} = this.props
 
-        const {paneHeadersText, columnHeaders0, columnHeaders1, columnHeaders2, show} = pcConfig
+        const {paneHeadersText, show} = pcConfig
 
         let consentPaneTitle = {
             text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
@@ -62,8 +62,7 @@ class UserPreferences extends React.Component {
                 onProcessed: this.refreshData,
                 contextIds,
                 disableRevoke,
-                contextTags,
-                headers: columnHeaders0
+                contextTags
             }
         }, dataPaneTitle = {
             text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
@@ -75,8 +74,7 @@ class UserPreferences extends React.Component {
                 onProcessed: this.refreshRights,
                 ref: "MyData",
                 dataTypeIds,
-                contextTags,
-                headers: columnHeaders1
+                contextTags
             }
         }, dsrPaneTitle = {
             text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
@@ -86,8 +84,7 @@ class UserPreferences extends React.Component {
             props: {
                 truConfig: truConfig,
                 ref: "ActiveDSR",
-                dataTypeIds,
-                headers: columnHeaders2
+                dataTypeIds
             }
         }
 

@@ -136,7 +136,8 @@ class DSRWidget extends BaseWidget{
         else{
             const body = data.map(this.genenerateRowData);
             let headers = this.dict.getName(showAll ? dataTableDict : dataTableDict2)
-            headers = headers.map((el, id) => this.props.headers[id] || el)
+            const customHeaders = pcConfig ? pcConfig.columnHeaders1 || [] : []
+            headers = headers.map((el, id) => customHeaders[id] || el)
 
             display = <Table    data={body}
                                 style={{margin: 0}}
@@ -161,16 +162,14 @@ DSRWidget.propTypes = {
     table: PropTypes.object,
     dataTypeIds: PropTypes.arrayOf(PropTypes.string),
     showAll: PropTypes.bool,
-    contextTags: PropTypes.arrayOf(PropTypes.string),
-    headers: PropTypes.arrayOf(PropTypes.string)
+    contextTags: PropTypes.arrayOf(PropTypes.string)
 };
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
     dataTypeIds: null,
     showAll: false,
-    contextTags: null,
-    headers: []
+    contextTags: null
 };
 
 export default DSRWidget;

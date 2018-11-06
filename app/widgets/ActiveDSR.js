@@ -103,7 +103,8 @@ class ActiveDSRWidget extends BaseWidget {
             display = <LoadingInline/>;
         else{
             let headers = this.dict.getName(dsrTableDict);
-            headers = headers.map((el, id) => this.props.headers[id] || el)
+            const customHeaders = pcConfig ? pcConfig.columnHeaders2 || [] : []
+            headers = headers.map((el, id) => customHeaders[id] || el)
 
             let body = [];
             _.forEachRight(data, (element, i) => {
@@ -131,15 +132,13 @@ ActiveDSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
     type: PropTypes.oneOf(['access', 'erasure', 'object', 'rectify', '']),
-    dataTypeIds: PropTypes.arrayOf(PropTypes.string),
-    headers: PropTypes.arrayOf(PropTypes.string)
+    dataTypeIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 ActiveDSRWidget.defaultProps = {
     type: '',
     table: Table.widgetTableProps,
-    dataTypeIds: null,
-    headers: []
+    dataTypeIds: null
 };
 
 export default ActiveDSRWidget;
