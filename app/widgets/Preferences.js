@@ -8,7 +8,6 @@ import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
 import {ExpansionPanel, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {pcConfig} from '../config/enterprise-config'
 
 class UserPreferences extends React.Component {
 
@@ -30,6 +29,7 @@ class UserPreferences extends React.Component {
 
     panel = (title = {}, body = {}) => {
         if (_.size(title) && _.size(body)) {
+            let {pcConfig} = this.props
             let { text, pane } = title
             let { Widget, props } = body
             const {paneHeadersFont, paneBackground, tableBody} = pcConfig
@@ -48,7 +48,7 @@ class UserPreferences extends React.Component {
 
     render() {
         let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
-            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds} = this.props
+            dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, pcConfig} = this.props
 
         const {paneHeadersText, show} = pcConfig
 
@@ -114,6 +114,7 @@ UserPreferences.defaultProps = {
     dataTypeIds: null,
     contextTags: null,
     style: {},
+    pcConfig: null,
     disableRevoke: {}
 }
 

@@ -14,18 +14,20 @@ import {Grid, Typography} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
 import TrunomiLogo from '../assets/logo.svg'
 import {enterprise_logo, pcConfig, isPreview} from '../config/enterprise-config'
-import Iframe from './subcomponents/iframe';
+import Iframe from './subcomponents/iframe'
 
 class PanelScreen extends Component {
     constructor(props) {
         super(props);
 
         this.prefParams = UserPreferences.defaultProps
+        let params = UserPreferences.defaultProps
+        params.pcConfig = pcConfig
 
         this.state = {
             show: true,
             Widget: UserPreferences,
-            params: UserPreferences.defaultProps,
+            params: params,
             dev: false,
             config: null,
             configModal: false,
@@ -163,7 +165,7 @@ s
     render() {
         let {config, configModal, Widget, newConsents, anchorEl, loading} = this.state;
         let {title, managed, prefCentre} = this.props;
-        
+
         title = pcConfig.title ? pcConfig.title.text || title : title
 
         if(loading){
