@@ -27,14 +27,20 @@ class Trucert extends BaseWidget {
     }
 
     trucertRequest = async (id = "") => {
-        let dataType, context, {enterpriseId} = this.props.truConfig;
-        let ledger = await this.api.sendRequest("/enterprise-portal/stats/trucert/ledger/history/" + id)
+        let dataType, context, dataTypeId
+        const ledger = await this.api.sendRequest("/enterprise-portal/stats/trucert/ledger/history/" + id)
+        if (!ledger[0]){
+            return;
+        }
+        const payload = JSON.parse(ledger[0].payload)
 
         //Only get the context if it's not a data subject request
-        if(ledger[0] && !ledger[0].event.startsWith('d'))
-            context = await this.api.sendRequest('/context/' + ledger[0].contextId);
-        let payload = JSON.parse(ledger[0].payload)
-        let dataTypeId = [context.consentDefinitions[payload.consent_definition_id].dataTypeId]
+        if(!ledger[0].event.startsWith('d')){
+            context = await this.api.sendRequest('/context/' + ledger[0].contextId)
+            dataTypeId = [context.consentDefinitions[payload.consent_definition_id].dataTypeId]
+        }else{
+            dataTypeId = payload.data_type_id
+        }
         if (_.size(dataTypeId)) {
             dataType = await this.api.sendRequest('/data-type/' + dataTypeId).then((res) => {
                 return res
