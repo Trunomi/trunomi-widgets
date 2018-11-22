@@ -244,10 +244,9 @@ export default class PrefCentre extends React.Component {
             return null
 
         const managed = (queryParams.managed !== undefined)
-        const {background, cssUrl} = pcConfig
+        const {background} = pcConfig
 
         return <div style={{height: '100%', overflowY: 'scroll', ...background}}>
-            {cssUrl && <link itemProp="url" rel="stylesheet" href={cssUrl}/>}
             <MuiThemeProvider theme={theme()}>
                 {managed ?
                     <ManagedPrefCentre enterpriseId={queryParams.enterpriseId} error={error} queryParams={queryParams}/>

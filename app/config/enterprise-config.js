@@ -44,6 +44,14 @@ export async function loadConfigurations(enterpriseId, api_addr_custom){
 
             isPreview = false
         }
+
+        if (pcConfig.cssUrl){
+            const link = document.createElement("link");
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("href", pcConfig.cssUrl);
+            document.head.appendChild(link);
+        }
     }catch(e){
         console.log('Failed to load enterprise custom prefrence centre configuration', e)
         return false
