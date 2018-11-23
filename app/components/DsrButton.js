@@ -71,9 +71,7 @@ class DsrButton extends React.Component{
 
         return <div>
             <span onClick={this.toggleOptions}>
-                <i className="dsr-actions-label-icon fa fas fa-chevron-down"/>
                 <span className="action-button">{buttonText[0]}<ExpandMoreIcon /></span>
-
             </span>
             <span>
                 <Select open={open}
