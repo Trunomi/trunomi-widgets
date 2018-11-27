@@ -53,7 +53,7 @@ class ConsentsWidget extends BaseWidget {
 
     onProcessed = async(error, newConsent) => {
         let {onProcessed} = this.props;
-        
+
         if(error) {
             this.setState({actionError: 'Error: ' + error.message});
         }
@@ -91,7 +91,7 @@ class ConsentsWidget extends BaseWidget {
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
-        let {revoke, grant, deny, extend, justification} = cd
+        let {revoke, grant, deny, extend, justification, mocOptions} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
         grant = defaults.grant
         deny = defaults.deny
@@ -115,8 +115,8 @@ class ConsentsWidget extends BaseWidget {
                     <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataType.name)}</span>,
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
                     <span>{
-                        ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ? 
-                            "ON" : 
+                        ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ?
+                            "ON" :
                             "OFF"
                             //right.consentState.includes('deny') ? 'Denied' : 'Revoked'
                     }</span>,
@@ -126,6 +126,7 @@ class ConsentsWidget extends BaseWidget {
                                     contextId={contextId}
                                     onProcessed={this.onProcessed}
                                     newConsent
+                                    moc={mocOptions}
                                     expired={expired}
                                     extend={extend}
                                     api={this.api}
@@ -147,7 +148,7 @@ class ConsentsWidget extends BaseWidget {
                 // Only show processing definitions with consent as it's legal basis
                 if(consentDefinition===null || !this.dict.getName(consentDefinition.justification).includes('consent'))
                     return;
-            
+
                 this.i++
                 let {i} = this
                 if (this.checkIfIsRight(id, consentId)) {
@@ -159,7 +160,7 @@ class ConsentsWidget extends BaseWidget {
                     else {
                         try {
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
-                            let {grant, deny, revoke, justification} = consentDefinition
+                            let {grant, deny, revoke, justification, mocOptions} = consentDefinition
                             let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
                             grant = defaults.grant
                             deny = defaults.deny
@@ -171,6 +172,7 @@ class ConsentsWidget extends BaseWidget {
                                 <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
                                                 consentId={consentId}
                                                 state="NotActed"
+                                                moc={mocOptions}
                                                 contextId={id}
                                                 grant={grant}
                                                 deny={deny}
@@ -184,7 +186,7 @@ class ConsentsWidget extends BaseWidget {
                     }
                 }
             });
-            
+
         //to remove undefineds
         return _.compact(elements)
     }

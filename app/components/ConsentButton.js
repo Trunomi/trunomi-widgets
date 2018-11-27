@@ -47,9 +47,21 @@ class ConsentButton extends React.Component{
         }
     };
 
+    arrayOfObjectsToString(obj = null) {
+        let str = ''
+        if (obj) {
+            obj.forEach((o) => {
+                str += o[Object.keys(o)] + ", "
+            })
+            return str.substring(0, str.length - 2);
+        }
+
+        return str
+    }
+
     handleConsent = (e) => {
         const {value} = e.target
-        const {dataTypeId, consentId, contextId} = this.props;
+        const {dataTypeId, consentId, contextId, moc} = this.props;
 
         this.props.onClick()
 
@@ -64,8 +76,11 @@ class ConsentButton extends React.Component{
         if (value === 'grant' || value === 'extend')
             body.payload['dataTypeId'] = dataTypeId;
 
+
         if (MOC && DPO)
             body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
+        else
+            body.payload['moc'] = moc ? this.arrayOfObjectsToString(moc) : 'Preference Centre'
 
         this.sendConsentQuery(value, body, contextId);
     }
@@ -109,13 +124,13 @@ class ConsentButton extends React.Component{
                 </div> */}
                 <div className={classes.btnContainer}>
                     {expired && <span className={classes.centered}>Expired</span>}
-                    {!expired && 
-                    <Button className={classnames(classes.btn, classes.centered)} 
+                    {!expired &&
+                    <Button className={classnames(classes.btn, classes.centered)}
                         disabled={isPreview || granted || !grant} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: 'grant'}})}>
                         <span className={classes.btnFont}>Grant</span>
                     </Button>}
-                    {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined" 
+                    {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: secondOption}})}
                         disabled={isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny}>
                         <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
