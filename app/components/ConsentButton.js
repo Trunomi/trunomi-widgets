@@ -65,8 +65,8 @@ class ConsentButton extends React.Component{
 
         this.props.onClick()
 
-        const DPO = sessionStorage.getItem("TRUNOMI_DPO")
-        const MOC = sessionStorage.getItem("TRUNOMI_MOC")
+        const DPO = window.sessionStorage.getItem("TRUNOMI_DPO")
+        const MOC = window.sessionStorage.getItem("TRUNOMI_MOC")
 
         let body = {
             payload: {
