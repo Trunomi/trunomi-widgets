@@ -10,7 +10,6 @@ import {dataTableDict, dataTableDict2} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
-import { pcConfig } from '../config/enterprise-config';
 
 class DSRWidget extends BaseWidget{
 
@@ -126,8 +125,8 @@ class DSRWidget extends BaseWidget{
 
     render() {
         let display;
-        let {error, loaded, dsrError, noticeMessage, data} = this.state,
-            {table, showAll} = this.props;
+        let {error, loaded, dsrError, noticeMessage, data} = this.state
+        let {table, showAll, pcConfig} = this.props;
 
         if(error)
             display = <ErrorPanel/>;
@@ -160,6 +159,7 @@ class DSRWidget extends BaseWidget{
 DSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
+    pcConfig: PropTypes.object,
     dataTypeIds: PropTypes.arrayOf(PropTypes.string),
     showAll: PropTypes.bool,
     contextTags: PropTypes.arrayOf(PropTypes.string)
@@ -167,6 +167,7 @@ DSRWidget.propTypes = {
 
 DSRWidget.defaultProps = {
     table: Table.widgetTableProps,
+    pcConfig: null,
     dataTypeIds: null,
     showAll: false,
     contextTags: null

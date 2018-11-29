@@ -11,7 +11,6 @@ import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
 import LoadingModal from "../components/Loading";
-import { pcConfig } from '../config/enterprise-config';
 
 class ConsentsWidget extends BaseWidget {
     constructor(props) {
@@ -193,7 +192,7 @@ class ConsentsWidget extends BaseWidget {
 
     render() {
         let display, {error, loaded, contexts, actionError, processing} = this.state;
-        let {table} = this.props;
+        let {table, pcConfig} = this.props;
         if(error) {
             display = <ErrorPanel/>
         }
@@ -240,12 +239,14 @@ ConsentsWidget.propTypes = {
     contextIds: PropTypes.arrayOf(PropTypes.string),
     disableRevoke: PropTypes.object,
     contextTags: PropTypes.arrayOf(PropTypes.string),
+    pcConfig: PropTypes.object,
     showAll: PropTypes.bool
 };
 
 ConsentsWidget.defaultProps = {
     contextIds: null,
     contextTags: null,
+    pcConfig: null,
     table: TableX.widgetTableProps,
     disableRevoke: {},
     showAll: true

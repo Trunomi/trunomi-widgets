@@ -55,34 +55,47 @@ class UserPreferences extends React.Component {
         let consentPaneTitle = {
             text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
             pane: 'pane1'
-        }, consentPaneBody = {
+        }
+
+        let consentPaneBody = {
             Widget: ConsentsWidget,
             props: {
                 truConfig: truConfig,
+                pcConfig: pcConfig,
                 onProcessed: this.refreshData,
                 contextIds,
                 disableRevoke,
                 contextTags
             }
-        }, dataPaneTitle = {
+        }
+
+        let dataPaneTitle = {
             text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
             pane: 'pane2'
-        }, dataPaneBody = {
+        }
+
+        let dataPaneBody = {
             Widget: DSRWidget,
             props: {
                 truConfig: truConfig,
                 onProcessed: this.refreshRights,
                 ref: "MyData",
+                pcConfig: pcConfig,
                 dataTypeIds,
                 contextTags
             }
-        }, dsrPaneTitle = {
+        }
+
+        let dsrPaneTitle = {
             text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
             pane: 'pane3'
-        }, dsrPaneBody = {
+        }
+
+        let dsrPaneBody = {
             Widget: ActiveDSRWidget,
             props: {
                 truConfig: truConfig,
+                pcConfig: pcConfig,
                 ref: "ActiveDSR",
                 dataTypeIds
             }

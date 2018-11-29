@@ -9,7 +9,6 @@ import {dsrTableDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
-import { pcConfig } from '../config/enterprise-config';
 
 
 let events = {
@@ -93,7 +92,8 @@ class ActiveDSRWidget extends BaseWidget {
     }
 
     render() {
-        const {error, loaded, data} = this.state, {table} = this.props;
+        const {error, loaded, data} = this.state
+        let {table, pcConfig} = this.props
 
         let display;
 
@@ -131,12 +131,14 @@ class ActiveDSRWidget extends BaseWidget {
 ActiveDSRWidget.propTypes = {
     ...BaseWidget.propTypes,
     table: PropTypes.object,
+    pcConfig: PropTypes.object,
     type: PropTypes.oneOf(['access', 'erasure', 'object', 'rectify', '']),
     dataTypeIds: PropTypes.arrayOf(PropTypes.string)
 };
 
 ActiveDSRWidget.defaultProps = {
     type: '',
+    pcConfig: null,
     table: Table.widgetTableProps,
     dataTypeIds: null
 };
