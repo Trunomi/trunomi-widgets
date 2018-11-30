@@ -44,7 +44,7 @@ class DsrButton extends React.Component{
         if (!definition || definition === "null")
             return null
         let {pcConfig} = this.props
-        return <MenuItem key={value} style={pcConfig ? pcConfig.tableBody : ''} disabled={isPreview} value={value}>{text}</MenuItem>
+        return <MenuItem key={value} style={pcConfig ? pcConfig.tableBody : null} disabled={isPreview} value={value}>{text}</MenuItem>
     }
 
     render() {
