@@ -139,6 +139,7 @@ class DSRWidget extends BaseWidget{
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             display = <Table    data={body}
+                                pcConfig={pcConfig}
                                 style={{margin: 0}}
                                 header={headers}
                                 {...table}

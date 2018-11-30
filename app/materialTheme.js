@@ -1,6 +1,5 @@
 import blue from '@material-ui/core/colors/blue'
 import {createMuiTheme} from '@material-ui/core/styles'
-import {pcConfig} from './config/enterprise-config'
 
 let trunomiBlue = '#0a4fa1'
 

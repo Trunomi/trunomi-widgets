@@ -114,6 +114,7 @@ class ActiveDSRWidget extends BaseWidget {
             });
 
             display = <Table    header={headers}
+                                pcConfig={pcConfig}
                                 data={body}
                                 {...table}
                                 style={{margin: 0}}

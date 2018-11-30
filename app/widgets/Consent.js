@@ -95,8 +95,8 @@ class ConsentsWidget extends BaseWidget {
         grant = defaults.grant
         deny = defaults.deny
         revoke = defaults.revoke
-        let {disableRevoke} = this.props,
-        disabled = false
+        let {disableRevoke, pcConfig} = this.props
+        let disabled = false
         if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
             disabled = true;
 
@@ -122,6 +122,7 @@ class ConsentsWidget extends BaseWidget {
                     <ConsentButton  dataTypeId={dataType.id}
                                     consentId={consentId}
                                     state={right.consentState}
+                                    pcConfig={pcConfig}
                                     contextId={contextId}
                                     onProcessed={this.onProcessed}
                                     newConsent
@@ -215,6 +216,7 @@ class ConsentsWidget extends BaseWidget {
 
             display = <TableX   style={{margin: 0}}
                                 header={headers}
+                                pcConfig={pcConfig}
                                 data={_.flatten(contextRows)}
                                 onRowClick={_.flatten(truCerts)}
                                 {...table}

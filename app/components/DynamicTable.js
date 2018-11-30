@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
-import {pcConfig} from '../config/enterprise-config';
 
 export default class Table extends React.Component {
     constructor(props){
@@ -12,10 +11,10 @@ export default class Table extends React.Component {
     }
 
     renderHeader = () => {
-        let {header, headerClass, headerIsTable} = this.props;
+        let {header, headerClass, headerIsTable, pcConfig} = this.props;
 
         let content = _.map(header, (h, i) => {
-            return <th style={pcConfig.columnHeaders} key={i}>{h}</th>
+            return <th style={pcConfig ? pcConfig.columnHeaders : null} key={i}>{h}</th>
         })
             return <tr className={headerClass}>
                 {content}
@@ -32,7 +31,7 @@ export default class Table extends React.Component {
     }
 
     renderBody = () => {
-        let {data, onRowClick} = this.props;
+        let {data, onRowClick, pcConfig} = this.props;
         let onClick = () => {}
         return _.map(data, (row, i) => {
             let hasTruCert = onRowClick && onRowClick[i] && _.size(onRowClick[i]) ? 'cursor' : ''
@@ -42,7 +41,7 @@ export default class Table extends React.Component {
                         onClick = () => {this.rowClick(i)}
                     else
                         onClick = () => {}
-                    return <td onClick={onClick} key={j} style={pcConfig.tableBody}>{column}</td>
+                    return <td onClick={onClick} key={j} style={pcConfig ? pcConfig.tableBody : null}>{column}</td>
                 })}
             </tr>
         })
@@ -64,6 +63,7 @@ export default class Table extends React.Component {
 
 Table.propTypes = {
     header: PropTypes.array,
+    pcConfig: PropTypes.object,
     data: PropTypes.arrayOf(PropTypes.array),
     headerClass: PropTypes.string
 };
@@ -71,6 +71,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
     data: [],
+    pcConfig: null,
     header: [],
     headerClass: '',
     className: '',

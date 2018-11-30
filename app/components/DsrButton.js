@@ -6,7 +6,7 @@ import {dsrButtonTypes} from "./propTypes"
 import _ from 'lodash'
 import {MenuItem, Select, Dialog} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {isPreview, pcConfig} from '../config/enterprise-config'
+import {isPreview} from '../config/enterprise-config'
 
 class DsrButton extends React.Component{
     constructor(props){
@@ -43,8 +43,8 @@ class DsrButton extends React.Component{
     menuItem = (definition, value, text) => {
         if (!definition || definition === "null")
             return null
-
-        return <MenuItem key={value} style={pcConfig.tableBody} disabled={isPreview} value={value}>{text}</MenuItem>
+        let {pcConfig} = this.props
+        return <MenuItem key={value} style={pcConfig ? pcConfig.tableBody : ''} disabled={isPreview} value={value}>{text}</MenuItem>
     }
 
     render() {
@@ -62,7 +62,7 @@ class DsrButton extends React.Component{
         }
 
         let buttonText = this.props.dict.getName(dsrButtonDict)
-        const definitions = [dataType.accessDefinition, dataType.erasureDefinition, dataType.rectifyDefinition, 
+        const definitions = [dataType.accessDefinition, dataType.erasureDefinition, dataType.rectifyDefinition,
             dataType.objectDefinition]
         const menuValues = ["dar", "der", "drr", "dor"]
 
