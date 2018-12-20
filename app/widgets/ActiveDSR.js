@@ -35,6 +35,32 @@ let eventDefinitions = {
     'r-close': 'requestClose',
     'r-error': 'requestError'
 };
+let dsrStatus = (event) => {
+    switch(event.split('-')[1]) {
+        case undefined:
+            return 'Request';
+        case 'accept':
+            return 'Accepted';
+        case 'decline':
+            return 'Declined';
+        case 'cancel':
+            return 'Cancelled';
+        case 'actioned':
+            return 'Actioned';
+        case 'in':
+            return 'In Process';
+        case 'extend':
+            return 'Extended';
+        case 'close':
+            return 'Closed';
+        case 'error':
+            return 'Error';
+        case 'complete':
+            return 'Completed';
+        default:
+            return event;
+    }
+}
 
 class ActiveDSRWidget extends BaseWidget {
 
@@ -85,8 +111,9 @@ class ActiveDSRWidget extends BaseWidget {
             this.dict.getName(dataType.name),
             `${capturedAt.toDateString()} ${capturedAt.toTimeString().split('GMT')[0]}`,
             // events[event.substring(2)], //For demo purposes
-            payload.message || "Requested",
-            payload.reasons ? payload.reasons.join(", ") : ''
+            dsrStatus(event),
+            payload.message ||  "",
+            // payload.reasons ? payload.reasons.join(", ") : ''
         ]);
         /*<td>{definitions.requestAccept.successNote[Object.keys(definitions.requestAccept.successNote)[0]]}</td>*/
     }
