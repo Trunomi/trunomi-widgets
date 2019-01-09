@@ -28,7 +28,8 @@ class CaptureDSR extends BaseWidget {
             show: this.props.show,
             selectedReasons: [],
             otherReason: "",
-            notice: ''
+            notice: '',
+            missingOption: false
         };
     }
 
@@ -65,13 +66,8 @@ class CaptureDSR extends BaseWidget {
     sendDSRquery = async (event) => {
         event.preventDefault();
 
-        let {otherReason, selectedReasons, dataType} = this.state, {type} = this.props,
-            index = selectedReasons.indexOf('Other (Please specify)');
+        let {otherReason, selectedReason, dataType} = this.state, {type} = this.props;
         let {reasons} = dataType[type + 'Definition'];
-
-        if (index >= 0){
-            selectedReasons[index] = otherReason;
-        }
 
         let types = {
             'access': 'dar',
@@ -83,16 +79,18 @@ class CaptureDSR extends BaseWidget {
         const DPO = sessionStorage.getItem("TRUNOMI_DPO")
         const MOC = sessionStorage.getItem("TRUNOMI_MOC")
 
+        if (!selectedReason){
+            return this.setState({missingOption: true})
+        }
+
         try {
             let page = "/ledger/context/"+ dataType.id + "/" + types[type];
+            let text = this.dict.getName(reasons[selectedReason]);
+            if (text.includes('Please specify'))
+                text = otherReason;
             let body = {
                 payload: {
-                    reasons: selectedReasons.length ? selectedReasons.map((id)=>{
-                        let text = this.dict.getName(reasons[id]);
-                        if (text.includes('Please specify'))
-                            return otherReason;
-                        return text
-                    }): ["Not Specified"]
+                    reasons: [text]
                 }
             };
 
@@ -108,7 +106,6 @@ class CaptureDSR extends BaseWidget {
             this.props.onSuccess();
         }
         catch(error) {
-            console.log(error);
             this.setState({
                 notice: <p><b>Unfortunately</b> we were unable to register your request.
                     There is already a data {type} request pending for {this.dict.getName(this.state.dataType.name)}.</p>,
@@ -123,25 +120,16 @@ class CaptureDSR extends BaseWidget {
         this.props.onClose();
     }
 
-    handleReasonChange = (id, maxSelections) => {
-        let {selectedReasons} = this.state;
-
-        if (selectedReasons.includes(id))
-            _.pull(selectedReasons, id);
-        else {
-            if (selectedReasons.length.toString() === maxSelections)
-                _.pullAt(selectedReasons, 0);
-            selectedReasons.push(id);
-        }
-        this.setState({selectedReasons});
+    handleReasonChange = (id) => {
+        this.setState({selectedReason: id, missingOption: false});
     }
 
     handleOtherReason = (event) => {
         this.setState({otherReason: event.target.value});
     }
 
-    renderReasons = (reasons, maxSelections) => {
-        let {selectedReasons, otherReason} = this.state;
+    renderReasons = (reasons) => {
+        let {selectedReason, otherReason} = this.state;
 
         return <div className={this.props.classes.options}>
             {reasons.map((element, id)=>{
@@ -150,10 +138,10 @@ class CaptureDSR extends BaseWidget {
                 return <React.Fragment>
                     <FormControlLabel
                             key={id}
-                            control={<Radio inputProps={{required: true}} checked={selectedReasons.includes(id)} onChange={this.handleReasonChange.bind(this, id, maxSelections)} color="primary" />}
+                            control={<Radio checked={selectedReason === id} onChange={this.handleReasonChange.bind(this, id)} color="primary" />}
                             label={text}
                     />
-                    {_.includes(text, 'Please specify') && _.includes(selectedReasons, id) &&
+                    {_.includes(text, 'Please specify') && (selectedReason === id) &&
                         <Fade in>
                             <BS.FormControl type="text" required
                                 value={otherReason}
@@ -168,7 +156,7 @@ class CaptureDSR extends BaseWidget {
 
     render() {
         let {type, style, classes} = this.props,
-            {dataType, loaded, finished, show, notice, selectedReasons} = this.state, display;
+            {dataType, loaded, finished, show, notice, missingOption} = this.state, display;
 
         if(!show)
             return null;
@@ -182,7 +170,7 @@ class CaptureDSR extends BaseWidget {
         else if(!loaded)
             display = <LoadingInline/>;
         else{
-            let {title, reasons, reasonsTitle, widgetData, selections} = dataType[type + 'Definition'];
+            let {title, reasons, reasonsTitle, widgetData} = dataType[type + 'Definition'];
 
             reasons = reasons || []; //So the widget doesn't fail
 
@@ -190,10 +178,10 @@ class CaptureDSR extends BaseWidget {
                 <p id='capture-dsr-title' style={{fontSize: '18px'}}>{this.dict.getName(title)}</p>
                 <p id='capture-dsr-help' style={{padding: '5px', fontSize: '16px'}}>
                     {this.dict.getName(reasonsTitle)}
-                    {selections>1 && <small> (Up to {selections} reasons can be selected)</small>}
                 </p>
                 <form onSubmit={this.sendDSRquery} id='capture-dsr-body'>
-                    {this.renderReasons(reasons, selections)}
+                    {this.renderReasons(reasons)}
+                    {missingOption && <small style={{color: 'red', fontWeight: 'bold'}}>Please select a reason</small>}
                     <Button id='capture-dsr-button' type='submit' fullWidth variant="contained" color="primary" className={classes.button}>
                         Submit
                     </Button>
