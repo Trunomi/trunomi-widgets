@@ -51,15 +51,12 @@ const styles = theme => ({
         height: '60px'
     },
     content: {
-        height: '50px',
-        width: '100%',
+        paddingTop: 0,
+        paddingBottom: 0,
         paddingRight: 0
     },
     close: {
         marginLeft: 'auto'
-    },
-    maxWidth: {
-        width: '100%'
     }
 });
 
