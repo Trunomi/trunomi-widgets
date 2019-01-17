@@ -80,7 +80,7 @@ class DsrButton extends React.Component{
                         onClose={this.toggleOptions}
                         onOpen={this.toggleOptions}
                         onChange={this.toggleReasons}
-                        margin="normal">
+                        value={1}>
                     {definitions.map((el, id) => this.menuItem(el, menuValues[id], buttonText[id + 1]))}
                 </Select>
             </span>

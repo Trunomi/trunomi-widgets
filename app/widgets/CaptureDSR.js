@@ -6,6 +6,7 @@ import CustomPanel, {blueStyle} from "../components/CustomPanel";
 import {LoadingInline} from "../components/Loading";
 import BaseWidget from "./Base"
 import { withStyles, Button, FormControl, Radio, FormControlLabel, Fade} from '@material-ui/core';
+import {submitButtonDict} from '../config/widgetDict'
 
 const styles = theme => ({
     options: {
@@ -22,11 +23,11 @@ class CaptureDSR extends BaseWidget {
     constructor(props) {
         super(props);
         this.state = {
-            dataType: '',
+            dataType: null,
             loaded: false,
             finished: false,
             show: this.props.show,
-            selectedReasons: [],
+            selectedReason: null,
             otherReason: "",
             notice: '',
             missingOption: false
@@ -36,21 +37,23 @@ class CaptureDSR extends BaseWidget {
     async componentWillMount() {
         let {dataTypeId, dataType, type} = this.props;
 
-        if(dataType) {
-            this.setState({dataType: dataType, loaded: true});
-        }
         try {
-            let data = await this.api.sendRequest('/data-type/' + dataTypeId);
+            if(!dataType) {
+                dataType = await this.api.sendRequest('/data-type/' + dataTypeId);
+            }
 
-            if(!data[type + 'Definition']) {
+            if(!dataType[type + 'Definition']) {
                 this.setState({
-                    notice: <p><b>Unfortunately</b>, {this.dict.getName(data.name)} does not allow {type} requests</p>,
+                    notice: <p><b>Unfortunately</b>, {this.dict.getName(dataType.name)} does not allow {type} requests</p>,
                     finished: true
                 });
+                return
             }
-            else {
-                this.setState({dataType: data, loaded: true});
+
+            if (typeof dataType[type + 'Definition'] === 'string'){
+                dataType[type + 'Definition'] = JSON.parse( dataType[type + 'Definition'])
             }
+            this.setState({dataType, loaded: true});
         }
         catch (error) {
             console.log(error);
@@ -79,7 +82,7 @@ class CaptureDSR extends BaseWidget {
         const DPO = sessionStorage.getItem("TRUNOMI_DPO")
         const MOC = sessionStorage.getItem("TRUNOMI_MOC")
 
-        if (!selectedReason){
+        if (selectedReason === null){
             return this.setState({missingOption: true})
         }
 
@@ -135,9 +138,8 @@ class CaptureDSR extends BaseWidget {
             {reasons.map((element, id)=>{
                 let text = this.dict.getName(element);
 
-                return <React.Fragment>
+                return <React.Fragment key={id}>
                     <FormControlLabel
-                            key={id}
                             control={<Radio checked={selectedReason === id} onChange={this.handleReasonChange.bind(this, id)} color="primary" />}
                             label={text}
                     />
@@ -183,9 +185,11 @@ class CaptureDSR extends BaseWidget {
                     {this.renderReasons(reasons)}
                     {missingOption && <small style={{color: 'red', fontWeight: 'bold'}}>Please select a reason</small>}
                     <Button id='capture-dsr-button' type='submit' fullWidth variant="contained" color="primary" className={classes.button}>
-                        Submit
+                        {this.dict.getName(submitButtonDict)}
                     </Button>
-                    <p id='capture-dsr-bottom-help'>{widgetData && this.dict.getName(widgetData.finalCopy)}</p>
+                    {widgetData && widgetData.finalCopy && 
+                        <p id='capture-dsr-bottom-help'>{this.dict.getName(widgetData.finalCopy)}</p>
+                    }
                 </form>
             </div>
         }

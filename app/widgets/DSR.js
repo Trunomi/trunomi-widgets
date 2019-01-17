@@ -146,8 +146,9 @@ class DSRWidget extends BaseWidget{
                                 pcConfig={pcConfig}
                                 style={{margin: 0}}
                                 header={headers}
-                                {...table}
+                                table={table}
                                 className="list-table"
+                                id="data-rights-widget"
                                 headerClass="list-table-header" />
         }
 

@@ -11,7 +11,7 @@ export default class Table extends React.Component {
     }
 
     renderHeader = () => {
-        let {header, headerClass, headerIsTable, pcConfig} = this.props;
+        let {header, headerClass, pcConfig} = this.props;
 
         let content = _.map(header, (h, i) => {
             return <th style={pcConfig ? pcConfig.columnHeaders : null} key={i}>{h}</th>
@@ -49,8 +49,9 @@ export default class Table extends React.Component {
 
     render() {
         let {show} = this.state
+        const {style, className, id} = this.props
         return <div>
-            <table {..._.omit(this.props, ['data', 'header', 'tableClass', 'headerClass', 'onRowClick'])}>
+            <table style={style} className={className} id={id}>
                 <tbody>
                     {this.renderHeader()}
                     {this.renderBody()}
@@ -73,10 +74,12 @@ Table.defaultProps = {
     data: [],
     pcConfig: null,
     header: [],
-    headerClass: '',
+    headerClass: 'greyHeader',
     className: '',
     tableClass: '',
     onRowClick: null,
+    id: "",
+    style: undefined
 };
 
 

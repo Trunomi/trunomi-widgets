@@ -222,7 +222,8 @@ class ConsentsWidget extends BaseWidget {
                                 pcConfig={pcConfig}
                                 data={_.flatten(contextRows)}
                                 onRowClick={_.flatten(truCerts)}
-                                {...table}
+                                table={table}
+                                id="consents-widget"
                                 className="list-table"
                                 headerClass="list-table-header"
                                 />
