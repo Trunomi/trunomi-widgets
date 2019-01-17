@@ -8,6 +8,8 @@ import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
 import {ExpansionPanel, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import {pannelTitlesDict} from '../config/widgetDict'
+import Locale from '../config/locale'
 
 class UserPreferences extends React.Component {
 
@@ -15,6 +17,8 @@ class UserPreferences extends React.Component {
         super(props)
         this.state = {
         }
+        
+        this.dict = new Locale(props.truConfig ? props.truConfig.locale || '' : '');
     }
 
     refreshRights = () => {
@@ -51,9 +55,10 @@ class UserPreferences extends React.Component {
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, pcConfig} = this.props
 
         const {paneHeadersText, show} = pcConfig
+        const titlesDict = this.dict.getName(pannelTitlesDict)
 
         let consentPaneTitle = {
-            text: (paneHeadersText && paneHeadersText[0]) || consentTitle,
+            text: (paneHeadersText && paneHeadersText[0]) || consentTitle || titlesDict[0],
             pane: 'pane1'
         }
 
@@ -70,7 +75,7 @@ class UserPreferences extends React.Component {
         }
 
         let dataPaneTitle = {
-            text: (paneHeadersText && paneHeadersText[1]) || dataTitle,
+            text: (paneHeadersText && paneHeadersText[1]) || dataTitle || titlesDict[1],
             pane: 'pane2'
         }
 
@@ -87,7 +92,7 @@ class UserPreferences extends React.Component {
         }
 
         let dsrPaneTitle = {
-            text: (paneHeadersText && paneHeadersText[2]) || dsrTitle,
+            text: (paneHeadersText && paneHeadersText[2]) || dsrTitle || titlesDict[2],
             pane: 'pane3'
         }
 
@@ -117,17 +122,17 @@ class UserPreferences extends React.Component {
 UserPreferences.defaultProps = {
     title: '',
     consentPane: true,
-    consentTitle: 'Manage My Consents',
+    consentTitle: '',
     dataPane: true,
-    dataTitle: 'My Data Permissions',
+    dataTitle: '',
     dsrPane: true,
-    dsrTitle: 'My Data Requests',
+    dsrTitle: '',
     helpLink: '',
     contextIds: null,
     dataTypeIds: null,
     contextTags: null,
     style: {},
-    pcConfig: null,
+    pcConfig: {},
     disableRevoke: {}
 }
 

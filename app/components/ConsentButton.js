@@ -114,7 +114,8 @@ class ConsentButton extends React.Component{
             />
         }
         else {
-            let secondOption = state === 'NotActed' ? 'deny' : 'revoke'
+            let buttonOptions = dict.getName(consentButtonDict);
+            let secondOption = state === 'NotActed' ? buttonOptions[2] : buttonOptions[1]
             content = <div>
                 {/* <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                     <span className="action-button">
@@ -123,15 +124,15 @@ class ConsentButton extends React.Component{
                     </span>
                 </div> */}
                 <div className={classes.btnContainer}>
-                    {expired && <span className={classes.centered}>Expired</span>}
+                    {expired && <span className={classes.centered}>{buttonOptions[3]}</span>}
                     {!expired &&
                     <Button className={classnames(classes.btn, classes.centered)}
                         disabled={isPreview || granted || !grant} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: 'grant'}})}>
-                        <span className={classes.btnFont}>Grant</span>
+                        <span className={classes.btnFont}>{buttonOptions[0]}</span>
                     </Button>}
                     {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined"
-                        onClick={() => this.handleConsent({target: {value: secondOption}})}
+                        onClick={() => this.handleConsent({target: {value: state === 'NotActed' ? 'deny' : 'revoke'}})}
                         disabled={isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny}>
                         <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
                     </Button>}

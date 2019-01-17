@@ -5,7 +5,7 @@ import DSRButton from "../components/DsrButton";
 import FadeOutNotice from "../components/FadeOutNotice";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dataTableDict, dataTableDict2} from "../config/widgetDict";
+import {dataTableDict, dataTableDict2, dsrResponseDict} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -99,16 +99,20 @@ class DSRWidget extends BaseWidget{
 
     onProcessed = (eventProcessed) => {
         let {onProcessed} = this.props;
+        let messages = this.dict.getName(dsrResponseDict);
 
-        let noticeMessage, {code, dataType, action} = eventProcessed;
+        let {code, dataType, action} = eventProcessed;
         if(code === 409) {
-            noticeMessage = `Unable to register your request. There is already a data ${action} \
-            request pending for ${dataType}`;
-            this.setState({noticeMessage: noticeMessage, dsrError: true});
+            this.setState({
+                noticeMessage: messages[0].replace('__action__', action).replace('__dataType__', dataType), 
+                dsrError: true
+            });
         }
         else {
-            noticeMessage = `Thank you, your ${action} request for ${dataType} is currently being reviewed`;
-            this.setState({noticeMessage: noticeMessage, dsrError: false});
+            this.setState({
+                noticeMessage: messages[1].replace('__action__', action).replace('__dataType__', dataType), 
+                dsrError: false
+            });
             if (_.isFunction(onProcessed))
                 onProcessed();
         }

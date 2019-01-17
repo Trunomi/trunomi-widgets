@@ -130,7 +130,7 @@ class ActiveDSRWidget extends BaseWidget {
             display = <LoadingInline/>;
         else{
             let headers = this.dict.getName(dsrTableDict);
-            const customHeaders = pcConfig ? pcConfig.columnHeaders2 : null
+            const customHeaders = pcConfig ? pcConfig.columnHeaders2 || [] : []
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             let body = [];

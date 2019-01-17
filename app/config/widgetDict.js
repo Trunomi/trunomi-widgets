@@ -8,6 +8,19 @@ let customerID = {
     "es-ES": 'Identificacion de usuario (ID)'
 };
 
+export const pannelTitlesDict = {
+    "en-US": [
+        'Manage My Consents',
+        'My Data Permissions',
+        'My Data Requests'
+    ],
+    "it-IT": [
+        'Gestione dei consensi',
+        'I miei consensi',
+        'Le mie richieste'
+    ]
+}
+
 export const consentTableDict = {
     "en-US": [
         'What Data?',
@@ -15,13 +28,21 @@ export const consentTableDict = {
         'Status',
         'Action'
     ],
-    "es-ES": [
-        'Contexto',
-        'Consentimiento',
-        dataType['es-ES'],
-        'Permitido'
+    "it-IT": [
+        'Quali dati?',
+        'Per cosa verranno usati?',
+        'Status',
+        'Azioni'
     ]
 };
+
+export const consentStatusDict = {
+    "en-US": [
+        'NEW',
+        'ON',
+        'OFF'
+    ]
+}
 
 export const dataTableDict = {
     "en-US": [
@@ -30,12 +51,12 @@ export const dataTableDict = {
         'Basis of Processing',
         'Actions'
     ],
-    "es-ES": [
-        dataType['es-ES'],
-        'Justificante (Definicion del consentimiento)',
-        'Base de Procesamiento',
-        'Acciónes'
-    ]
+    // "es-ES": [
+    //     dataType['es-ES'],
+    //     'Justificante (Definicion del consentimiento)',
+    //     'Base de Procesamiento',
+    //     'Acciónes'
+    // ]
 };
 
 export const dataTableDict2 = {
@@ -45,13 +66,13 @@ export const dataTableDict2 = {
         'Legal Basis',
         'Action'
     ],
-    "es-ES": [
-        dataType['es-ES'],
-        'Donde es utilizado',
-        'Acción'
+    "it-IT": [
+        'Quali dati?',
+        'Per cosa verranno usati?',
+        'Base giuridica',
+        'Azioni'
     ]
 };
-
 
 export const dsrTableDict = {
     "en-US": [
@@ -61,23 +82,27 @@ export const dsrTableDict = {
         'Status',
         'Note'
     ],
-    "es-ES": [
-        'Solicitud',
-        dataType['es-ES'],
-        'Datos Solicitados',
-        'Estado',
-        'Notas'
+    "it-IT": [
+        'Richiesta',
+        'Informazioni personali',
+        'Dati richiesti',
+        'Status',
+        'Note'
     ]
 };
 
 export const consentButtonDict = {
     "en-US": [
-        'Yes',
-        'No'
+        'Grant',
+        'Revoke',
+        'Deny',
+        'Expired'
     ],
-    "es-ES": [
-        'Si',
-        'No'
+    "it-IT": [
+        'Acconsento',
+        'Non acconsento',
+        'Non acconsento',
+        'Caducado'
     ]
 };
 
@@ -89,31 +114,42 @@ export const dsrButtonDict = {
         'Rectify',
         'Object'
     ],
-    "es-ES": [
-        'Accion',
-        'Acceso',
-        'Borrar',
-        'Rectificar',
-        'Objetar'
+    "it-IT": [
+        'Azioni',
+        'Accesso',
+        'Cancellare',
+        'Rettificare',
+        'Oggetto'
     ]
 };
+
+export const dsrResponseDict = {
+    "en-US": [
+        'Unable to register your request. There is already a data __action__ request pending for __dataType__',
+        'Thank you, your __action__ request for __dataType__ is currently being reviewed'
+    ],
+    // "es-ES": [
+    //     'UUnable to register your request. There is already a data __action__ request pending for __dataType__',
+    //     'TThank you, your __action__ request for __dataType__ is currently being reviewed'
+    // ]
+}
 
 export const submitButtonDict = {
     "en-US": [
         'Submit'
     ],
-    "es-ES": [
-        'Enviar'
-    ]
+    // "es-ES": [
+    //     'Enviar'
+    // ]
 };
 
 export const closeButtonDict = {
     "en-US": [
         'Close'
     ],
-    "es-ES": [
-        'Cerrar'
-    ]
+    // "es-ES": [
+    //     'Cerrar'
+    // ]
 };
 
 export const trucertTableDict = {
@@ -124,20 +160,20 @@ export const trucertTableDict = {
         'Timestamp',
         'TruCert Fingerprint'
     ],
-    "es-ES": [
-        'Programa',
-        customerID['es-ES'],
-        'Referencia de datos personales',
-        'Marca de tiempo',
-        'Huella TruCert'
-    ]
+    // "es-ES": [
+    //     'Programa',
+    //     customerID['es-ES'],
+    //     'Referencia de datos personales',
+    //     'Marca de tiempo',
+    //     'Huella TruCert'
+    // ]
 };
 
 export const loadingDict = {
     "en-US": [
         'Loading'
     ],
-    "es-ES": [
-        'Cargando'
-    ]
+    // "es-ES": [
+    //     'Cargando'
+    // ]
 };

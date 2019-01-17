@@ -5,7 +5,7 @@ import TrucertButton from "../components/TrucertButton";
 import ConsentButton from "../components/ConsentButton";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {consentTableDict} from "../config/widgetDict";
+import {consentTableDict, consentStatusDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
@@ -25,6 +25,9 @@ class ConsentsWidget extends BaseWidget {
             error: '',
             actionError: ''
         };
+
+        this.consentStatusDict = this.dict.getName(consentStatusDict)
+        this.consentTableDict = this.dict.getName(consentTableDict)
     }
 
     loadData = async () => {
@@ -115,8 +118,8 @@ class ConsentsWidget extends BaseWidget {
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
                     <span>{
                         ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ?
-                            "ON" :
-                            "OFF"
+                            this.consentStatusDict[1] :
+                            this.consentStatusDict[2]
                             //right.consentState.includes('deny') ? 'Denied' : 'Revoked'
                     }</span>,
                     <ConsentButton  dataTypeId={dataType.id}
@@ -168,7 +171,7 @@ class ConsentsWidget extends BaseWidget {
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataT.name)}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
-                                <span>NEW</span>,
+                                <span>{this.consentStatusDict[0]}</span>,
                                 <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
                                                 consentId={consentId}
                                                 state="NotActed"
@@ -201,7 +204,7 @@ class ConsentsWidget extends BaseWidget {
             display = <LoadingInline/>
         }
         else {
-            let headers = this.dict.getName(consentTableDict)
+            let headers = this.consentTableDict
             const customHeaders = pcConfig ? pcConfig.columnHeaders0 || [] : []
             headers = headers.map((el, id) => customHeaders[id] || el)
 

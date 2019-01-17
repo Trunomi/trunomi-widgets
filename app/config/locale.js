@@ -6,24 +6,31 @@ class Locale{
         let lang;
         try {
             lang =  customLocale || window.navigator.userLanguage || window.navigator.language;
-        }catch(error){}
 
-        if(lang) {
             lang = lang.replace('_', '-');
-            if (lang.startsWith('es'))
-                lang = 'es-ES';
-        }
+            if (!lang.startsWith('-'))
+                lang += `-${lang.toUpperCase()}`
+        }catch(error){}
 
         this.locale = lang || 'en-US';
     }
 
     getName(nameDict){
         try{
-            return nameDict[this.locale] || nameDict[Object.keys(nameDict)[0]];
+            return nameDict[this.locale] || similarKey(nameDict, this.locale) || nameDict[Object.keys(nameDict)[0]];
         }catch(e){
+            console.log(nameDict, e)
             return '';
         }
     }
+}
+
+function similarKey(dictionary, key){
+    for (let k in Object.keys(dictionary)){
+        if (k.startsWith(key))
+            return dictionary[key]
+    }
+    return undefined
 }
 
 export default Locale
