@@ -66,7 +66,7 @@ class ConsentButton extends React.Component{
     }
 
     handleConsent = (e) => {
-        const {value} = e.target
+        let {value} = e.target
         const {dataTypeId, consentId, contextId, moc} = this.props;
 
         this.props.onClick()
@@ -79,7 +79,13 @@ class ConsentButton extends React.Component{
                 consentDefinitionId: parseInt(consentId, 10)
             }
         };
-        if (value === 'grant' || value === 'extend')
+
+        if (value === 'extend'){
+            value = 'grant';
+            body.payload.moc = 'Customer extended consent';
+        }
+
+        if (value === 'grant')
             body.payload['dataTypeId'] = dataTypeId;
 
 
@@ -130,20 +136,19 @@ class ConsentButton extends React.Component{
                     </span>
                 </div> */}
                 <div className={classes.btnContainer}>
-                    {expired && (extend ? 
+                    {expired &&
                         <Button className={classnames(classes.btn, classes.centered)}
                             variant="outlined"
+                            disabled={!extend}
                             onClick={() => this.handleConsent({target: {value: 'extend'}})}>
-                            <span className={classes.btnFont}>Extend</span>
+                            <span className={classes.btnFont}>{buttonOptions[3]}</span>
                         </Button>
-                        :
-                        <span className={classes.centered}>{buttonOptions[3]}</span>
-                    )}
+                    }
                     {!expired &&
                     <Button className={classnames(classes.btn, classes.centered)}
                         disabled={isPreview || (!granted && !grant) || (granted && !extend) } variant="outlined"
                         onClick={() => this.handleConsent({target: {value: granted ? 'extend' : 'grant'}})}>
-                        <span className={classes.btnFont}>{(granted) ? "Extend" : buttonOptions[0]}</span>
+                        <span className={classes.btnFont}>{(granted) ? buttonOptions[3] : buttonOptions[0]}</span>
                     </Button>}
                     {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: state === 'NotActed' ? 'deny' : 'revoke'}})}
@@ -151,8 +156,7 @@ class ConsentButton extends React.Component{
                         <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
                     </Button>}
                 </div>
-                {almostExpired && <span className={classes.alert}>About to expire</span>}
-                {expired && extend && <span className={classes.alert}>Expired</span>}
+                {almostExpired && <span className={classes.alert}>{buttonOptions[4]}</span>}
                 {/* {!expired && <Select open={open}
                         style={{position: 'absolute',width: 5,visibility: 'hidden'}}
                         onClose={this.toggleOptions}

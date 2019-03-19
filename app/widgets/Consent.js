@@ -35,6 +35,8 @@ class ConsentsWidget extends BaseWidget {
 
     expiry = (rules, trucert = undefined) => {
         const {duration: {days, expires}, isExtendable} = rules;
+        const parsedTrucert = jwt.decode(trucert) || {};
+        const granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(parsedTrucert.event)
         const now = Date.now();
         
         if(expires){
@@ -44,20 +46,20 @@ class ConsentsWidget extends BaseWidget {
 
             return {
                 expired: now > expiryDate, 
-                almostExpired: now < expiryDate && expiryDate < now + msInDay * 2
+                almostExpired: granted && (now < expiryDate && expiryDate < now + msInDay * 2)
             };
         }
 
         if(days && trucert){
-            const {capturedAt} = jwt.decode(trucert);
-            const expiryDate = Date.parse(capturedAt) + parseInt(days, 10) * msInDay;
+            
+            const expiryDate = Date.parse(parsedTrucert.capturedAt) + parseInt(days, 10) * msInDay;
             const expired = now > expiryDate;
-            const almostExpired = now < expiryDate && expiryDate < now + msInDay * 2;
+            const almostExpired = granted && (now < expiryDate && expiryDate < now + msInDay * 2);
 
             return {
                 expired,
                 almostExpired, 
-                extendable: (almostExpired || expired) && isExtendable
+                extendable: granted && isExtendable && (almostExpired || expired)
             }
         }
 
@@ -152,7 +154,7 @@ class ConsentsWidget extends BaseWidget {
                 return ([
                     <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataType.name)}</span>,
                     <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                    <span>{
+                    <span>{ expired ? this.consentStatusDict[3] :
                         ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ?
                             this.consentStatusDict[1] :
                             this.consentStatusDict[2]
@@ -209,7 +211,7 @@ class ConsentsWidget extends BaseWidget {
                             return ([
                                 <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataT.name)}</span>,
                                 <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
-                                <span>{this.consentStatusDict[0]}</span>,
+                                <span>{expired ? this.consentStatusDict[3] : this.consentStatusDict[0]}</span>,
                                 <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
                                                 consentId={consentId}
                                                 state="NotActed"

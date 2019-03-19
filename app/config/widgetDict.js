@@ -40,7 +40,8 @@ export const consentStatusDict = {
     "en-US": [
         'NEW',
         'ON',
-        'OFF'
+        'OFF',
+        'Expired'
     ]
 }
 
@@ -96,7 +97,8 @@ export const consentButtonDict = {
         'Grant',
         'Revoke',
         'Deny',
-        'Expired'
+        'Extend',
+        'Permission will expire soon'
     ],
     "it-IT": [
         'Acconsento',
