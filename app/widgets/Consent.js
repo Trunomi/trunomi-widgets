@@ -11,6 +11,9 @@ import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
 import LoadingModal from "../components/Loading";
+import jwt from 'jsonwebtoken';
+
+const msInDay = 86400000;
 
 class ConsentsWidget extends BaseWidget {
     constructor(props) {
@@ -28,6 +31,37 @@ class ConsentsWidget extends BaseWidget {
 
         this.consentStatusDict = this.dict.getName(consentStatusDict)
         this.consentTableDict = this.dict.getName(consentTableDict)
+    }
+
+    expiry = (rules, trucert = undefined) => {
+        const {duration: {days, expires}, isExtendable} = rules;
+        const now = Date.now();
+        
+        if(expires){
+            let expiryDate = Date.parse(expires);  // String format
+            if (isNaN(expiryDate)) expiryDate = new Date(expires);   // Epoch format
+            if (isNaN(expiryDate)) return {expired: false}; // Other: like "conditional"
+
+            return {
+                expired: now > expiryDate, 
+                almostExpired: now < expiryDate && expiryDate < now + msInDay * 2
+            };
+        }
+
+        if(days && trucert){
+            const {capturedAt} = jwt.decode(trucert);
+            const expiryDate = Date.parse(capturedAt) + parseInt(days, 10) * msInDay;
+            const expired = now > expiryDate;
+            const almostExpired = now < expiryDate && expiryDate < now + msInDay * 2;
+
+            return {
+                expired,
+                almostExpired, 
+                extendable: (almostExpired || expired) && isExtendable
+            }
+        }
+
+        return {expired: false};
     }
 
     loadData = async () => {
@@ -109,7 +143,9 @@ class ConsentsWidget extends BaseWidget {
         try {
             // let isConsent = this.dict.getName(justification) === 'consent';
             // let uiId = i + "-" + consentId
-            let expired = right.consentState === 'permission-expired' || right.consentState === 'consent-expired'
+            let {expired, almostExpired, extendable} = this.expiry(cd.rules, right.trucert) 
+            expired = expired || right.consentState.includes('expired')
+
             if (truCert)
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
             else {
@@ -131,7 +167,8 @@ class ConsentsWidget extends BaseWidget {
                                     newConsent
                                     moc={mocOptions}
                                     expired={expired}
-                                    extend={extend}
+                                    almostExpired={almostExpired}
+                                    extend={extendable && extend !== false}
                                     api={this.api}
                                     dict={this.dict}
                                     onClick={()=> {this.setState({processing: true})}}
@@ -162,6 +199,7 @@ class ConsentsWidget extends BaseWidget {
                         return []
                     else {
                         try {
+                            const {expired} = this.expiry(consentDefinition.rules); // SHOULD WE NOT SHOW IT IF EXPIRED?
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
                             let {grant, deny, revoke, justification, mocOptions} = consentDefinition
                             let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
@@ -180,6 +218,7 @@ class ConsentsWidget extends BaseWidget {
                                                 grant={grant}
                                                 deny={deny}
                                                 revoke={revoke}
+                                                expired={expired}
                                                 onProcessed={this.onProcessed.bind(null, null, true)}
                                                 onClick={() => {this.setState({processing: true})}}
                                                 api={this.api}
