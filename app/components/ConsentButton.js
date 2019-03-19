@@ -148,7 +148,7 @@ class ConsentButton extends React.Component{
                     <Button className={classnames(classes.btn, classes.centered)}
                         disabled={isPreview || (!granted && !grant) || (granted && !extend) } variant="outlined"
                         onClick={() => this.handleConsent({target: {value: granted ? 'extend' : 'grant'}})}>
-                        <span className={classes.btnFont}>{(granted) ? buttonOptions[3] : buttonOptions[0]}</span>
+                        <span className={classes.btnFont}>{(granted && almostExpired) ? buttonOptions[3] : buttonOptions[0]}</span>
                     </Button>}
                     {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: state === 'NotActed' ? 'deny' : 'revoke'}})}
