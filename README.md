@@ -10,6 +10,12 @@ This module can be installed using **npm** or **yarn**. It is currently not host
 * Clone this project: `git clone https://github.com/Trunomi/trunomi-widgets.git`
 * Install the module: `npm install --save ../trunomi-widgets` (being **../trunomi-widgets** the locatione of the cloned repository)
 
+### Deployment
+To deploy this kibrary to npm follow this steps:
+* Update the package version inside the `package.json` file
+* Properly configure the npm authentication
+* Run ```yarn publish```: this will bundle the library and push it to npm
+
 ### Usage
 Import the wanted widgets from the **trunomi-widgets**: 
 ```js
