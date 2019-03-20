@@ -201,7 +201,10 @@ class ConsentsWidget extends BaseWidget {
                         return []
                     else {
                         try {
-                            const {expired} = this.expiry(consentDefinition.rules); // SHOULD WE NOT SHOW IT IF EXPIRED?
+                            const {expired} = this.expiry(consentDefinition.rules);
+                            if (expired){
+                                return;
+                            }
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
                             let {grant, deny, revoke, justification, mocOptions} = consentDefinition
                             let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
