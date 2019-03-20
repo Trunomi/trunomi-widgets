@@ -1,6 +1,6 @@
 {
   "name": "trunomi-widgets",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Official repo of Trunomi's React web widgets to work with Trunomi's consent management platform",
   "main": "app/index.js",
   "module": "dist/bundle.min.js",
@@ -25,6 +25,7 @@
     "start": "webpack --watch",
     "start-dev": "webpack-dev-server --open --env.dev",
     "build": "webpack",
+    "publish-npm": "yarn run build && npm publish",
     "demo": "webpack --env.demo",
     "clean": "rm -rf node_modules && rm -rf dist && rm -rf demo"
   },
