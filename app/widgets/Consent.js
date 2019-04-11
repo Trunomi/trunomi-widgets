@@ -187,9 +187,17 @@ class ConsentsWidget extends BaseWidget {
         let {id} = context;
         let elements = context.consentDefinitions
             .map((consentDefinition, consentId) => {
-                // Only show processing definitions with consent as it's legal basis
-                if(consentDefinition===null || !this.dict.getName(consentDefinition.justification).includes('consent'))
+                // Only show processing definitions with consent as it's legal basis, unless DPO
+                const DPO = window.sessionStorage.getItem("TRUNOMI_DPO")
+                const MOC = window.sessionStorage.getItem("TRUNOMI_MOC")
+
+                if(consentDefinition===null)
                     return;
+
+                if (!(DPO && MOC)) {
+                    if(!this.dict.getName(consentDefinition.justification).includes('consent'))
+                        return;
+                }
 
                 this.i++
                 let {i} = this
