@@ -1,6 +1,6 @@
 {
   "name": "trunomi-widgets",
-  "version": "0.2.3",
+  "version": "0.2.6",
   "description": "Official repo of Trunomi's React web widgets to work with Trunomi's consent management platform",
   "main": "app/index.js",
   "module": "dist/bundle.min.js",
@@ -15,7 +15,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "query-string": "^6.0.0",
-    "react-bootstrap": "^0.32.0",
+    "react-bootstrap": "^0.32.4",
     "react-bootstrap-switch": "^15.5.3",
     "react-bootstrap-toggle": "^2.2.3",
     "react-router-dom": "^4.2.2",
