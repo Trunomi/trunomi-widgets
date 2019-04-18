@@ -23,15 +23,6 @@
     font-weight: 700;
 }
 
-html {
-    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
-    font-family: 'Montserrat', sans-serif;
-    
-}
-body {
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135.63deg, #F2F2F2 0%, #F2F2F2 49.94%, #F8FEF7 100%);
-}
 
 h1,h2,h3,h4,h5 {
     color: var(--trunomi-blue);
