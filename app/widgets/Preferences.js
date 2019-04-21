@@ -38,15 +38,12 @@ class UserPreferences extends React.Component {
             let { Widget, props } = body
             const {paneHeadersFont, paneBackground} = pcConfig
 
-            return <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary id={pane} style={paneBackground} className={"expansion-panel-summary"} expandIcon={<ExpandMoreIcon />}>
-                    <Typography style={paneHeadersFont} variant="title">{text}</Typography>
-                </ExpansionPanelSummary>
-                <div className="expansion-panel-details">
-                    <Widget {...props} />
+            return <div class="mv5">
+                <div class="w-100 mw9 center pa3">
+                <div class="f1 mb3 lh-solid light-blue">{text}</div>
                 </div>
-            </ExpansionPanel>
-
+                <Widget {...props} />
+            </div>
         }
     }
 
@@ -108,7 +105,7 @@ class UserPreferences extends React.Component {
 
         return (
             <div>
-                {(title || helpLink) && <h3 id={'wTitle'}>{title}<Logo link={helpLink}/></h3>}
+                {(title || helpLink) && <h3 id={'wTitle'} class="f1 f-subheadline-l f-subheadline-m mv0 lh-solid light-blue">{title}<Logo link={helpLink}/></h3>}
                 <BS.PanelGroup id='User Preferences'>
                     {(!show || show[0]) && consentPane && this.panel(consentPaneTitle, consentPaneBody)}
                     {(!show || show[1]) && dataPane && this.panel(dataPaneTitle, dataPaneBody)}

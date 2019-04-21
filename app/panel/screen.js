@@ -204,6 +204,16 @@ s
                 </span>
             </div>
         </div>
+        <div class="w-100 mw9 center pa3">
+            <h1 className='blue-text' id='title' style={pcConfig.titleFont}>{title}</h1>
+            {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
+            <ConfigModal    show={configModal}
+                            {...config}
+                            onSubmit={this.saveConfig}
+                            onHide={()=>{this.setState({configModal: false})}} />
+        </div>
+            {this.loginScreen()}
+            {this.widgetsScreen()}
         </div>
 
         /*return <Grid container>
