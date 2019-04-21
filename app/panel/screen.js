@@ -12,7 +12,7 @@ import _ from 'lodash';
 import API from '../config/api';
 import {Grid, Typography} from '@material-ui/core';
 import {AppBar, Toolbar, Menu, Button, MenuItem} from "@material-ui/core";
-import TrunomiLogo from '../assets/logo.svg'
+import TrunomiLogo from '../assets/trulogo.gif'
 import {enterprise_logo, pcConfig, isPreview} from '../config/enterprise-config'
 import Iframe from './subcomponents/iframe'
 
@@ -177,7 +177,36 @@ s
         if (jwtToken)
             customerId = jwt.decode(jwtToken.split(' ')[1]).aud[2]
 
-        return <Grid container>
+        return <div>
+            <div id="topnav" class="w-100 ma0 bb b--black-20 pr4 bg-white flex flex-wrap mw9 center">
+            <div className="w-25 tl">
+            <img alt="company-logo" src={enterprise_logo || TrunomiLogo} style={{width: '200px', maxWidth: '200px'}} />
+            </div>
+            <div className="w-75 tr pt4 flex justify-end">
+            <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
+                    <span className="navbar-logout">
+                        {managed && <React.Fragment>
+                        <Button
+                            aria-owns={anchorEl ? 'simple-menu' : null}
+                            aria-haspopup="true"
+                            onClick={(e) => this.setState({anchorEl: e.currentTarget})}>
+                            {customerId}
+                        </Button>
+                        <Menu
+                            className='logout-drop'
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={()=>{this.setState({anchorEl: null})}}>
+                            <MenuItem onClick={this.logout}>SIGN OUT</MenuItem>
+                        </Menu>
+                    </React.Fragment>}
+                </span>
+            </div>
+        </div>
+        </div>
+
+        /*return <Grid container>
             <AppBar id='navbar' color="inherit" position='sticky' style={{top: 0, ...pcConfig.topBar}}>
                 <Toolbar>
                     <span className="navbar-logo">
@@ -221,7 +250,7 @@ s
                 {this.widgetsScreen()}
             </Grid>
             <Grid item xs={2}></Grid>
-        </Grid>
+        </Grid>*/
     }
 }
 
