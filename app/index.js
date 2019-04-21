@@ -16,6 +16,9 @@ import './assets/style/css/bootstrap-theme.css';
 import './assets/style/helper.css';
 import './assets/style/css/bootstrap.min.css';
 
+import './assets/animate.min.css';
+import './assets/custom.css';
+
 export {
     UserPreferences,
     ConsentsWidget,
