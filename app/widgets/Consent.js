@@ -12,6 +12,7 @@ import TableX from "../components/DynamicTable";
 import FadeOutNotice from "../components/FadeOutNotice";
 import LoadingModal from "../components/Loading";
 import jwt from 'jsonwebtoken';
+import shapes from '../assets/shapes1.png'
 
 const msInDay = 86400000;
 
@@ -152,14 +153,12 @@ class ConsentsWidget extends BaseWidget {
                 return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
             else {
                 return ([
-                    <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataType.name)}</span>,
-                    <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(right.consentDefinition.name)}</span>,
-                    <span>{ expired ? this.consentStatusDict[3] :
+                    this.dict.getName(dataType.name),
+                    this.dict.getName(right.consentDefinition.name),
+                    expired ? this.consentStatusDict[3] :
                         ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(right.consentState) ?
                             this.consentStatusDict[1] :
-                            this.consentStatusDict[2]
-                            //right.consentState.includes('deny') ? 'Denied' : 'Revoked'
-                    }</span>,
+                            this.consentStatusDict[2],
                     <ConsentButton  dataTypeId={dataType.id}
                                     consentId={consentId}
                                     state={right.consentState}
@@ -220,9 +219,9 @@ class ConsentsWidget extends BaseWidget {
                             deny = defaults.deny
                             revoke = defaults.revoke
                             return ([
-                                <span id={"my-permissions-purpose-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(dataT.name)}</span>,
-                                <span id={"my-permissions-permission-"+i} style={{wordBreak: "break-word"}}>{this.dict.getName(consentDefinition.name)}</span>,
-                                <span>{expired ? this.consentStatusDict[3] : this.consentStatusDict[0]}</span>,
+                                this.dict.getName(dataT.name),
+                                this.dict.getName(consentDefinition.name),
+                                expired ? this.consentStatusDict[3] : this.consentStatusDict[0],
                                 <ConsentButton  dataTypeId={consentDefinition.dataTypeId}
                                                 consentId={consentId}
                                                 state="NotActed"
@@ -261,33 +260,50 @@ class ConsentsWidget extends BaseWidget {
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             this.i = 0
-            let contextRows = _.map(contexts, (element) => {
-                return this.genContextRowArray(element)
-            })
 
-            let truCerts = _.map(contexts, (element) => {
-                return this.genContextRowArray(element, true)
-            })
-
-            display = <TableX   style={{margin: 0}}
-                                header={headers}
-                                pcConfig={pcConfig}
-                                data={_.flatten(contextRows)}
-                                onRowClick={_.flatten(truCerts)}
-                                table={table}
-                                id="consents-widget"
-                                className="list-table"
-                                headerClass="list-table-header"
-                                />
+            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray">
+                {
+                    _.map(contexts, (element) => {
+                        let items = this.genContextRowArray(element)
+                        let trucerts = this.genContextRowArray(element, true)
+                        return _.map(items, (el) => {
+                            return <div class="relative animated fadeIn slow ma3 pb3">
+                                        <div class="relative w7 min-h6 bg-white br4 pv3">
+                                        <div class="w-100 flex flex-wrap items-center ">
+                                            <div class="w-100 ph3">
+                                            <img src={shapes} className="w4 ph0 pv3" />
+                                            <h1 class="f3 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                            </div>
+                                            <div class="w-100 ph3">
+                                            <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
+                                            <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[2]}</h1>
+                                            <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3">
+                                            {el[3]}
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                        })
+                    })
+                }
+            </div>
         }
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
+        return <LoadingModal loading={processing} >
+                <FadeOutNotice show={!!actionError} text={actionError}
+                               variant={'error'}
+                               onClose={()=>{this.setState({actionError: ''})}}/>
+                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray"><p class="f2 fw4 dark-blue ma4">No Data Requiring Consent</p></div>: display} 
+            </LoadingModal>
+        
+        /*return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
             <LoadingModal loading={processing}>
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}
                                onClose={()=>{this.setState({actionError: ''})}}/>
                 {display}
             </LoadingModal>
-        </BS.Panel>
+        </BS.Panel>*/
     }
 }
 
