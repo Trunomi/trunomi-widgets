@@ -10,6 +10,7 @@ import {dataTableDict, dataTableDict2, dsrResponseDict} from "../config/widgetDi
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
+import shapes from '../assets/shapes1.png'
 
 class DSRWidget extends BaseWidget{
 
@@ -87,11 +88,9 @@ class DSRWidget extends BaseWidget{
         const {name, permission, justification, dataType} = entry
 
         return ([
-            <span id={"my-data-personal-info-" + i}>{name}</span>,
-            <span id={"my-data-where-its-used-" + i} style={{wordBreak: "break-word"}}>
-                {permission}
-            </span>,
-            <span>{_.capitalize(justification)}</span>,
+            name,
+            permission,
+            justification,
             <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
                        dataType={dataType} onProcessed={this.onProcessed}/>
         ])
@@ -142,23 +141,43 @@ class DSRWidget extends BaseWidget{
             const customHeaders = pcConfig ? pcConfig.columnHeaders1 || [] : []
             headers = headers.map((el, id) => customHeaders[id] || el)
 
-            display = <Table    data={body}
-                                pcConfig={pcConfig}
-                                style={{margin: 0}}
-                                header={headers}
-                                table={table}
-                                className="list-table"
-                                id="data-rights-widget"
-                                headerClass="list-table-header" />
+            if (_.size(body)) {
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray">
+                {
+                _.map(body, (el) => {
+                    return <div class="relative animated fadeIn slow ma3 pb3">
+                                <div class="relative w7 min-h6 bg-white br4 pv3">
+                                <div class="w-100 flex flex-wrap items-center ">
+                                    <div class="w-100 ph3">
+                                    <img src={shapes} className="w4 ph0 pv3" />
+                                    <h1 class="f3 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                    </div>
+                                    <div class="w-100 ph3">
+                                    <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
+                                    <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Justification:</span> {el[2]}</h1>
+                                    <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3">
+                                    {el[3]}
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                })
+                }   
+                </div>
+            }
+            else {
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray"><p class="f2 fw4 dark-blue ma4">No Data Permissions Given</p></div>
+            }
         }
 
 
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
+        return <div>
             <FadeOutNotice show={!!noticeMessage} text={noticeMessage}
                            variant={dsrError ? 'error':'success'}
                            onClose={()=>{this.setState({noticeMessage: ''})}}/>
             {display}
-        </BS.Panel>
+            </div>
     }
 }
 
