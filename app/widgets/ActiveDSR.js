@@ -9,6 +9,7 @@ import {dsrTableDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import Table from "../components/DynamicTable";
+import shapes from '../assets/shapes1.png';
 
 
 let events = {
@@ -140,19 +141,38 @@ class ActiveDSRWidget extends BaseWidget {
                 }catch(error){}
             });
 
-            display = <Table    header={headers}
-                                pcConfig={pcConfig}
-                                data={body}
-                                {...table}
-                                style={{margin: 0}}
-                                className="list-table"
-                                id="active-dsrs"
-                                headerClass="list-table-header" />
+            if (_.size(body)) {
+                //request, personal info, data requested, status, note
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray">
+                {
+                _.map(body, (el) => {
+                    return <div class="relative animated fadeIn slow ma3 pb3">
+                                <div class="relative w7 min-h6 bg-white br4 pv3">
+                                <div class="w-100 flex flex-wrap items-center ">
+                                    <div class="w-100 ph3">
+                                    <img src={shapes} className="w4 ph0 pv3" />
+                                    <h1 class="f3 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[1]}</h1>
+                                    </div>
+                                    <div class="w-100 ph3">
+                                    <h1 class="f4 fw2 mv3 lh-title blue">Data Request Type: <span class="black">{el[0]}</span></h1>
+                                    <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Date Requested:</span> {el[2]}</h1>
+                                    <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[3]}</h1>
+                                    <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Note:</span> {el[4]}</h1><br/><br/>
+                                    <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3">
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                })
+                }   
+                </div>
+            } else {
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray"><p class="f2 fw4 dark-blue ma4">No Requests for Data</p></div>
+            }
         }
 
-        return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}} className={'trunomi-active-dsr'}>
-            {display}
-        </BS.Panel>
+        return <div>{display}</div>
     }
 }
 
