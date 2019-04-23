@@ -150,7 +150,7 @@ class ConsentsWidget extends BaseWidget {
             expired = expired || right.consentState.includes('expired')
 
             if (truCert)
-                return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} show />
+                return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} />
             else {
                 return ([
                     this.dict.getName(dataType.name),
@@ -266,7 +266,12 @@ class ConsentsWidget extends BaseWidget {
                     _.map(contexts, (element) => {
                         let items = this.genContextRowArray(element)
                         let trucerts = this.genContextRowArray(element, true)
+
+                        let j = 0
+
                         return _.map(items, (el) => {
+                            let tc = trucerts[j]
+                            j++
                             return <div class="relative animated fadeIn slow ma3 pb3">
                                         <div class="relative w7 min-h6 bg-white br4 pv3">
                                         <div class="w-100 flex flex-wrap items-center ">
@@ -277,7 +282,8 @@ class ConsentsWidget extends BaseWidget {
                                             <div class="w-100 ph3">
                                             <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
                                             <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[2]}</h1><br/><br/>
-                                            <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3">
+                                            <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3 flex justify-end">
+                                            {tc}
                                             {el[3]}
                                             </div>
                                             </div>

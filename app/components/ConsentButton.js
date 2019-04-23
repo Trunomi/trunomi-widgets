@@ -19,6 +19,7 @@ const styles = theme => ({
     btn: {
         padding: '10px',
         color: 'var(--trunomi-blue)',
+        marginRight: '10'
     },
     btnFont: {
         fontSize: '12px',
