@@ -56,8 +56,24 @@ export default class Events extends React.Component {
                     moment.unix(_.toInteger(led.capturedAt) / 1000).format("MMMM Do YYYY, h:mm a")
                 ];
                 data = this.eventData(payload, i, header);
-                return <div key={i}>
-                    <Table style={{width: '100%'}} header={header} headerClass={"info"} data={data}/>
+                let renderedBody
+                if (_.size(data)) {
+                    renderedBody = <div classs="mb3">
+                        {
+                            _.map(data, (e, i) => {
+                                return <h1 class="f5 fw2 mv3 lh-title tl">
+                                <span class="dark-gray">{e[0]}: </span>{e[1]}
+                                </h1>
+                            })
+                        }
+                    </div>
+                } else {
+                    renderedBody = <div></div>
+                }
+                return <div><h1 class="f4 fw2 mv3 lh-title tl bb b--light-gray">
+                <span class="blue">{header[0]}: </span>{header[1]}
+                </h1>
+                {renderedBody}
                 </div>
             })
         }
