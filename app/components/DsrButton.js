@@ -69,9 +69,9 @@ class DsrButton extends React.Component{
         if (!definitions.find(val => val && val !== "null"))
             return null
 
-        return <div class="w4">
-            <span onClick={this.toggleOptions}>
-                <span className="action-button">{buttonText[0]}<ExpandMoreIcon /></span>
+        return <div class="w3 tr">
+            <span onClick={this.toggleOptions} className="tr">
+                <span className="action-button tr">{buttonText[0]}<ExpandMoreIcon /></span>
             </span>
             <span>
                 <Select open={open}

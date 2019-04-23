@@ -155,7 +155,7 @@ class DSRWidget extends BaseWidget{
                                     <div class="w-100 ph3">
                                     <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
                                     <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Justification:</span> {el[2]}</h1><br/><br/>
-                                    <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3">
+                                    <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3 flex justify-end">
                                     {el[3]}
                                     </div>
                                     </div>
