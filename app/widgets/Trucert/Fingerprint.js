@@ -18,7 +18,7 @@ export default class Fingerprint extends React.Component {
     // renders the TruCert string
     renderTruCertFingerPrint = (fingerprint) => {
         let moreLess = this.state.showFullTruCert ? 'less' : 'more';
-        return <div>
+        return <div class="mt3 fw5 f4">
             {this.state.showFullTruCert ? fingerprint : fingerprint.substring(0, 50)}
             <br/>
             <BS.Button bsStyle="link" onClick={() => this.toggleFullTruCertState()}>{moreLess}</BS.Button>
@@ -33,7 +33,7 @@ export default class Fingerprint extends React.Component {
         return (
             <div className="webTBlRow">
                 <div className="webTblCol">
-                    <label className="truCol">TruCert Fingerprint: </label>
+                    <label className="f4 fw2 mv3 lh-title blue">TruCert Fingerprint: </label>
                     <div className="modalSec fingerprint" style={trucertFingerprintStyle}>
                         {this.renderTruCertFingerPrint(fingerprint)}
                     </div>
