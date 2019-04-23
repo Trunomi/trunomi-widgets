@@ -11,6 +11,7 @@ import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
 import trunomi_logo from "../assets/logo.svg";
 import { enterprise_logo } from '../config/enterprise-config';
+import shapes from '../assets/shapes1.png';
 
 class Trucert extends BaseWidget {
     constructor(props) {
