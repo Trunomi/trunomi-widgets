@@ -9,7 +9,7 @@ import FingerPrint from './Trucert/Fingerprint';
 import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
-import trunomi_logo from "../assets/logo.svg";
+import trunomi_logo from "../assets/trulogo.gif";
 import { enterprise_logo } from '../config/enterprise-config';
 import shapes from '../assets/shapes1.png';
 
@@ -129,24 +129,35 @@ class Trucert extends BaseWidget {
 
         if (loaded && !error) {
             return <div>
-                <h2>
-                    <img className="enterprise-logo" src={enterprise_logo || trunomi_logo}/>
-                    TruCert <small>for {ledger[0].customerId}</small>
-                </h2>
-                <hr/>
-                <Collapse text="General" headerBsStyle="active">
-                    <HorTable data={general} headerStyle={{width: '30%'}}/>
-                </Collapse>
-                <Collapse text="History" headerBsStyle="active">
-                    <div id="trueCert-popup">
-                        <Events ledger={ledger}/>
-                        <hr/>
-                        <FingerPrint fingerprint={fingerprint} />
-                        <div className="trucert-footer">Powered by Trunomi © 2014 - {new Date().getFullYear()}. All rights reserved</div>
+                <div>
+                    <p class="w-100 tc">
+                    <img src={enterprise_logo || trunomi_logo} alt="logo" style={{maxWidth: '200px'}} />
+                    <div className="mt2 f3 fw5 hot-pink">TruCert&trade; for {ledger[0].customerId}<br/><br/> Powered by Trunomi © 2014 - 2019</div>
+                    </p>
+                </div>
+                <div>
+                    <div class="relative w100 bg-white br4 pv3">
+                    <img src={shapes} className="w4 ph0 pv3" />
+                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3">Overview</h1>
+                    <div class="w-100 ph3 mt3">
+                    {
+                        _.map(general, (d, i) => {
+                            return <h1 class="f4 fw2 mv3 lh-title">
+                            <span class="blue">{d[0]}: </span>{d[1]}
+                            </h1>
+                        })
+                    }
                     </div>
-                </Collapse>
-
-                <DownloadPDF general={general} events={ledger} />
+                    </div>
+                    <div class="relative w100 bg-white br4 pv3">
+                    <img src={shapes} className="w4 ph0 pv3" />
+                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3">History</h1>
+                    <div class="w-100 ph3 mt3">
+                    <Events ledger={ledger} />
+                    <FingerPrint fingerprint={fingerprint} />
+                    </div>
+                    </div>
+                </div>
             </div>
         }
     }
