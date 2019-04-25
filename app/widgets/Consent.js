@@ -261,7 +261,7 @@ class ConsentsWidget extends BaseWidget {
 
             this.i = 0
 
-            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray">
+            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-blue">
                 {
                     _.map(contexts, (element) => {
                         let items = this.genContextRowArray(element)
@@ -273,7 +273,7 @@ class ConsentsWidget extends BaseWidget {
                             let tc = trucerts[j]
                             j++
                             return <div class="relative animated fadeIn slow ma3 pb3">
-                                        <div class="relative w7 min-h6 bg-white br4 pv3">
+                                        <div class="relative w7 min-h6 bg-white br4 ba b--tdark-blue pv3">
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
                                             <img src={shapes} className="w4 ph0 pv3" />
@@ -299,7 +299,7 @@ class ConsentsWidget extends BaseWidget {
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}
                                onClose={()=>{this.setState({actionError: ''})}}/>
-                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray"><p class="f2 fw4 dark-blue ma4">No Data Requiring Consent</p></div>: display} 
+                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-blue"><p class="f2 fw4 dark-blue ma4">No Data Requiring Consent</p></div>: display} 
             </LoadingModal>
         
         /*return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>

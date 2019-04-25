@@ -142,11 +142,11 @@ class DSRWidget extends BaseWidget{
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             if (_.size(body)) {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray">
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-green">
                 {
                 _.map(body, (el) => {
                     return <div class="relative animated fadeIn slow ma3 pb3">
-                                <div class="relative w7 min-h6 bg-white br4 pv3">
+                                <div class="relative w7 min-h6 bg-white br4 ba b--tdark-blue pv3">
                                 <div class="w-100 flex flex-wrap items-center ">
                                     <div class="w-100 ph3">
                                     <img src={shapes} className="w4 ph0 pv3" />
@@ -167,7 +167,7 @@ class DSRWidget extends BaseWidget{
                 </div>
             }
             else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-light-gray"><p class="f2 fw4 dark-blue ma4">No Data Permissions Given</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-green"><p class="f2 fw4 dark-blue ma4">No Data Permissions Given</p></div>
             }
         }
 

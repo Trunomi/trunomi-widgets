@@ -15356,3 +15356,19 @@ code {
   
   .w-95 {width: 95%;}
   .w-93 {width: 93%;}
+
+.bg-very-light-blue {
+    background-color: #ECFCFE;
+}
+
+.bg-alt-light-blue {
+    background-color: #B2F1FD;
+}
+
+.bg-tru-teal {
+    background-color: #2C9BAE;
+}
+
+.bg-tru-gray {
+  background-color: #7D89A3;
+}
