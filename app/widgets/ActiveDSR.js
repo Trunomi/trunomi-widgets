@@ -143,7 +143,7 @@ class ActiveDSRWidget extends BaseWidget {
 
             if (_.size(body)) {
                 //request, personal info, data requested, status, note
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-lightest-blue">
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue">
                 {
                 _.map(body, (el) => {
                     return <div class="relative animated fadeIn slow ma3 pb3">

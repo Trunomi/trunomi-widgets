@@ -142,7 +142,7 @@ class DSRWidget extends BaseWidget{
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             if (_.size(body)) {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-green">
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-green">
                 {
                 _.map(body, (el) => {
                     return <div class="relative animated fadeIn slow ma3 pb3">
