@@ -261,7 +261,7 @@ class ConsentsWidget extends BaseWidget {
 
             this.i = 0
 
-            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-blue">
+            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue">
                 {
                     _.map(contexts, (element) => {
                         let items = this.genContextRowArray(element)

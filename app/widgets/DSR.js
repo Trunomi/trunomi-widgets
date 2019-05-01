@@ -167,7 +167,7 @@ class DSRWidget extends BaseWidget{
                 </div>
             }
             else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-washed-green"><p class="f2 fw4 dark-blue ma4">No Data Permissions Given</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-green"><p class="f2 fw4 dark-blue ma4">No Data Permissions Given</p></div>
             }
         }
 

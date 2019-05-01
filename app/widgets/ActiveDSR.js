@@ -168,7 +168,7 @@ class ActiveDSRWidget extends BaseWidget {
                 }   
                 </div>
             } else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-lightest-blue"><p class="f2 fw4 dark-blue ma4">No Requests for Data</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue"><p class="f2 fw4 dark-blue ma4">No Requests for Data</p></div>
             }
         }
 
