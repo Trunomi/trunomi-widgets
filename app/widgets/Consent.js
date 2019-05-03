@@ -272,7 +272,26 @@ class ConsentsWidget extends BaseWidget {
                         return _.map(items, (el) => {
                             let tc = trucerts[j]
                             j++
-                            return <div class="relative animated fadeIn slow ma3 pb3">
+                            if (el[2] === 'OFF') {
+                                return <div class="relative animated fadeIn slow ma3 pb3">
+                                        <div class="relative w7 min-h6 bg-near-white br4 ba b--tdark-blue pv3">
+                                        <div class="w-100 flex flex-wrap items-center ">
+                                            <div class="w-100 ph3 pt5">
+                                            <h1 class="f3 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                            </div>
+                                            <div class="w-100 ph3">
+                                            <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
+                                            <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[2]}</h1><br/><br/>
+                                            <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3 flex justify-end">
+                                            {tc}
+                                            {el[3]}
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                            } else {
+                                return <div class="relative animated fadeIn slow ma3 pb3">
                                         <div class="relative w7 min-h6 bg-white br4 ba b--tdark-blue pv3">
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
@@ -290,6 +309,8 @@ class ConsentsWidget extends BaseWidget {
                                         </div>
                                         </div>
                                     </div>
+                            }
+                            
                         })
                     })
                 }
