@@ -146,16 +146,15 @@ class DSRWidget extends BaseWidget{
                 {
                 _.map(body, (el) => {
                     return <div class="relative animated fadeIn slow ma3 pb3">
-                                <div class="relative w7 min-h6 bg-white br4 ba b--tdark-blue pv3">
+                                <div class="relative w7 bg-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem'}}>
                                 <div class="w-100 flex flex-wrap items-center ">
                                     <div class="w-100 ph3">
-                                    <img src={shapes} className="w4 ph0 pv3" />
-                                    <h1 class="f3 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                    <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
                                     </div>
                                     <div class="w-100 ph3">
-                                    <h1 class="f4 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
-                                    <h1 class="f4 fw2 mv3 lh-title"><span class="blue">Justification:</span> {el[2]}</h1><br/><br/>
-                                    <div class="absolute bottom-0 right-0 ma3 tr w-93 bt b--silver pt3 flex justify-end">
+                                    <h1 class="f5 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
+                                    <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Justification:</span> {el[2]}</h1><br/><br/>
+                                    <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                     {el[3]}
                                     </div>
                                     </div>
