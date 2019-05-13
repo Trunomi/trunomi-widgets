@@ -98,6 +98,10 @@ class ConsentButton extends React.Component{
         this.sendConsentQuery(value, body, contextId);
     }
 
+    handleMessageAction = (e) => {
+        return
+    }
+
     toggleOptions = () => {
         this.setState({open: !this.state.open})
     }
