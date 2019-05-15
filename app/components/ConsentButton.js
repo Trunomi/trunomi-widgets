@@ -35,7 +35,8 @@ const styles = theme => ({
 class ConsentButton extends React.Component{
 
     state = {
-        open: false
+        open: false,
+        showMessageModal: false
     }
 
     sendConsentQuery = async(type, body, contextId) => {
