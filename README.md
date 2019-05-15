@@ -1,6 +1,6 @@
 # Trunomi Widgets [Preference centre demo](https://trunomi.github.io/trunomi-widgets/prefcentre) [Widgets demo](https://trunomi.github.io/trunomi-widgets/widgets)
 Set of React components that makes the implementation of the Trunomi platform on a react application easier. Contains a number of fully customizable widgets.
-# NEW UI IN - Custom styles broken, you will need to branch and customize css 
+# NEW UI IN - Custom styles broken, you will need to branch and customize css, I want to go another direction here with White Label abilities.
 ## Getting Started
 ### Prerequisites
 npm or yarn and React/React-dom to be used. Fully compatible with react 16 and 0.15, more testing pending
