@@ -5,6 +5,12 @@ import _ from 'lodash';
 import {FormControlLabel, Switch, withStyles, Button} from '@material-ui/core'
 import { pcConfig, isPreview } from '../config/enterprise-config';
 import classnames from 'classnames';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme => ({
     centered: {
@@ -100,7 +106,15 @@ class ConsentButton extends React.Component{
     }
 
     handleMessageAction = (e) => {
-        return
+        this.setState({showMessageModal: !this.state.showMessageModal})
+    }
+
+    handleMessageActionOpen = () => {
+        this.setState({ showMessageModal: true })
+    }
+
+    handleMessageActionClose = () => {
+        this.setState({ showMessageModal: false });
     }
 
     toggleOptions = () => {
@@ -109,7 +123,7 @@ class ConsentButton extends React.Component{
 
     render() {
         const DPO = window.sessionStorage.getItem("TRUNOMI_DPO")
-        let {open} = this.state
+        let {open, showMessageModal} = this.state
         let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke, expired, extend, almostExpired} = this.props
         // let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
@@ -136,6 +150,40 @@ class ConsentButton extends React.Component{
             let buttonOptions = dict.getName(consentButtonDict);
             let secondOption = state === 'NotActed' ? buttonOptions[2] : buttonOptions[1]
             content = <div>
+                <Dialog
+                    open={this.state.showMessageModal}
+                    onClose={this.handleMessageActionClose}
+                    aria-labelledby="form-dialog-title"
+                    >
+                    <DialogTitle id="form-dialog-title">Log Message</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                        Log Custom Personal Data Events to the system (like alerting KYC is done). You can also specify custom data to be saved with the TruCert. Recommended to Base64 Encode custom data.
+                        </DialogContentText>
+                        <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Personal Data Event Name"
+                        fullWidth
+                        />
+                        <TextField
+                        autoFocus
+                        margin="dense"
+                        id="customdata"
+                        label="Custom Data to be saved"
+                        fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleMessageActionClose} color="primary">
+                        Cancel
+                        </Button>
+                        <Button onClick={this.handleMessageActionSubmit} color="primary">
+                        Submit
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 {/* <div style={{marginLeft: '11px'}} onClick={this.toggleOptions}>
                     <span className="action-button">
                         {expired ? 'Expired' : 'Actions'}
@@ -163,7 +211,7 @@ class ConsentButton extends React.Component{
                         <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
                     </Button>}
                     {DPO && <Button 
-                        onClick={() => this.handleMessageAction({target: {value: 'message'}})}
+                        onClick={() => this.handleMessageActionOpen({target: {value: 'message'}})}
                         className={classnames(classes.btn, classes.centered)} variant="outlined">
                         <span className={classes.btnFont}>{_.upperFirst('message')}</span>
                     </Button>}
