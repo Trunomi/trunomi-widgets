@@ -125,6 +125,28 @@ class ConsentButton extends React.Component{
             this.setState({messageEventNameError: true})
         } else {
             // Submit message & Close
+            const {dataTypeId, consentId, contextId, moc} = this.props
+            const DPO = window.sessionStorage.getItem("TRUNOMI_DPO")
+            const MOC = window.sessionStorage.getItem("TRUNOMI_MOC")
+            let body = {
+                payload: {
+                    consentDefinitionId: parseInt(consentId, 10)
+                }
+            };
+    
+            if (value === 'grant')
+                body.payload['dataTypeId'] = dataTypeId;
+    
+    
+            if (MOC && DPO)
+                body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
+            else
+                body.payload['moc'] = 'Preference Centre'
+
+            body.payload['customData'] = this.state.messageEventCustomData
+            body.payload['event'] = this.state.messageEventName
+            body.payload['message'] = this.state.messageEventName
+
             this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
         }
     }
