@@ -161,6 +161,9 @@ class ConsentButton extends React.Component{
                         disabled={isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny}>
                         <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
                     </Button>}
+                    <Button className={classnames(classes.btn, classes.centered)} variant="outlined">
+                        <span className={classes.btnFont}>{_.upperFirst('message')}</span>
+                    </Button>
                 </div>
                 {almostExpired && <span className={classes.alert}>{buttonOptions[4]}</span>}
                 {/* {!expired && <Select open={open}
