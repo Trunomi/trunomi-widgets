@@ -44,7 +44,8 @@ class ConsentButton extends React.Component{
         open: false,
         showMessageModal: false,
         messageEventName: '',
-        messageEventCustomData: ''
+        messageEventCustomData: '',
+        messageEventNameError: false
     }
 
     sendConsentQuery = async(type, body, contextId) => {
@@ -119,6 +120,15 @@ class ConsentButton extends React.Component{
         this.setState({ showMessageModal: false })
     }
 
+    handleMessageActionSubmit = () => {
+        if (_.isEmpty(this.state.messageEventName)) {
+            this.setState({messageEventNameError: true})
+        } else {
+            // Submit message & Close
+            this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
+        }
+    }
+
     handleNameChange = (event, value) => {
         this.setState({ messageEventName: value })
     }
@@ -168,10 +178,11 @@ class ConsentButton extends React.Component{
                     <DialogTitle id="form-dialog-title">Log Message</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                        Log Custom Personal Data Events to the system (like alerting KYC is done). You can also specify custom data to be saved with the TruCert. Recommended to Base64 Encode custom data.
+                        Log Custom Personal Data Events to the system (like alerting KYC is done). You can also specify custom data to be saved with the TruCert. Recommended to Base64 Encode custom data. The Event Name is required.
                         </DialogContentText>
                         <div className="f5 blue mt2">Event Name</div>
                         <TextField
+                        error={this.state.messageEventNameError}
                         margin="dense"
                         id="name"
                         fullWidth
