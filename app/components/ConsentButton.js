@@ -117,7 +117,7 @@ class ConsentButton extends React.Component{
     }
 
     handleMessageActionClose = () => {
-        this.setState({ showMessageModal: false })
+        this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
     }
 
     handleMessageActionSubmit = () => {
@@ -129,12 +129,12 @@ class ConsentButton extends React.Component{
         }
     }
 
-    handleNameChange = (event, value) => {
-        this.setState({ messageEventName: value })
+    handleNameChange = (e) => {
+        this.setState({ messageEventName: e.target.value, messageEventNameError: false })
     }
 
-    handleCustomDataChange = (event, value) => {
-        this.setState({ messageEventCustomData: value })
+    handleCustomDataChange = (e) => {
+        this.setState({ messageEventCustomData: e.target.value })
     }
 
     toggleOptions = () => {
