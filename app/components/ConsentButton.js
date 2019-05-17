@@ -42,7 +42,9 @@ class ConsentButton extends React.Component{
 
     state = {
         open: false,
-        showMessageModal: false
+        showMessageModal: false,
+        messageEventName: '',
+        messageEventCustomData: ''
     }
 
     sendConsentQuery = async(type, body, contextId) => {
@@ -114,7 +116,15 @@ class ConsentButton extends React.Component{
     }
 
     handleMessageActionClose = () => {
-        this.setState({ showMessageModal: false });
+        this.setState({ showMessageModal: false })
+    }
+
+    handleNameChange = (event, value) => {
+        this.setState({ messageEventName: value })
+    }
+
+    handleCustomDataChange = (event, value) => {
+        this.setState({ messageEventCustomData: value })
     }
 
     toggleOptions = () => {
@@ -160,19 +170,25 @@ class ConsentButton extends React.Component{
                         <DialogContentText>
                         Log Custom Personal Data Events to the system (like alerting KYC is done). You can also specify custom data to be saved with the TruCert. Recommended to Base64 Encode custom data.
                         </DialogContentText>
+                        <div className="f5 blue mt2">Event Name</div>
                         <TextField
-                        autoFocus
                         margin="dense"
                         id="name"
-                        label="Personal Data Event Name"
                         fullWidth
+                        value={this.state.messageEventName}
+                        onChange={this.handleNameChange}
+                        margin="normal"
+                        variant="outlined"
                         />
+                        <div className="f5 blue mt2">Event Custom Data</div>
                         <TextField
-                        autoFocus
                         margin="dense"
                         id="customdata"
-                        label="Custom Data to be saved"
                         fullWidth
+                        value={this.state.messageEventCustomData}
+                        onChange={this.handleCustomDataChange}
+                        margin="normal"
+                        variant="outlined"
                         />
                     </DialogContent>
                     <DialogActions>
