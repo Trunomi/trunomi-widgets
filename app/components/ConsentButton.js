@@ -120,7 +120,7 @@ class ConsentButton extends React.Component{
         this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
     }
 
-    handleMessageActionSubmit = () => {
+    handleMessageActionSubmit = async () => {
         if (_.isEmpty(this.state.messageEventName)) {
             this.setState({messageEventNameError: true})
         } else {
@@ -132,11 +132,9 @@ class ConsentButton extends React.Component{
                 payload: {
                     consentDefinitionId: parseInt(consentId, 10)
                 }
-            };
+            }
     
-            if (value === 'grant')
-                body.payload['dataTypeId'] = dataTypeId;
-    
+            body.payload['dataTypeId'] = dataTypeId
     
             if (MOC && DPO)
                 body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
@@ -145,9 +143,18 @@ class ConsentButton extends React.Component{
 
             body.payload['customData'] = this.state.messageEventCustomData
             body.payload['event'] = this.state.messageEventName
-            body.payload['message'] = this.state.messageEventName
+            body.payload['message'] = `On DataTypeID: (${dataTypeId})`
 
-            this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
+            try {
+                let page = `/ledger/context/${contextId}/message`
+                await this.props.api.sendRequest(page, 'post', body)
+    
+                this.setState({ messageEventName: '', messageEventCustomData: '', showMessageModal: false, messageEventNameError: false })
+            }
+            catch(error){
+                console.log(error);
+                alert('Error communicating with the Trunomi system. Please contact support@trunomi.com')
+            }
         }
     }
 
