@@ -281,7 +281,7 @@ class ConsentsWidget extends BaseWidget {
                                             </div>
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[2]}</h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw5">{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="">{el[2]}</span>}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
@@ -299,7 +299,7 @@ class ConsentsWidget extends BaseWidget {
                                             </div>
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {el[2]}</h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw6">{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="">{el[2]}</span>}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
