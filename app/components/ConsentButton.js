@@ -52,7 +52,7 @@ class ConsentButton extends React.Component{
         let {onProcessed, newConsent, state} = this.props;
 
         try {
-            let page = `/ledger/context/${contextId}/${state.includes("consent") ? "consent": "permission"}-${type}`;
+            let page = `/ledger/context/${contextId}/${state.includes("consent") ? (type === 'executed') ? "permission" : "consent": "permission"}-${type}`;
             await this.props.api.sendRequest(page, 'post', body);
 
             onProcessed(null, newConsent);
@@ -96,7 +96,7 @@ class ConsentButton extends React.Component{
             body.payload.moc = 'Customer extended consent';
         }
 
-        if (value === 'grant')
+        if ((value === 'grant') || (value === 'executed'))
             body.payload['dataTypeId'] = dataTypeId;
 
 
@@ -270,6 +270,11 @@ class ConsentButton extends React.Component{
                         onClick={() => this.handleMessageActionOpen({target: {value: 'message'}})}
                         className={classnames(classes.btn, classes.centered)} variant="outlined">
                         <span className={classes.btnFont}>{_.upperFirst('message')}</span>
+                    </Button>}
+                    {DPO && <Button 
+                        onClick={() => this.handleConsent({target: {value: 'executed'}})}
+                        className={classnames(classes.btn, classes.centered)} variant="outlined">
+                        <span className={classes.btnFont}>{_.upperFirst('executed')}</span>
                     </Button>}
                 </div>
                 {almostExpired && <span className={classes.alert}>{buttonOptions[4]}</span>}
