@@ -38,7 +38,7 @@ export const consentTableDict = {
 
 export const consentStatusDict = {
     "en-US": [
-        'NEW',
+        'OUTSTANDING',
         'ON',
         'OFF',
         'Expired'
