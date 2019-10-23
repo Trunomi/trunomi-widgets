@@ -40,7 +40,7 @@ class UserPreferences extends React.Component {
 
             return <div class="mv5">
                 <div class="w-100 mw9 center pa3">
-                <div class="f1 mb3 lh-solid hot-pink">{text}</div>
+                <div class="f1 mb3 lh-solid hot-pink" style={pcConfig.prefCentreSectionTitleFont}>{text}</div>
                 </div>
                 <Widget {...props} />
             </div>

@@ -261,7 +261,9 @@ class ConsentsWidget extends BaseWidget {
 
             this.i = 0
 
-            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue">
+            console.log(pcConfig)
+
+            display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}>
                 {
                     _.map(contexts, (element) => {
                         let items = this.genContextRowArray(element)
@@ -319,7 +321,7 @@ class ConsentsWidget extends BaseWidget {
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}
                                onClose={()=>{this.setState({actionError: ''})}}/>
-                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue"><p class="f2 fw4 dark-blue ma4">No Data Requiring Consent</p></div>: display} 
+                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentreSectionTitleFont}>No Data Requiring Consent</p></div>: display} 
             </LoadingModal>
         
         /*return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>
