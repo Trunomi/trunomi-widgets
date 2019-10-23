@@ -276,14 +276,14 @@ class ConsentsWidget extends BaseWidget {
                             j++
                             if (el[2] === 'OFF') {
                                 return <div class="relative animated fadeIn slow ma3 pb3">
-                                        <div class="relative w7 bg-near-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem'}}>
+                                        <div class="relative w7 bg-near-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
-                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
-                                            <h1 class="f5 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw5">{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="">{el[2]}</span>}</h1>
+                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw5" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="" style={pcConfig.prefCentreGridItemTextFont}>{el[2]}</span>}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
@@ -294,14 +294,14 @@ class ConsentsWidget extends BaseWidget {
                                     </div>
                             } else {
                                 return <div class="relative animated fadeIn slow ma3 pb3">
-                                        <div class="relative w7 bg-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem'}}>
+                                        <div class="relative w7 bg-white br4 ba b--tdark-blue pv3"  style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
-                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2">{el[0]}</h1>
+                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
-                                            <h1 class="f5 fw2 mv3 lh-title blue">Permission: <span class="black">{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue">Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw6">{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="">{el[2]}</span>}</h1>
+                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black">{el[1]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="" style={pcConfig.prefCentreGridItemTextFont}>{el[2]}</span>}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
