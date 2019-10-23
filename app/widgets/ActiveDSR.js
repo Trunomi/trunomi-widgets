@@ -143,7 +143,7 @@ class ActiveDSRWidget extends BaseWidget {
 
             if (_.size(body)) {
                 //request, personal info, data requested, status, note
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue">
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}>
                 {
                 _.map(body, (el) => {
                     return <div class="relative animated fadeIn slow ma3 pb3">
@@ -167,7 +167,7 @@ class ActiveDSRWidget extends BaseWidget {
                 }   
                 </div>
             } else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue"><p class="f2 fw4 dark-blue ma4">No Requests for Data</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentrePaneBackground}>No Requests for Data</p></div>
             }
         }
 
