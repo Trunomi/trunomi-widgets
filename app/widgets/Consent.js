@@ -227,6 +227,7 @@ class ConsentsWidget extends BaseWidget {
                                                 state="NotActed"
                                                 moc={mocOptions}
                                                 contextId={id}
+                                                pcConfig={pcConfig}
                                                 grant={grant}
                                                 deny={deny}
                                                 revoke={revoke}

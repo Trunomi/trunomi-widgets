@@ -3,7 +3,7 @@ import {consentButtonDict} from "../config/widgetDict";
 import {consentButtonTypes} from "./propTypes";
 import _ from 'lodash';
 import {FormControlLabel, Switch, withStyles, Button} from '@material-ui/core'
-import { pcConfig, isPreview } from '../config/enterprise-config';
+import { isPreview } from '../config/enterprise-config';
 import classnames from 'classnames';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -173,7 +173,7 @@ class ConsentButton extends React.Component{
     render() {
         const DPO = window.sessionStorage.getItem("TRUNOMI_DPO")
         let {open, showMessageModal} = this.state
-        let {state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke, expired, extend, almostExpired} = this.props
+        let {pcConfig, state, dict, disableRevoke, onClick, isSwitch, classes, grant, deny, revoke, expired, extend, almostExpired} = this.props
         // let buttonText = dict.getName(consentButtonDict);
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let denied = ['consent-deny', 'permission-deny'].includes(state);
