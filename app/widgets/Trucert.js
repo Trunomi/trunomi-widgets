@@ -10,7 +10,7 @@ import DownloadPDF from './Trucert/DownloadPDF';
 import Collapse from '../components/Collapse';
 import {eventDict} from '../config/dataTypes';
 import trunomi_logo from "../assets/trulogo.gif";
-import { enterprise_logo, loadConfigurations } from '../config/enterprise-config';
+import { enterprise_logo } from '../config/enterprise-config';
 import shapes from '../assets/shapes1.png';
 
 class Trucert extends BaseWidget {
@@ -107,7 +107,6 @@ class Trucert extends BaseWidget {
 
     async componentWillMount() {
         await this.trucertRequest(this.props.ledgerId)
-        const idOk = await loadConfigurations(enterpriseId)
         this.initVars();
 
     }
