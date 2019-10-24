@@ -300,7 +300,7 @@ class ConsentsWidget extends BaseWidget {
                                             <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
-                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black">{el[1]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> {(el[2] === 'OUTSTANDING') && <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span>}{(el[2] !== 'OUTSTANDING') && <span class="" style={pcConfig.prefCentreGridItemTextFont}>{el[2]}</span>}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
