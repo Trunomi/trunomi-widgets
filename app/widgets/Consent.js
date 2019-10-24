@@ -150,7 +150,7 @@ class ConsentsWidget extends BaseWidget {
             expired = expired || right.consentState.includes('expired')
 
             if (truCert)
-                return <TrucertButton api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} />
+                return <TrucertButton pcConfig={this.pcConfig} api={this.api} dict={this.dict} ledgerId={right.ledgerEntryId} />
             else {
                 return ([
                     this.dict.getName(dataType.name),

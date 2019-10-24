@@ -198,7 +198,7 @@ class ManagedPrefCentre extends React.Component {
 
         return  <BS.Modal show={!loggedIn} style={{minWidth: '600px'}}>
             <BS.Modal.Body style={{padding: '25px'}}>
-                <img className="enterprise-logo" style={{position: 'absolute'}} src={enterprise_logo || trunomi_logo}/>
+                <img className="enterprise-logo" style={{position: 'absolute', width: '200px'}} src={enterprise_logo || trunomi_logo}/>
                 <h1 className="text-center">{enterprise_name}</h1>
                 {enterprise_magicLink_allowed ? this.magicLinkForm() : this.baseLogInForm()}
             </BS.Modal.Body>

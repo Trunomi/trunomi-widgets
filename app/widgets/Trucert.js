@@ -125,13 +125,13 @@ class Trucert extends BaseWidget {
 
     renderTrucert() {
         let {general, fingerprint, ledger, loaded} = this.state;
-        let {error} = this.props;
+        let {error, pcConfig} = this.props;
 
         if (loaded && !error) {
             return <div>
                 <div>
                     <p class="w-100 tc">
-                    <img src={enterprise_logo || trunomi_logo} alt="logo" style={{maxWidth: '200px'}} />
+                    <img src={enterprise_logo || trunomi_logo} alt="logo" style={{width: '200px'}} />
                     <div className="mt2 f3 fw5 hot-pink" style={{overflowWrap: 'break-word'}}>TruCert&trade; for {ledger[0].customerId}<br/><br/> Powered by Trunomi © 2014 - 2019</div>
                     </p>
                 </div>

@@ -180,7 +180,7 @@ s
         return <div>
             <div id="topnav" class="w-100 ma0 bb b--black-20 pr4 bg-white flex flex-wrap mw9 center">
             <div className="w-100 flex flex-wrap justify-center">
-            <img alt="company-logo" src={enterprise_logo || TrunomiLogo} style={{width: '200px', maxWidth: '200px'}} />
+            <img alt="company-logo" src={enterprise_logo || TrunomiLogo} style={{width: '200px'}} />
             </div>
             <div className="w-100 flex flex-wrap justify-center">
             <WidgetButtons widget={Widget} chooseWidget={this.chooseWidget} prefCentre={prefCentre} newConsents={newConsents} managed={managed}/>
