@@ -126,11 +126,7 @@ class Trucert extends BaseWidget {
     renderTrucert() {
         let {general, fingerprint, ledger, loaded} = this.state;
         let {error, pcConfig} = this.props;
-        let icon = pcConfig.icon
-        console.log(icon)
-        let customIcon = true
-        if (!icon || icon === '' || icon === 'null')
-            icon = null
+        console.log('logo: ' + enterprise_logo);
 
         let showShapes = true
 
@@ -142,7 +138,7 @@ class Trucert extends BaseWidget {
             return <div>
                 <div>
                     <p class="w-100 tc">
-                    <img src={icon || trunomi_logo} alt="logo" style={{width: '200px'}} />
+                    <img src={enterprise_logo || trunomi_logo} alt="logo" style={{width: '200px'}} />
                     <div className="mt2 f3 fw5 hot-pink" style={{overflowWrap: 'break-word', ...pcConfig.truCertTitleFont}}>TruCert&trade; for {ledger[0].customerId}<br/><br/> Powered by Trunomi © 2014 - 2019</div>
                     </p>
                 </div>
