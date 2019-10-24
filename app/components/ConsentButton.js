@@ -178,6 +178,8 @@ class ConsentButton extends React.Component{
         let granted = ['consent-grant', 'permission-grant', 'permission-mandate', 'permission-implicit'].includes(state);
         let denied = ['consent-deny', 'permission-deny'].includes(state);
         let content, options
+
+        console.log('Test: ' + pcConfig)
         if (isSwitch && !expired) {
             let disabled = isPreview || ((denied || granted) && (disableRevoke || status==='permission-implicit')) || (!granted && !grant && revoke)
             content = <FormControlLabel
