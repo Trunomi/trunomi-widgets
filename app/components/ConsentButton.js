@@ -252,29 +252,29 @@ class ConsentButton extends React.Component{
                             variant="outlined"
                             disabled={!extend}
                             onClick={() => this.handleConsent({target: {value: 'extend'}})}>
-                            <span className={classes.btnFont}>{buttonOptions[3]}</span>
+                            <span className={classes.btnFont} style={(!extend) ? {...pcConfig.prefCentreGridItemActionButtonTextFont, color: 'gray'} : {...pcConfig.prefCentreGridItemActionButtonTextFont}}>{buttonOptions[3]}</span>
                         </Button>
                     }
                     {!expired &&
                     <Button className={classnames(classes.btn, classes.centered)}
                         disabled={isPreview || (!granted && !grant) || (granted && !extend) } variant="outlined"
                         onClick={() => this.handleConsent({target: {value: granted ? 'extend' : 'grant'}})}>
-                        <span className={classes.btnFont}>{(granted && almostExpired) ? buttonOptions[3] : buttonOptions[0]}</span>
+                        <span className={classes.btnFont} style={(isPreview || (!granted && !grant) || (granted && !extend)) ? {...pcConfig.prefCentreGridItemActionButtonTextFont, color: 'gray'} : {...pcConfig.prefCentreGridItemActionButtonTextFont}}>{(granted && almostExpired) ? buttonOptions[3] : buttonOptions[0]}</span>
                     </Button>}
                     {!expired && <Button className={classnames(classes.btn, classes.centered)} variant="outlined"
                         onClick={() => this.handleConsent({target: {value: state === 'NotActed' ? 'deny' : 'revoke'}})}
                         disabled={isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny}>
-                        <span className={classes.btnFont}>{_.upperFirst(secondOption)}</span>
+                        <span className={classes.btnFont} style={(isPreview || disableRevoke || (state !== 'NotActed' && !granted) || !deny) ? {...pcConfig.prefCentreGridItemActionButtonTextFont, color: 'gray'} : {...pcConfig.prefCentreGridItemActionButtonTextFont}}>{_.upperFirst(secondOption)}</span>
                     </Button>}
                     {DPO && <Button 
                         onClick={() => this.handleMessageActionOpen({target: {value: 'message'}})}
                         className={classnames(classes.btn, classes.centered)} variant="outlined">
-                        <span className={classes.btnFont}>{_.upperFirst('message')}</span>
+                        <span className={classes.btnFont} style={pcConfig.prefCentreGridItemActionButtonTextFont}>{_.upperFirst('message')}</span>
                     </Button>}
                     {DPO && <Button 
                         onClick={() => this.handleConsent({target: {value: 'executed'}})}
                         className={classnames(classes.btn, classes.centered)} variant="outlined">
-                        <span className={classes.btnFont}>{_.upperFirst('executed')}</span>
+                        <span className={classes.btnFont} style={pcConfig.prefCentreGridItemActionButtonTextFont}>{_.upperFirst('executed')}</span>
                     </Button>}
                 </div>
                 {almostExpired && <span className={classes.alert}>{buttonOptions[4]}</span>}
