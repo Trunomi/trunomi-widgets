@@ -127,6 +127,12 @@ class Trucert extends BaseWidget {
         let {general, fingerprint, ledger, loaded} = this.state;
         let {error, pcConfig} = this.props;
 
+        let showShapes = true
+
+        if ((pcConfig.truCertTitleFont) && ('fontFamily' in pcConfig.truCertTitleFont) && (pcConfig.truCertTitleFont !== '')) {
+            showShapes = false
+        }
+
         if (loaded && !error) {
             return <div>
                 <div>
@@ -137,7 +143,7 @@ class Trucert extends BaseWidget {
                 </div>
                 <div>
                     <div class="relative w100 bg-white br4 pv3">
-                    <img src={shapes} className="w4 ph0 pv3" />
+                    {showShapes && <img src={shapes} className="w4 ph0 pv3" />}
                     <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3">Overview</h1>
                     <div class="w-100 ph3 mt3">
                     {
