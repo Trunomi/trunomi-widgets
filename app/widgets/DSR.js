@@ -92,7 +92,7 @@ class DSRWidget extends BaseWidget{
             permission,
             justification,
             <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
-                       dataType={dataType} onProcessed={this.onProcessed}/>
+                       dataType={dataType} onProcessed={this.onProcessed} pcConfig={this.props.pcConfig}/>
         ])
     }
 

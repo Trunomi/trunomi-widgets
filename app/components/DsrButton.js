@@ -44,12 +44,12 @@ class DsrButton extends React.Component{
         if (!definition || definition === "null")
             return null
         let {pcConfig} = this.props
-        return <MenuItem key={value} style={pcConfig ? pcConfig.tableBody : null} disabled={isPreview} value={value}>{text}</MenuItem>
+        return <MenuItem key={value} style={pcConfig ? {...pcConfig.tableBody, ...pcConfig.prefCentreGridItemActionButtonTextFont} : null} disabled={isPreview} value={value}>{text}</MenuItem>
     }
 
     render() {
         const {reasonsPrompt, dsrType, open} = this.state
-        const {dataType} = this.props
+        const {dataType, pcConfig} = this.props
 
         let reasons
 
@@ -71,7 +71,7 @@ class DsrButton extends React.Component{
 
         return <div class="w3 tr">
             <span onClick={this.toggleOptions} className="tr">
-                <span className="action-button tr">{buttonText[0]}<ExpandMoreIcon /></span>
+                <span className="action-button tr" style={pcConfig.prefCentreGridItemActionButtonTextFont}>{buttonText[0]}<ExpandMoreIcon /></span>
             </span>
             <span>
                 <Select open={open}
