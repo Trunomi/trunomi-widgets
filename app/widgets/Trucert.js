@@ -107,6 +107,7 @@ class Trucert extends BaseWidget {
 
     async componentWillMount() {
         await this.trucertRequest(this.props.ledgerId)
+        const idOk = await loadConfigurations(enterpriseId)
         this.initVars();
 
     }
