@@ -144,23 +144,23 @@ class Trucert extends BaseWidget {
                 <div>
                     <div class="relative w100 bg-white br4 pv3">
                     {showShapes && <img src={shapes} className="w4 ph0 pv3" />}
-                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3">Overview</h1>
+                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3" style={{...pcConfig.truCertSectionTitleFont, ...pcConfig.truCertDividerColor}}>Overview</h1>
                     <div class="w-100 ph3 mt3">
                     {
                         _.map(general, (d, i) => {
-                            return <h1 class="f4 fw2 mv3 lh-title">
-                            <span class="blue">{d[0]}: </span>{d[1]}
+                            return <h1 class="f4 fw2 mv3 lh-title" style={pcConfig.truCertTextFont}>
+                            <span class="blue" style={pcConfig.truCertHighlightedTextFont}>{d[0]}: </span>{d[1]}
                             </h1>
                         })
                     }
                     </div>
                     </div>
                     <div class="relative w100 bg-white br4 pv3">
-                    <img src={shapes} className="w4 ph0 pv3" />
-                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3">History</h1>
+                    {showShapes && <img src={shapes} className="w4 ph0 pv3" />}
+                    <h1 class="pl2 f2 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2 mb3" style={{...pcConfig.truCertSectionTitleFont, ...pcConfig.truCertDividerColor}}>History</h1>
                     <div class="w-100 ph3 mt3">
-                    <Events ledger={ledger} />
-                    <FingerPrint fingerprint={fingerprint} />
+                    <Events ledger={ledger} pcConfig={pcConfig} />
+                    <FingerPrint fingerprint={fingerprint} pcConfig={pcConfig} />
                     </div>
                     </div>
                 </div>

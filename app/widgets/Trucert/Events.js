@@ -45,7 +45,7 @@ export default class Events extends React.Component {
 
 
     render() {
-        let {ledger} = this.props;
+        let {ledger, pcConfig} = this.props;
         let data, header = [];
         let payload = {};
         if (_.size(ledger)) {
@@ -61,8 +61,8 @@ export default class Events extends React.Component {
                     renderedBody = <div classs="mb3">
                         {
                             _.map(data, (e, i) => {
-                                return <h1 class="f5 fw2 mv3 lh-title tl">
-                                <span class="dark-gray">{e[0]}: </span>{e[1]}
+                                return <h1 class="f5 fw2 mv3 lh-title tl" style={pcConfig.truCertHistoryTextFont}>
+                                <span class="dark-gray" style={pcConfig.truCertHistoryTextFont}>{e[0]}: </span>{e[1]}
                                 </h1>
                             })
                         }
@@ -70,8 +70,8 @@ export default class Events extends React.Component {
                 } else {
                     renderedBody = <div></div>
                 }
-                return <div><h1 class="f4 fw2 mv3 lh-title tl bb b--light-gray">
-                <span class="blue">{header[0]}: </span>{header[1]}
+                return <div><h1 class="f4 fw2 mv3 lh-title tl bb b--light-gray" style={pcConfig.truCertHistoryTitleFont}>
+                <span class="blue" style={pcConfig.truCertHistoryHighlightedTitleSectionFont}>{header[0]}: </span>{header[1]}
                 </h1>
                 {renderedBody}
                 </div>

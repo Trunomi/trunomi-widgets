@@ -29,11 +29,11 @@ export default class Fingerprint extends React.Component {
         const trucertFingerprintStyle = {
             "overflowWrap": 'break-word'
         };
-        let {fingerprint} = this.props;
+        let {fingerprint, pcConfig} = this.props;
         return (
             <div className="webTBlRow">
                 <div className="webTblCol">
-                    <label className="f4 fw2 mv3 lh-title blue">TruCert Fingerprint: </label>
+                    <label className="f4 fw2 mv3 lh-title blue" style={pcConfig.truCertFingerprintTitleFont}>TruCert Fingerprint: </label>
                     <div className="modalSec fingerprint" style={trucertFingerprintStyle}>
                         {this.renderTruCertFingerPrint(fingerprint)}
                     </div>
