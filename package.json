@@ -1,6 +1,6 @@
 {
   "name": "trunomi-widgets",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "description": "Official repo of Trunomi's React web widgets to work with Trunomi's consent management platform",
   "main": "app/index.js",
   "module": "dist/bundle.min.js",

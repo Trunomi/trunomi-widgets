@@ -4,7 +4,8 @@ import {closeButtonDict} from "../config/widgetDict";
 import Trucert from '../widgets/Trucert';
 import {trucertButtonTypes} from "./propTypes";
 import {Dialog, DialogContent, DialogTitle } from '@material-ui/core'
-import NoteIcon from '@material-ui/icons/Note';
+import NoteIcon from '@material-ui/icons/NoteOutlined';
+import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFile';
 
 class TrucertButton extends React.Component{
     constructor(props){
@@ -34,9 +35,11 @@ class TrucertButton extends React.Component{
     };
 
     render() {
-        return <div className='text-center'>
-            <BS.Button bsSize='small' bsStyle="link" onClick={this.toggleTrucert}>
-                <NoteIcon/>
+        console.log(this.props.pcConfig)
+        console.log()
+        return <div style={{verticalAlign: 'top'}}>
+            <BS.Button bsSize='large' bsStyle="link" onClick={this.toggleTrucert}  style={{verticalAlign: 'top', ...this.props.pcConfig.truCertItemIconColor}}>
+                <span className="glyphicon glyphicon-file f3" style={this.props.pcConfig.truCertItemIconColorForWidgets}></span>
             </BS.Button>
             <Dialog open={this.state.show} onClose={this.toggleTrucert} scroll='body'>
                 <DialogContent>
