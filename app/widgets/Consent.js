@@ -184,6 +184,7 @@ class ConsentsWidget extends BaseWidget {
 
     genContextRowArray = (context, truCert = false) => {
         let {id} = context;
+        let {pcConfig} = this.props;
         let elements = context.consentDefinitions
             .map((consentDefinition, consentId) => {
                 // Only show processing definitions with consent as it's legal basis, unless DPO
@@ -196,6 +197,10 @@ class ConsentsWidget extends BaseWidget {
                 if (!(DPO && MOC)) {
                     if(!this.dict.getName(consentDefinition.justification).includes('consent'))
                         return;
+                }
+
+                if (!DPO && consentDefinition.hide) {
+                    return;
                 }
 
                 this.i++
@@ -237,7 +242,7 @@ class ConsentsWidget extends BaseWidget {
                                                 api={this.api}
                                                 dict={this.dict}/>
                             ])
-                        }catch (e){}
+                        }catch (e){console.log(e)}
                     }
                 }
             });
@@ -261,15 +266,13 @@ class ConsentsWidget extends BaseWidget {
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             this.i = 0
-
-            console.log(pcConfig)
-
+            console.log(contexts)
             display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}>
                 {
                     _.map(contexts, (element) => {
                         let items = this.genContextRowArray(element)
                         let trucerts = this.genContextRowArray(element, true)
-
+                        
                         let j = 0
 
                         return _.map(items, (el) => {
