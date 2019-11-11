@@ -10,9 +10,29 @@ let customerID = {
 
 export const pannelTitlesDict = {
     "en-US": [
-        'Manage My Consents',
-        'My Data Permissions',
-        'My Data Requests'
+        'Manage My Consents - US',
+        'My Data Permissions - US',
+        'My Data Requests - US'
+    ],
+    "en-GB": [
+        'Manage My Consents - GB',
+        'My Data Permissions - GB',
+        'My Data Requests - GB'
+    ],
+    "fr-FR": [
+        'Manage My Consents - FR',
+        'My Data Permissions - FR',
+        'My Data Requests - FR'
+    ],
+    "ar-AR": [
+        'Manage My Consents - AR',
+        'My Data Permissions - AR',
+        'My Data Requests - AR'
+    ],
+    "de-DE": [
+        'Manage My Consents - DE',
+        'My Data Permissions - DE',
+        'My Data Requests - DE'
     ],
     "it-IT": [
         'Gestione dei consensi',
@@ -175,7 +195,39 @@ export const loadingDict = {
     "en-US": [
         'Loading'
     ],
+    "en-GB": [
+        'Loading'
+    ],
+    "fr-FR": [
+        'Loading'
+    ],
+    "ar-AR": [
+        'Loading'
+    ],
+    "de-DE": [
+        'Loading'
+    ],
     // "es-ES": [
     //     'Cargando'
     // ]
 };
+
+export const allDict = {
+    loading: {
+        "en-US": [
+            'Loading'
+        ],
+        "en-GB": [
+            'Loading'
+        ],
+        "fr-FR": [
+            'Loading'
+        ],
+        "ar-AR": [
+            'Loading'
+        ],
+        "de-DE": [
+            'Loading'
+        ],
+    }
+}
