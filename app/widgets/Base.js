@@ -28,7 +28,7 @@ export default class BaseWidget extends React.Component {
             enterpriseId: undefined,
             customerId: undefined,
             host_addr: undefined,
-            locale: 'en-US',
+            locale: null,
             refreshJWT: false
         }
     };

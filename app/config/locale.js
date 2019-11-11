@@ -6,11 +6,12 @@ class Locale{
         let lang;
         try {
             lang =  customLocale || window.navigator.userLanguage || window.navigator.language;
-
             lang = lang.replace('_', '-');
-            if (!lang.startsWith('-'))
+            if (!lang.includes('-'))
                 lang += `-${lang.toUpperCase()}`
-        }catch(error){}
+        }catch(error){
+            lang = null
+        }
 
         this.locale = lang || 'en-US';
     }

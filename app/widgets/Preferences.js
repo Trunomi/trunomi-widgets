@@ -107,7 +107,6 @@ class UserPreferences extends React.Component {
 
         return (
             <div>
-                {(title || helpLink) && <h3 id={'wTitle'} class="f1 f-subheadline-l f-subheadline-m mv0 lh-solid dark-blue">{title}<Logo link={helpLink}/></h3>}
                 <BS.PanelGroup id='User Preferences'>
                     {(!show || show[0]) && consentPane && this.panel(consentPaneTitle, consentPaneBody)}
                     {(!show || show[1]) && dataPane && this.panel(dataPaneTitle, dataPaneBody)}
