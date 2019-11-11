@@ -5,7 +5,7 @@ import DSRButton from "../components/DsrButton";
 import FadeOutNotice from "../components/FadeOutNotice";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dataTableDict, dataTableDict2, dsrResponseDict} from "../config/widgetDict";
+import {dataTableDict, dataTableDict2, dsrResponseDict, dataPermBoxTitlesDict} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -131,6 +131,8 @@ class DSRWidget extends BaseWidget{
         let {error, loaded, dsrError, noticeMessage, data} = this.state
         let {table, showAll, pcConfig} = this.props;
 
+        let titles = this.dict.getName(dataPermBoxTitlesDict)
+
         if(error)
             display = <ErrorPanel/>;
         else if(!loaded)
@@ -152,8 +154,8 @@ class DSRWidget extends BaseWidget{
                                     <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                     </div>
                                     <div class="w-100 ph3">
-                                    <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Justification:</span> {el[2]}</h1><br/><br/>
+                                    <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}</h1><br/><br/>
                                     <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end" style={pcConfig.prefCentreGridItemDividerColor} >
                                     {el[3]}
                                     </div>

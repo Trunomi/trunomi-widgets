@@ -39,6 +39,29 @@ export const consentBoxTitlesDict = {
     ]
 }
 
+export const dataPermBoxTitlesDict = {
+    "en-US": [
+        'Permission - US',
+        'Justification - US'
+    ],
+    "en-GB": [
+        'Permission - GB',
+        'Justification - GB'
+    ],
+    "fr-FR": [
+        'Permission - FR',
+        'Justification - FR'
+    ],
+    "ar-AR": [
+        'Permission - AR',
+        'Justification - AR'
+    ],
+    "de-DE": [
+        'Permission - DE',
+        'Justification - DE'
+    ]
+}
+
 export const pannelTitlesDict = {
     "en-US": [
         'Manage My Consents - US',
@@ -213,11 +236,39 @@ export const consentButtonDict = {
 
 export const dsrButtonDict = {
     "en-US": [
-        'Action',
-        'Access',
-        'Erase',
-        'Rectify',
-        'Object'
+        'Action - US',
+        'Access - US',
+        'Erase - US',
+        'Rectify - US',
+        'Object - US'
+    ],
+    "en-GB": [
+        'Action - GB',
+        'Access - GB',
+        'Erase - GB',
+        'Rectify - GB',
+        'Object - GB'
+    ],
+    "fr-FR": [
+        'Action - FR',
+        'Access - FR',
+        'Erase - FR',
+        'Rectify - FR',
+        'Object - FR'
+    ],
+    "ar-AR": [
+        'Action - AR',
+        'Access - AR',
+        'Erase - AR',
+        'Rectify - AR',
+        'Object - AR'
+    ],
+    "de-DE": [
+        'Action - DE',
+        'Access - DE',
+        'Erase - DE',
+        'Rectify - DE',
+        'Object - DE'
     ],
     "it-IT": [
         'Azioni',
