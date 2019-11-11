@@ -205,7 +205,6 @@ s
             </div>
         </div>
         <div class="w-100 mw9 center pa3">
-            <h1 className='blue-text' id='title' style={pcConfig.prefCentreTitleFont}>{title}</h1>
             {!managed && <p className='float-right'><Settings stateChange={this.stateChange}/></p>}
             <ConfigModal    show={configModal}
                             {...config}
