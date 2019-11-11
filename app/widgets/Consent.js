@@ -5,7 +5,7 @@ import TrucertButton from "../components/TrucertButton";
 import ConsentButton from "../components/ConsentButton";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {consentTableDict, consentStatusDict} from "../config/widgetDict";
+import {consentTableDict, consentStatusDict, consentBoxTitlesDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
@@ -254,6 +254,9 @@ class ConsentsWidget extends BaseWidget {
     render() {
         let display, {error, loaded, contexts, actionError, processing} = this.state;
         let {table, pcConfig} = this.props;
+
+        let titles = this.dict.getName(consentBoxTitlesDict)
+
         if(error) {
             display = <ErrorPanel/>
         }
@@ -286,8 +289,8 @@ class ConsentsWidget extends BaseWidget {
                                             <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
-                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
@@ -304,8 +307,8 @@ class ConsentsWidget extends BaseWidget {
                                             <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
-                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Permission: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}

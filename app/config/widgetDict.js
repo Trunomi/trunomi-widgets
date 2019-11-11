@@ -16,6 +16,29 @@ export const prefCentreTitlesDict = {
     "de-DE": 'My Data Portal - DE',
 };
 
+export const consentBoxTitlesDict = {
+    "en-US": [
+        'Permission - US',
+        'Status - US'
+    ],
+    "en-GB": [
+        'Permission - GB',
+        'Status - GB'
+    ],
+    "fr-FR": [
+        'Permission - FR',
+        'Status - FR'
+    ],
+    "ar-AR": [
+        'Permission - AR',
+        'Status - AR'
+    ],
+    "de-DE": [
+        'Permission - DE',
+        'Status - DE'
+    ]
+}
+
 export const pannelTitlesDict = {
     "en-US": [
         'Manage My Consents - US',
