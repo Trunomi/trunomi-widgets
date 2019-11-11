@@ -62,6 +62,39 @@ export const dataPermBoxTitlesDict = {
     ]
 }
 
+export const dataActiveBoxTitlesDict = {
+    "en-US": [
+        'Data Request Type - US',
+        'Date Requested - US',
+        'Status - US',
+        'Note - US'
+    ],
+    "en-GB": [
+        'Data Request Type - GB',
+        'Date Requested - GB',
+        'Status - GB',
+        'Note - GB'
+    ],
+    "fr-FR": [
+        'Data Request Type - FR',
+        'Date Requested - FR',
+        'Status - FR',
+        'Note - FR'
+    ],
+    "ar-AR": [
+        'Data Request Type - AR',
+        'Date Requested - AR',
+        'Status - AR',
+        'Note - AR'
+    ],
+    "de-DE": [
+        'Data Request Type - DE',
+        'Justification - DE',
+        'Status - DE',
+        'Note - DE'
+    ]
+}
+
 export const pannelTitlesDict = {
     "en-US": [
         'Manage My Consents - US',

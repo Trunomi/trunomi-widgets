@@ -4,7 +4,7 @@ import * as BS from 'react-bootstrap';
 import {eventDict} from '../config/dataTypes'
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dsrTableDict} from "../config/widgetDict";
+import {dsrTableDict, dataActiveBoxTitlesDict} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -125,6 +125,8 @@ class ActiveDSRWidget extends BaseWidget {
 
         let display;
 
+        let titles = this.dict.getName(dataActiveBoxTitlesDict)
+
         if(error)
             display = <ErrorPanel/>;
         else if(!loaded)
@@ -153,10 +155,10 @@ class ActiveDSRWidget extends BaseWidget {
                                     <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[1]}</h1>
                                     </div>
                                     <div class="w-100 ph3">
-                                    <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Data Request Type: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[0]}</span></h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Date Requested:</span> {el[2]}</h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Status:</span> {el[3]}</h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Note:</span> {el[4]}</h1><br/><br/>
+                                    <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[0]}</span></h1>
+                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}</h1>
+                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[2]}:</span> {el[3]}</h1>
+                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[3]}:</span> {el[4]}</h1><br/><br/>
                                     <div class="bottom-0 right-0 tr w-100 bt b--silver pt3">
                                     </div>
                                     </div>
