@@ -169,11 +169,39 @@ export const dsrTableDict = {
 
 export const consentButtonDict = {
     "en-US": [
-        'Grant',
-        'Revoke',
-        'Deny',
-        'Extend',
-        'Permission will expire soon'
+        'Grant - US',
+        'Revoke - US',
+        'Deny - US',
+        'Extend - US',
+        'Permission will expire soon - US'
+    ],
+    "en-GB": [
+        'Grant - GB',
+        'Revoke - GB',
+        'Deny - GB',
+        'Extend - GB',
+        'Permission will expire soon - GB'
+    ],
+    "fr-FR": [
+        'Grant - FR',
+        'Revoke - FR',
+        'Deny - FR',
+        'Extend - FR',
+        'Permission will expire soon - FR'
+    ],
+    "ar-AR": [
+        'Grant - AR',
+        'Revoke - AR',
+        'Deny - AR',
+        'Extend - AR',
+        'Permission will expire soon - AR'
+    ],
+    "de-DE": [
+        'Grant - DE',
+        'Revoke - DE',
+        'Deny - DE',
+        'Extend - DE',
+        'Permission will expire soon - DE'
     ],
     "it-IT": [
         'Acconsento',
