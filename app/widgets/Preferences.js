@@ -55,7 +55,7 @@ class UserPreferences extends React.Component {
         const titlesDict = this.dict.getName(pannelTitlesDict)
 
         let consentPaneTitle = {
-            text: consentTitle || titlesDict[0],
+            text: titlesDict[0],
             pane: 'pane1'
         }
 
@@ -72,7 +72,7 @@ class UserPreferences extends React.Component {
         }
 
         let dataPaneTitle = {
-            text: (paneHeadersText && paneHeadersText[1]) || dataTitle || titlesDict[1],
+            text: titlesDict[1],
             pane: 'pane2'
         }
 
@@ -89,7 +89,7 @@ class UserPreferences extends React.Component {
         }
 
         let dsrPaneTitle = {
-            text: (paneHeadersText && paneHeadersText[2]) || dsrTitle || titlesDict[2],
+            text: titlesDict[2],
             pane: 'pane3'
         }
 
