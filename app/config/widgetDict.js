@@ -89,10 +89,34 @@ export const consentTableDict = {
 
 export const consentStatusDict = {
     "en-US": [
-        'OUTSTANDING',
-        'ON',
-        'OFF',
-        'Expired'
+        'OUTSTANDING - US',
+        'ON - US',
+        'OFF - US',
+        'Expired - US'
+    ],
+    "en-GB": [
+        'OUTSTANDING - GB',
+        'ON - GB',
+        'OFF - GB',
+        'Expired - GB'
+    ],
+    "fr-FR": [
+        'OUTSTANDING - FR',
+        'ON - FR',
+        'OFF - FR',
+        'Expired - FR'
+    ],
+    "ar-AR": [
+        'OUTSTANDING - AR',
+        'ON - AR',
+        'OFF - AR',
+        'Expired - AR'
+    ],
+    "de-DE": [
+        'OUTSTANDING - DE',
+        'ON - DE',
+        'OFF - DE',
+        'Expired - DE'
     ]
 }
 
