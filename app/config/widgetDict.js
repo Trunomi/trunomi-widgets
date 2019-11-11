@@ -8,6 +8,14 @@ let customerID = {
     "es-ES": 'Identificacion de usuario (ID)'
 };
 
+export const prefCentreTitlesDict = {
+    "en-US": 'My Data Portal - US',
+    "en-GB": 'My Data Portal - GB',
+    "fr-FR": 'My Data Portal - FR',
+    "ar-AR": 'My Data Portal - AR',
+    "de-DE": 'My Data Portal - DE',
+};
+
 export const pannelTitlesDict = {
     "en-US": [
         'Manage My Consents - US',

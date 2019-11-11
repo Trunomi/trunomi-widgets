@@ -8,7 +8,7 @@ import propTypeTruConfig from '../config/customPropType'
 import PropTypes from 'prop-types'
 import {ExpansionPanel, ExpansionPanelSummary, Typography} from "@material-ui/core"
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {pannelTitlesDict} from '../config/widgetDict'
+import {pannelTitlesDict, prefCentreTitlesDict} from '../config/widgetDict'
 import Locale from '../config/locale'
 
 class UserPreferences extends React.Component {
@@ -48,11 +48,13 @@ class UserPreferences extends React.Component {
     }
 
     render() {
-        let {truConfig, title, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
+        let {truConfig, consentPane, consentTitle, dataPane, disableRevoke, contextTags,
             dataTitle, dsrPane, dsrTitle, helpLink, dataTypeIds, contextIds, pcConfig} = this.props
 
         const {paneHeadersText, show} = pcConfig
         const titlesDict = this.dict.getName(pannelTitlesDict)
+
+        let title = this.dict.getName(prefCentreTitlesDict)
 
         let consentPaneTitle = {
             text: titlesDict[0],
