@@ -107,6 +107,7 @@ class UserPreferences extends React.Component {
 
         return (
             <div>
+                {(title) && <h1 id={'wTitle'} class="pl3 f1 f-subheadline-l f-subheadline-m mv0 lh-solid blue" style={pcConfig.prefCentreTitleFont}>{title}</h1>}
                 <BS.PanelGroup id='User Preferences'>
                     {(!show || show[0]) && consentPane && this.panel(consentPaneTitle, consentPaneBody)}
                     {(!show || show[1]) && dataPane && this.panel(dataPaneTitle, dataPaneBody)}
