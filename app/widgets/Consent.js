@@ -185,6 +185,7 @@ class ConsentsWidget extends BaseWidget {
     genContextRowArray = (context, truCert = false) => {
         let {id} = context;
         let {pcConfig} = this.props;
+        let ctxName = this.dict.getName(context.name)
         let elements = context.consentDefinitions
             .map((consentDefinition, consentId) => {
                 // Only show processing definitions with consent as it's legal basis, unless DPO
@@ -240,7 +241,8 @@ class ConsentsWidget extends BaseWidget {
                                                 onProcessed={this.onProcessed.bind(null, null, true)}
                                                 onClick={() => {this.setState({processing: true})}}
                                                 api={this.api}
-                                                dict={this.dict}/>
+                                                dict={this.dict}/>,
+                                ctxName
                             ])
                         }catch (e){console.log(e)}
                     }
@@ -286,7 +288,7 @@ class ConsentsWidget extends BaseWidget {
                                         <div class="relative w7 bg-near-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
-                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
+                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
@@ -304,7 +306,7 @@ class ConsentsWidget extends BaseWidget {
                                         <div class="relative w7 bg-white br4 ba b--tdark-blue pv3"  style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
-                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
+                                            <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
