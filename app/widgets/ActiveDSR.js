@@ -4,7 +4,7 @@ import * as BS from 'react-bootstrap';
 import {eventDict} from '../config/dataTypes'
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dsrTableDict, dataActiveBoxTitlesDict} from "../config/widgetDict";
+import {dsrTableDict, dataActiveBoxTitlesDict, noItemsDict} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -126,6 +126,7 @@ class ActiveDSRWidget extends BaseWidget {
         let display;
 
         let titles = this.dict.getName(dataActiveBoxTitlesDict)
+        let noItems = this.dict.getName(noItemsDict)
 
         if(error)
             display = <ErrorPanel/>;
@@ -169,7 +170,7 @@ class ActiveDSRWidget extends BaseWidget {
                 }   
                 </div>
             } else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentrePaneBackground}>No Requests for Data</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentrePaneBackground}>{noItems[2]}</p></div>
             }
         }
 

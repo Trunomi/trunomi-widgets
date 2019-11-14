@@ -9,71 +9,71 @@ let customerID = {
 };
 
 export const prefCentreTitlesDict = {
-    "en-US": 'My Data Portal - US',
-    "en-GB": 'My Data Portal - GB',
-    "fr-FR": 'My Data Portal - FR',
+    "en-US": 'My Data Portal',
+    "en-GB": 'My Data Portal',
+    "fr-FR": 'Mon portail de données',
     "ar-AR": 'My Data Portal - AR',
-    "de-DE": 'My Data Portal - DE',
+    "de-DE": 'بوابة بياناتي',
 };
 
 export const consentBoxTitlesDict = {
     "en-US": [
-        'Permission - US',
-        'Status - US'
+        'Permission',
+        'Status'
     ],
     "en-GB": [
-        'Permission - GB',
-        'Status - GB'
+        'Permission',
+        'Status'
     ],
     "fr-FR": [
-        'Permission - FR',
-        'Status - FR'
+        'Permission',
+        'État'
     ],
     "ar-AR": [
-        'Permission - AR',
-        'Status - AR'
+        'موافقة',
+        'الحالة'
     ],
     "de-DE": [
-        'Permission - DE',
-        'Status - DE'
+        'Berechtigung',
+        'Status'
     ]
 }
 
 export const dataPermBoxTitlesDict = {
     "en-US": [
-        'Permission - US',
-        'Justification - US'
+        'Permission',
+        'Justification'
     ],
     "en-GB": [
-        'Permission - GB',
-        'Justification - GB'
+        'Permission',
+        'Justification'
     ],
     "fr-FR": [
-        'Permission - FR',
-        'Justification - FR'
+        'Permission',
+        'Objectif'
     ],
     "ar-AR": [
-        'Permission - AR',
-        'Justification - AR'
+        'موافقة',
+        'الغرض'
     ],
     "de-DE": [
-        'Permission - DE',
-        'Justification - DE'
+        'Berechtigung',
+        'Zweck'
     ]
 }
 
 export const dataActiveBoxTitlesDict = {
     "en-US": [
-        'Data Request Type - US',
-        'Date Requested - US',
-        'Status - US',
-        'Note - US'
+        'Data Request Type',
+        'Date Requested',
+        'Status',
+        'Note'
     ],
     "en-GB": [
-        'Data Request Type - GB',
-        'Date Requested - GB',
-        'Status - GB',
-        'Note - GB'
+        'Data Request Type',
+        'Date Requested',
+        'Status',
+        'Note'
     ],
     "fr-FR": [
         'Data Request Type - FR',
@@ -97,29 +97,29 @@ export const dataActiveBoxTitlesDict = {
 
 export const pannelTitlesDict = {
     "en-US": [
-        'Manage My Consents - US',
-        'My Data Permissions - US',
-        'My Data Requests - US'
+        'Manage My Consents',
+        'My Data Permissions',
+        'My Data Requests'
     ],
     "en-GB": [
-        'Manage My Consents - GB',
-        'My Data Permissions - GB',
-        'My Data Requests - GB'
+        'Manage My Consents',
+        'My Data Permissions',
+        'My Data Requests'
     ],
     "fr-FR": [
-        'Manage My Consents - FR',
-        'My Data Permissions - FR',
-        'My Data Requests - FR'
+        'Gérer mes consentements',
+        'Mes autorisations de données',
+        'Mes demandes de données'
     ],
     "ar-AR": [
-        'Manage My Consents - AR',
-        'My Data Permissions - AR',
-        'My Data Requests - AR'
+        'إدارة موافقاتي',
+        'أذونات بياناتي',
+        'طلبات بياناتي'
     ],
     "de-DE": [
-        'Manage My Consents - DE',
-        'My Data Permissions - DE',
-        'My Data Requests - DE'
+        'Meine Einwilligungen verwalten',
+        'Meine Datengenehmigungen',
+        'Meine Datenanfragen'
     ],
     "it-IT": [
         'Gestione dei consensi',
@@ -145,33 +145,33 @@ export const consentTableDict = {
 
 export const consentStatusDict = {
     "en-US": [
-        'OUTSTANDING - US',
-        'ON - US',
-        'OFF - US',
-        'Expired - US'
+        'OUTSTANDING',
+        'ON',
+        'OFF',
+        'Expired'
     ],
     "en-GB": [
-        'OUTSTANDING - GB',
-        'ON - GB',
-        'OFF - GB',
-        'Expired - GB'
+        'OUTSTANDING',
+        'ON',
+        'OFF',
+        'Expired'
     ],
     "fr-FR": [
-        'OUTSTANDING - FR',
-        'ON - FR',
-        'OFF - FR',
+        'En suspens',
+        'MARCHE',
+        'ARRÊT',
         'Expired - FR'
     ],
     "ar-AR": [
-        'OUTSTANDING - AR',
-        'ON - AR',
-        'OFF - AR',
+        'مستحق',
+        'تشغيل',
+        'إيقاف',
         'Expired - AR'
     ],
     "de-DE": [
-        'OUTSTANDING - DE',
-        'ON - DE',
-        'OFF - DE',
+        'Ausstehend',
+        'EIN',
+        'AUS',
         'Expired - DE'
     ]
 }
@@ -225,37 +225,37 @@ export const dsrTableDict = {
 
 export const consentButtonDict = {
     "en-US": [
-        'Grant - US',
-        'Revoke - US',
-        'Deny - US',
-        'Extend - US',
-        'Permission will expire soon - US'
+        'Grant',
+        'Revoke',
+        'Deny',
+        'Extend',
+        'Permission will expire soon'
     ],
     "en-GB": [
-        'Grant - GB',
-        'Revoke - GB',
-        'Deny - GB',
-        'Extend - GB',
-        'Permission will expire soon - GB'
+        'Grant',
+        'Revoke',
+        'Deny',
+        'Extend',
+        'Permission will expire soon'
     ],
     "fr-FR": [
-        'Grant - FR',
+        'Don',
         'Revoke - FR',
-        'Deny - FR',
+        'Refuser',
         'Extend - FR',
         'Permission will expire soon - FR'
     ],
     "ar-AR": [
-        'Grant - AR',
+        'منح',
         'Revoke - AR',
-        'Deny - AR',
+        'رفض',
         'Extend - AR',
         'Permission will expire soon - AR'
     ],
     "de-DE": [
-        'Grant - DE',
+        'Erteilen',
         'Revoke - DE',
-        'Deny - DE',
+        'Verweigern',
         'Extend - DE',
         'Permission will expire soon - DE'
     ],
@@ -269,39 +269,39 @@ export const consentButtonDict = {
 
 export const dsrButtonDict = {
     "en-US": [
-        'Action - US',
-        'Access - US',
-        'Erase - US',
-        'Rectify - US',
-        'Object - US'
+        'Action',
+        'Access',
+        'Erase',
+        'Rectify',
+        'Object'
     ],
     "en-GB": [
-        'Action - GB',
-        'Access - GB',
-        'Erase - GB',
-        'Rectify - GB',
-        'Object - GB'
+        'Action',
+        'Access',
+        'Erase',
+        'Rectify',
+        'Object'
     ],
     "fr-FR": [
-        'Action - FR',
-        'Access - FR',
-        'Erase - FR',
-        'Rectify - FR',
-        'Object - FR'
-    ],
-    "ar-AR": [
-        'Action - AR',
-        'Access - AR',
-        'Erase - AR',
-        'Rectify - AR',
-        'Object - AR'
+        'Action',
+        'Demande d\'accès',
+        'Demande de rectification',
+        'Demande de suppression',
+        'Demande d\'objection'
     ],
     "de-DE": [
-        'Action - DE',
-        'Access - DE',
-        'Erase - DE',
-        'Rectify - DE',
-        'Object - DE'
+        'Aktion',
+        'Zugangsanfrage',
+        'Antrag auf Berichtigung',
+        'Antrag auf Löschung',
+        'Antrag auf Widerspruch'
+    ],
+    "ar-AR": [
+        'عمل',
+        'طلب الوصول',
+        'طلب الحذف',
+        'طلب التصحيح',
+        'طلب اعتراض'
     ],
     "it-IT": [
         'Azioni',
@@ -360,19 +360,19 @@ export const trucertTableDict = {
 
 export const loadingDict = {
     "en-US": [
-        'Loading'
+        'Loading - US'
     ],
     "en-GB": [
-        'Loading'
+        'Loading - GB'
     ],
     "fr-FR": [
-        'Loading'
+        'Loading - FR'
     ],
     "ar-AR": [
-        'Loading'
+        'Loading - AR'
     ],
     "de-DE": [
-        'Loading'
+        'Loading - DE'
     ],
     // "es-ES": [
     //     'Cargando'
@@ -382,19 +382,47 @@ export const loadingDict = {
 export const allDict = {
     loading: {
         "en-US": [
-            'Loading'
+            'Loading - US'
         ],
         "en-GB": [
-            'Loading'
+            'Loading - GB'
         ],
         "fr-FR": [
-            'Loading'
+            'Loading - FR'
         ],
         "ar-AR": [
-            'Loading'
+            'Loading - AR'
         ],
         "de-DE": [
-            'Loading'
+            'Loading - DE'
         ],
     }
+}
+
+export const noItemsDict = {
+    "en-US": [
+        "No Consents required",
+        "No Data Permissions",
+        "No Requests for Data"
+    ],
+    "en-GB": [
+        "No Consents required",
+        "No Data Permissions",
+        "No Requests for Data"
+    ],
+    "fr-FR": [
+        "Aucun consentement requis",
+        "Aucune autorisation de données",
+        "Aucune demande de données"
+    ],
+    "de-DE": [
+        "Keine Einwilligung erforderlich",
+        "Keine Datenberechtigungen",
+        "Keine Datenanfragen"
+    ],
+    "ar-AR": [
+        "لا حاجة للموافقة",
+        "لا توجد أذونات للبيانات",
+        "لا توجد طلبات للبيانات"
+    ]
 }

@@ -5,7 +5,7 @@ import TrucertButton from "../components/TrucertButton";
 import ConsentButton from "../components/ConsentButton";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {consentTableDict, consentStatusDict, consentBoxTitlesDict} from "../config/widgetDict";
+import {consentTableDict, consentStatusDict, consentBoxTitlesDict, noItemsDict} from "../config/widgetDict";
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
 import TableX from "../components/DynamicTable";
@@ -262,6 +262,7 @@ class ConsentsWidget extends BaseWidget {
         let {table, pcConfig} = this.props;
 
         let titles = this.dict.getName(consentBoxTitlesDict)
+        let noItems = this.dict.getName(noItemsDict)
 
         if(error) {
             display = <ErrorPanel/>
@@ -334,7 +335,7 @@ class ConsentsWidget extends BaseWidget {
                 <FadeOutNotice show={!!actionError} text={actionError}
                                variant={'error'}
                                onClose={()=>{this.setState({actionError: ''})}}/>
-                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentreSectionTitleFont}>No Data Requiring Consent</p></div>: display} 
+                {(this.i ===0) ? <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentreSectionTitleFont}>{noItems[0]}</p></div>: display} 
             </LoadingModal>
         
         /*return <BS.Panel style={{width: '100%', minWidth: '530px', background: _.get(pcConfig,['columnHeaders','background'], '')}}>

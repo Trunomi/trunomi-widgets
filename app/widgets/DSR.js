@@ -5,7 +5,7 @@ import DSRButton from "../components/DsrButton";
 import FadeOutNotice from "../components/FadeOutNotice";
 import {LoadingInline} from "../components/Loading";
 import ErrorPanel from "../components/ErrorPanel";
-import {dataTableDict, dataTableDict2, dsrResponseDict, dataPermBoxTitlesDict} from "../config/widgetDict";
+import {dataTableDict, dataTableDict2, dsrResponseDict, dataPermBoxTitlesDict, noItemsDict} from "../config/widgetDict";
 
 import PropTypes from 'prop-types';
 import BaseWidget from './Base'
@@ -132,6 +132,7 @@ class DSRWidget extends BaseWidget{
         let {table, showAll, pcConfig} = this.props;
 
         let titles = this.dict.getName(dataPermBoxTitlesDict)
+        let noItems = this.dict.getName(noItemsDict)
 
         if(error)
             display = <ErrorPanel/>;
@@ -168,7 +169,7 @@ class DSRWidget extends BaseWidget{
                 </div>
             }
             else {
-                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentreSectionTitleFont}>No Data Permissions Given</p></div>
+                display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}><p class="f2 fw4 dark-blue ma4" style={pcConfig.prefCentreSectionTitleFont}>{noItems[1]}</p></div>
             }
         }
 
