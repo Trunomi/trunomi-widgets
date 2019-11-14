@@ -64,10 +64,15 @@ class ConsentButton extends React.Component{
         }
     };
 
-    arrayOfObjectsToString(obj = null) {
+    arrayOfObjectsToString(obj = null, lang = 'en-GB') {
         let str = ''
+        
         if (obj) {
             obj.forEach((o) => {
+                console.log('why')
+                console.log(o)
+                console.log(Object.keys(o))
+                console.log(o[Object.keys(o)])
                 str += o[Object.keys(o)] + ", "
             })
             return str.substring(0, str.length - 2);
@@ -93,7 +98,7 @@ class ConsentButton extends React.Component{
 
         if (value === 'extend'){
             value = 'grant';
-            body.payload.moc = 'Customer extended consent';
+            body.payload.moc = 'Customer Extended Permission';
         }
 
         if ((value === 'grant') || (value === 'executed'))
@@ -103,7 +108,7 @@ class ConsentButton extends React.Component{
         if (MOC && DPO)
             body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
         else
-            body.payload['moc'] = moc ? this.arrayOfObjectsToString(moc) : 'Preference Centre'
+            body.payload['moc'] = 'My Data Portal'
 
         this.sendConsentQuery(value, body, contextId);
     }
@@ -139,7 +144,7 @@ class ConsentButton extends React.Component{
             if (MOC && DPO)
                 body.payload['moc'] = `Entered through the Trunomi portal by DPO (${DPO}). Collected via ${MOC}`
             else
-                body.payload['moc'] = 'Preference Centre'
+                body.payload['moc'] = 'My Data Portal'
 
             body.payload['customData'] = this.state.messageEventCustomData
             body.payload['event'] = this.state.messageEventName

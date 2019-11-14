@@ -74,6 +74,8 @@ class ConsentsWidget extends BaseWidget {
                 raw = await this.api.getContexts(contextIds, true, contextTags);
             let contexts = {};
             raw.forEach((el) => {contexts[el.id]= el});
+
+            console.log({this: 'this', ...contexts})
             this.setState({contexts, rights, loaded: true});
         }
         catch(error) {
@@ -130,6 +132,7 @@ class ConsentsWidget extends BaseWidget {
         let right = rights[contextId][consentId];
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
+        let ctxName = this.dict.getName(contexts[contextId].name)
         let {revoke, grant, deny, extend, justification, mocOptions} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
         grant = defaults.grant
@@ -176,7 +179,8 @@ class ConsentsWidget extends BaseWidget {
                                     grant={grant}
                                     deny={deny}
                                     revoke={revoke}
-                                    disableRevoke={disabled} />
+                                    disableRevoke={disabled} />,
+                    ctxName
                 ])
             }
         }catch(e) {}
