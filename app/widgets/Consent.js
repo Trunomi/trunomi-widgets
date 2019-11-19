@@ -199,7 +199,8 @@ class ConsentsWidget extends BaseWidget {
                                     grant={grant}
                                     deny={deny}
                                     revoke={revoke}
-                                    disableRevoke={disabled} />,
+                                    disableRevoke={disabled} 
+                                    preferences={preferences} />,
                     ctxName,
                     preferences,
                     consentUse,
@@ -289,7 +290,9 @@ class ConsentsWidget extends BaseWidget {
                                                 onProcessed={this.onProcessed.bind(null, null, true)}
                                                 onClick={() => {this.setState({processing: true})}}
                                                 api={this.api}
-                                                dict={this.dict}/>,
+                                                dict={this.dict}
+                                                preferences={preferences}
+                                                />,
                                 ctxName,
                                 preferences,
                                 consentUse,

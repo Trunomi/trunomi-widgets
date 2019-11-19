@@ -83,7 +83,7 @@ class ConsentButton extends React.Component{
 
     handleConsent = (e) => {
         let {value} = e.target
-        const {dataTypeId, consentId, contextId, moc} = this.props;
+        const {dataTypeId, consentId, contextId, moc, preferences} = this.props;
 
         this.props.onClick()
 
@@ -110,6 +110,11 @@ class ConsentButton extends React.Component{
         else
             body.payload['moc'] = 'My Data Portal'
 
+        if (preferences.length > 0) {
+            body.payload.genericFields = {
+                preferences
+            }
+        }
         this.sendConsentQuery(value, body, contextId);
     }
 
@@ -321,6 +326,7 @@ ConsentButton.defaultProps = {
     expired: false,
     extend: false,
     almostExpired: false,
+    preferences: []
 };
 
 ConsentButton.propTypes = consentButtonTypes;
