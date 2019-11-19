@@ -133,8 +133,11 @@ class ConsentsWidget extends BaseWidget {
         let dataType = this.dataTypes[dataTypeId];
         let cd = contexts[contextId].consentDefinitions[consentId]
         let ctxName = this.dict.getName(contexts[contextId].name)
+        let ctxDescription = this.dict.getName(contexts[contextId].description)
         let {revoke, grant, deny, extend, justification, mocOptions} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
+
+        let consentUse = this.dict.getName(cd.consentUse)
         grant = defaults.grant
         deny = defaults.deny
         revoke = defaults.revoke
@@ -142,6 +145,23 @@ class ConsentsWidget extends BaseWidget {
         let disabled = false
         if (!revoke || (disableRevoke && disableRevoke[contextId] && disableRevoke[contextId].includes(consentId)))
             disabled = true;
+
+        let preferences = []
+        if (cd.extraData) {
+            const xd = JSON.parse(cd.extraData)
+            if(Object.keys(xd).some((k) => { return ~k.indexOf("pref-") })){
+                if(xd.hasOwnProperty(`pref-${this.dict.locale}`)) {
+                    preferences = xd[`pref-${this.dict.locale}`].split(';')
+                } else {
+                    for (const key of Object.keys(xd)) {
+                        if (key.toLowerCase().startsWith('pref-')) {
+                            preferences = xd[key].split(';')
+                            break
+                        }
+                    }
+                }
+            }
+        }
 
         if (right.consentState.includes('update'))
             right.consentState = right.coreState
@@ -180,7 +200,10 @@ class ConsentsWidget extends BaseWidget {
                                     deny={deny}
                                     revoke={revoke}
                                     disableRevoke={disabled} />,
-                    ctxName
+                    ctxName,
+                    preferences,
+                    consentUse,
+                    ctxDescription
                 ])
             }
         }catch(e) {}
@@ -190,6 +213,7 @@ class ConsentsWidget extends BaseWidget {
         let {id} = context;
         let {pcConfig} = this.props;
         let ctxName = this.dict.getName(context.name)
+        let ctxDescription = this.dict.getName(context.description)
         let elements = context.consentDefinitions
             .map((consentDefinition, consentId) => {
                 // Only show processing definitions with consent as it's legal basis, unless DPO
@@ -206,6 +230,25 @@ class ConsentsWidget extends BaseWidget {
 
                 if (!DPO && consentDefinition.hide) {
                     return;
+                }
+
+                let consentUse = this.dict.getName(consentDefinition.consentUse)
+
+                let preferences = []
+                if (consentDefinition.extraData) {
+                    const xd = JSON.parse(consentDefinition.extraData)
+                    if(Object.keys(xd).some((k) => { return ~k.indexOf("pref-") })){
+                        if(xd.hasOwnProperty(`pref-${this.dict.locale}`)) {
+                            preferences = xd[`pref-${this.dict.locale}`].split(';')
+                        } else {
+                            for (const key of Object.keys(xd)) {
+                                if (key.toLowerCase().startsWith('pref-')) {
+                                    preferences = xd[key].split(';')
+                                    break
+                                }
+                            }
+                        }
+                    }
                 }
 
                 this.i++
@@ -225,6 +268,7 @@ class ConsentsWidget extends BaseWidget {
                             let dataT = this.dataTypes[consentDefinition.dataTypeId];
                             let {grant, deny, revoke, justification, mocOptions} = consentDefinition
                             let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
+
                             grant = defaults.grant
                             deny = defaults.deny
                             revoke = defaults.revoke
@@ -246,7 +290,10 @@ class ConsentsWidget extends BaseWidget {
                                                 onClick={() => {this.setState({processing: true})}}
                                                 api={this.api}
                                                 dict={this.dict}/>,
-                                ctxName
+                                ctxName,
+                                preferences,
+                                consentUse,
+                                ctxDescription
                             ])
                         }catch (e){console.log(e)}
                     }
@@ -298,6 +345,7 @@ class ConsentsWidget extends BaseWidget {
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
@@ -316,6 +364,7 @@ class ConsentsWidget extends BaseWidget {
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
                                             {el[3]}
