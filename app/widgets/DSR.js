@@ -36,7 +36,8 @@ class DSRWidget extends BaseWidget{
             _.forEach(rights, context => {
                 _.forEach(context, consent => {
                     const {consentState, consentDefinition} = consent
-                    const {name, justification, dataTypeId} = consentDefinition
+                    const {name, justification, dataTypeId, consentUse} = consentDefinition
+                    
                     const dt = dataTypes[dataTypeId]
                     const granted = consentState.includes('grant') || consentState.includes('implicit') || consentState.includes('mandate')
                     if (!dt || !granted)
@@ -46,7 +47,8 @@ class DSRWidget extends BaseWidget{
                         name: this.dict.getName(dt.name),
                         permission: this.dict.getName(name),
                         justification: this.dict.getName(justification),
-                        dataType: dt
+                        dataType: dt,
+                        consentUse: this.dict.getName(consentUse)
                     })
                 })
             })
@@ -66,14 +68,14 @@ class DSRWidget extends BaseWidget{
 
             contexts.forEach(context => {
                 context.consentDefinitions.forEach(consent => {
-                    const {name, justification, dataTypeId} = consent
+                    const {name, justification, dataTypeId, consentUse} = consent
                     const dt = dataTypes[dataTypeId]
-
                     data.push({
                         name: this.dict.getName(dt.name),
                         permission: this.dict.getName(name),
                         justification: this.dict.getName(justification),
-                        dataType: dt
+                        dataType: dt,
+                        consentUse: this.dict.getName(consentUse),
                     })
                 })
             })
@@ -85,14 +87,15 @@ class DSRWidget extends BaseWidget{
     }
 
     genenerateRowData = (entry, i) => {
-        const {name, permission, justification, dataType} = entry
+        const {name, permission, justification, dataType, consentUse} = entry
 
         return ([
             name,
             permission,
             justification,
             <DSRButton id={"my-data-action-button-" + i} dict={this.dict} truConfig={this.props.truConfig}
-                       dataType={dataType} onProcessed={this.onProcessed} pcConfig={this.props.pcConfig}/>
+                       dataType={dataType} onProcessed={this.onProcessed} pcConfig={this.props.pcConfig}/>,
+            consentUse
         ])
     }
 
@@ -156,7 +159,7 @@ class DSRWidget extends BaseWidget{
                                     </div>
                                     <div class="w-100 ph3">
                                     <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}</h1><br/><br/>
+                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
                                     <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end" style={pcConfig.prefCentreGridItemDividerColor} >
                                     {el[3]}
                                     </div>
