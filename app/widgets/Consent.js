@@ -339,7 +339,31 @@ class ConsentsWidget extends BaseWidget {
                             let tc = trucerts[j]
                             j++
                             if (el[2] === 'OFF') {
-                                return <div class="relative animated fadeIn slow ma3 pb3">
+                                if (pcConfig.listTableMode) {
+                                    return <div className="center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white">
+                                    <div className="w-20 w-100-m">
+                                    <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
+                                    <div className="w-100 tc mv3 dn-l flex justify-center">
+                                    {tc}
+                                    {el[3]}
+                                    </div>
+                                    </div>
+                                    <div className="w-20 dn-1247">
+                                    <h1 class="f5 fw2 mv0 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}:<br/><span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                    </div>
+                                    <div className="w-10 dn-1247">
+                                    <h1 class="f5 fw2 mv0 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                    </div>
+                                    <div className="w-20 dn-m mr2">
+                                    <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
+                                    </div>
+                                    <div className="w-20 w-20-m flex dn-m">
+                                    {tc}
+                                    {el[3]}
+                                    </div>
+                                </div>
+                                } else {
+                                    return <div class="relative animated fadeIn slow ma3 pb3">
                                         <div class="relative w7 bg-near-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
@@ -357,8 +381,13 @@ class ConsentsWidget extends BaseWidget {
                                         </div>
                                         </div>
                                     </div>
+                                }
+                                
                             } else {
-                                return <div class="relative animated fadeIn slow ma3 pb3">
+                                if (pcConfig.listTableMode) {
+                                    return <div>Hi</div>
+                                } else {
+                                    return <div class="relative animated fadeIn slow ma3 pb3">
                                         <div class="relative w7 bg-white br4 ba b--tdark-blue pv3"  style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
                                         <div class="w-100 flex flex-wrap items-center ">
                                             <div class="w-100 ph3">
@@ -376,6 +405,8 @@ class ConsentsWidget extends BaseWidget {
                                         </div>
                                         </div>
                                     </div>
+                                }
+                                
                             }
                             
                         })
