@@ -326,6 +326,8 @@ class ConsentsWidget extends BaseWidget {
             headers = headers.map((el, id) => customHeaders[id] || el)
 
             this.i = 0
+            let k = 0
+            let isFirst = false
             display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}>
                 {
                     _.map(contexts, (element) => {
@@ -336,11 +338,17 @@ class ConsentsWidget extends BaseWidget {
 
                         return _.map(items, (el) => {
                             let tc = trucerts[j]
+                            if (k === 0) {
+                                isFirst = true
+                            } else {
+                                isFirst = false
+                            }
+                            k++
                             j++
                             if (el[2] === 'OFF') {
                                 if (pcConfig.listTableMode) {
-                                    return <div className="center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white mv0">
-                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray">
+                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 bt bb b--light-gray ma2 bg-white mv0' : 'center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white mv0'}>
+                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray pl3">
                                             <div className="w-100">
                                             <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
@@ -384,8 +392,8 @@ class ConsentsWidget extends BaseWidget {
                                 
                             } else {
                                 if (pcConfig.listTableMode) {
-                                    return <div className="center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white mv0">
-                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray">
+                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 bt bb b--light-gray ma2 bg-white mv0' : 'center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white mv0'}>
+                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray pl3">
                                             <div className="w-100">
                                             <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
