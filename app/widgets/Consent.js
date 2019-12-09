@@ -342,11 +342,7 @@ class ConsentsWidget extends BaseWidget {
                                 if (pcConfig.listTableMode) {
                                     return <div className="center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white">
                                         <div className="w-20 w-100-m">
-                                        <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
-                                        <div className="w-100 tc mv3 dn-l flex justify-center">
-                                        {tc}
-                                        {el[3]}
-                                        </div>
+                                        <h1 class="f4 mv0 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                         </div>
                                         <div className="w-20 dn-1247">
                                         <h1 class="f5 fw2 mv0 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}:<br/><span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
@@ -357,7 +353,7 @@ class ConsentsWidget extends BaseWidget {
                                         <div className="w-20 dn-m mr2">
                                         <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                         </div>
-                                        <div className="w-20 w-20-m flex dn-m">
+                                        <div className="w-100 tc mv3 flex justify-center">
                                         {tc}
                                         {el[3]}
                                         </div>
@@ -387,11 +383,7 @@ class ConsentsWidget extends BaseWidget {
                                 if (pcConfig.listTableMode) {
                                     return <div className="center flex flex-wrap justify-around w-100 mw9 bb b--light-gray ma2 bg-white">
                                         <div className="w-20 w-100-m">
-                                        <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
-                                        <div className="w-100 tc mv3 dn-l flex justify-center">
-                                        {tc}
-                                        {el[3]}
-                                        </div>
+                                        <h1 class="f4 mv0 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                         </div>
                                         <div className="w-20 dn-1247">
                                         <h1 class="f5 fw2 mv0 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}:<br/><span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
@@ -402,7 +394,7 @@ class ConsentsWidget extends BaseWidget {
                                         <div className="w-20 dn-m mr2">
                                         <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                         </div>
-                                        <div className="w-20 w-20-m flex dn-m">
+                                        <div className="w-100 tc mv3 flex justify-center">
                                         {tc}
                                         {el[3]}
                                         </div>
