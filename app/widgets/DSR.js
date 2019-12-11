@@ -152,15 +152,15 @@ class DSRWidget extends BaseWidget{
                 {
                 _.map(body, (el) => {
                     if (pcConfig.listTableMode) {
-                        return <div class="relative w-100 mw9 center pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont}}>
-                            <div class="w-100 flex flex-wrap items-center ">
-                                <div class="w-100 ph3">
-                                <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--light-gray pb2" style={{...pcConfig.prefCentreGridItemTitleFont}}>{el[0]}</h1>
+                        return <div class="relative w-100 mw9 center bt b--light-gray pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont}}>
+                            <div class="w-100 flex flex-wrap">
+                                <div class="w-50 ph3">
+                                <h1 class="f4 mv0 lh-solid dark-blue w-100 pb2" style={{...pcConfig.prefCentreGridItemTitleFont}}>{el[0]}</h1>
+                                <h1 class="f5 fw2 mv0 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                 </div>
-                                <div class="w-100 ph3">
-                                <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
-                                <div class="bottom-0 right-0 tr w-100 bt b--light-gray pt3 flex justify-end" >
+                                <div class="w-50 ph3">
+                                <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
+                                <div class="bottom-0 left-0 tr w-50 bt b--light-gray flex pv3" >
                                 {el[3]}
                                 </div>
                                 </div>
