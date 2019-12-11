@@ -347,8 +347,8 @@ class ConsentsWidget extends BaseWidget {
                             j++
                             if (el[2] === 'OFF') {
                                 if (pcConfig.listTableMode) {
-                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3' : 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3'}>
-                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray pl3">
+                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3  bt b--light-gray pt2' : 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3  bt b--light-gray pt2'}>
+                                        <div className="flext flex-wrap justify-around w-50 pl3">
                                             <div className="w-100">
                                             <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
@@ -392,8 +392,8 @@ class ConsentsWidget extends BaseWidget {
                                 
                             } else {
                                 if (pcConfig.listTableMode) {
-                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3' : 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3'}>
-                                        <div className="flext flex-wrap justify-around w-50 br b--light-gray pl3">
+                                    return <div className={isFirst ? 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3 bt b--light-gray pt2' : 'center flex flex-wrap justify-around w-100 mw9 ma2 bg-white mb3 bt b--light-gray pt2'}>
+                                        <div className="flext flex-wrap justify-around w-50 pl3">
                                             <div className="w-100">
                                             <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[4]}: {el[0]}</h1>
                                             </div>
