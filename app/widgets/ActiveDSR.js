@@ -153,22 +153,22 @@ class ActiveDSRWidget extends BaseWidget {
                         return <div className={'center flex flex-wrap w-100 mw9 ma2 bg-white mb3  bt b--light-gray pt2'}>
                                     <div className="flex flex-wrap justify-around w-50 pl3">
                                         <div className="w-100">
-                                        <h1 class="f4 mv0 lh-solid dark-blue w-100 pb2" style={{...pcConfig.prefCentreGridItemTitleFont}}>{el[1]}</h1>
+                                        <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{...pcConfig.prefCentreGridItemTitleFont}}>{el[1]}</h1>
                                         </div>
                                         <div className="w-100">
-                                        <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[0]}</span></h1>
+                                        <h1 class="f5 fw2 mv0 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[0]}</span></h1>
                                         </div>
                                         <div className="w-100">
-                                        <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}</h1>
+                                        <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}</h1>
                                         </div>
                                     </div>
                                     <div className="flex flex-wrap justify-around w-50 pl3">
-                                        <div className="w-100 tc pv3 flex flex-wrap justify-center">
+                                        <div className="w-100 pv3 flex flex-wrap justify-around">
                                         <div className="w-100">
-                                        <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[2]}:</span> {el[3]}</h1>
+                                        <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[2]}:</span> {el[3]}</h1>
                                         </div>
                                         <div className="w-100">
-                                        <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[3]}:</span> {el[4]}</h1><br/><br/>
+                                        <h1 class="f5 fw2 mv0 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[3]}:</span> {el[4]}</h1><br/><br/>
                                         </div>
                                         </div>
                                     </div>

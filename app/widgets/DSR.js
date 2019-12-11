@@ -152,26 +152,20 @@ class DSRWidget extends BaseWidget{
                 {
                 _.map(body, (el) => {
                     if (pcConfig.listTableMode) {
-                        return <div className={'center flex flex-wrap w-100 mw9 ma2 bg-white mb3  bt b--light-gray pt2'}>
-                                    <div className="flex flex-wrap justify-around w-50 pl3">
-                                        <div className="w-100">
-                                        <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
-                                        </div>
-                                        <div className="w-100">
-                                        <h1 class="f5 fw2 mv2 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}:<br/><span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap justify-around w-50 pl3">
-                                        <div className="w-100 tc pv3 flex flex-wrap justify-center">
-                                        <div className="w-100">
-                                        <h1 class="f5 fw2 mv2 lh-title"><span class="blue fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}:</span><br/><span class="hot-pink" style={pcConfig.prefCentreGridItemTextFont}>{el[4]}</span></h1>
-                                        </div>
-                                        <div className="w-30 tc bt b--light-gray flex justify-center pv3">
-                                        {el[3]}
-                                        </div>
-                                        </div>
-                                    </div>
+                        return <div class="relative w-100 mw9 center pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont}}>
+                            <div class="w-100 flex flex-wrap items-center ">
+                                <div class="w-100 ph3">
+                                <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--light-gray pb2" style={{...pcConfig.prefCentreGridItemTitleFont}}>{el[0]}</h1>
                                 </div>
+                                <div class="w-100 ph3">
+                                <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
+                                <div class="bottom-0 right-0 tr w-100 bt b--light-gray pt3 flex justify-end" >
+                                {el[3]}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     } else {
                         return <div class="relative animated fadeIn slow ma3 pb3">
                             <div class="relative w7 bg-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
