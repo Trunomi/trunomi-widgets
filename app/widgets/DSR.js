@@ -152,8 +152,8 @@ class DSRWidget extends BaseWidget{
                 {
                 _.map(body, (el) => {
                     if (pcConfig.listTableMode) {
-                        return <div className={'center flex flex-wrap justify-around w-100 mw7 ma2 bg-white mb3  bl b--light-gray pt2'}>
-                                    <div className="flext flex-wrap justify-around w-50 pl3">
+                        return <div className={'center flex flex-wrap w-100 mw7 ma2 bg-white mb3  bl b--light-gray pt2'}>
+                                    <div className="flex flex-wrap justify-around w-50 pl3">
                                         <div className="w-100">
                                         <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
                                         </div>
@@ -163,7 +163,7 @@ class DSRWidget extends BaseWidget{
                                         <div className="w-100">
                                         <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[4]}</span></h1>
                                         </div>
-                                        <div className="w-100 tc">
+                                        <div className="w-100 tc bt b--light-gray flex justify-center">
                                         {el[3]}
                                         </div>
                                     </div>
