@@ -151,22 +151,41 @@ class DSRWidget extends BaseWidget{
                 display = <div class="w-100 flex center flex-wrap pa3 justify-around bg-tru-grid-blue" style={pcConfig.prefCentrePaneBackground}>
                 {
                 _.map(body, (el) => {
-                    return <div class="relative animated fadeIn slow ma3 pb3">
-                                <div class="relative w7 bg-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
-                                <div class="w-100 flex flex-wrap items-center ">
-                                    <div class="w-100 ph3">
-                                    <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
+                    if (pcConfig.listTableMode) {
+                        return <div className={'center flex flex-wrap justify-around w-100 mw7 ma2 bg-white mb3  bl b--light-gray pt2'}>
+                                    <div className="flext flex-wrap justify-around w-50 pl3">
+                                        <div className="w-100">
+                                        <h1 class="f4 mv2 lh-solid dark-blue w-100 pb2" style={{overflow: 'hidden', textOverflow: 'ellipsis', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
+                                        </div>
+                                        <div className="w-100">
+                                        <h1 class="f5 fw2 mv2 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}:<br/><span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                        </div>
+                                        <div className="w-100">
+                                        <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[4]}</span></h1>
+                                        </div>
+                                        <div className="w-100 tc">
+                                        {el[3]}
+                                        </div>
                                     </div>
-                                    <div class="w-100 ph3">
-                                    <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
-                                    <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
-                                    <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end" style={pcConfig.prefCentreGridItemDividerColor} >
-                                    {el[3]}
-                                    </div>
-                                    </div>
+                                </div>
+                    } else {
+                        return <div class="relative animated fadeIn slow ma3 pb3">
+                            <div class="relative w7 bg-white br4 ba b--tdark-blue pv3" style={{minHeight:'15rem', ...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>
+                            <div class="w-100 flex flex-wrap items-center ">
+                                <div class="w-100 ph3">
+                                <h1 class="f4 mv0 lh-solid dark-blue w-100 bb b--thot-pink pb2" style={{...pcConfig.prefCentreGridItemTitleFont, ...pcConfig.prefCentreGridItemDividerColor}}>{el[0]}</h1>
+                                </div>
+                                <div class="w-100 ph3">
+                                <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
+                                <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> {el[2]}<br/>{el[4]}</h1><br/><br/>
+                                <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end" style={pcConfig.prefCentreGridItemDividerColor} >
+                                {el[3]}
                                 </div>
                                 </div>
                             </div>
+                            </div>
+                        </div>
+                    }
                 })
                 }   
                 </div>
