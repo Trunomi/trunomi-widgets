@@ -136,7 +136,7 @@ class ConsentsWidget extends BaseWidget {
         let ctxDescription = this.dict.getName(contexts[contextId].description)
         let {revoke, grant, deny, extend, justification, mocOptions} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
-
+        let legalb = this.dict.getName(cd.justification)
         let consentUse = this.dict.getName(cd.consentUse)
         grant = defaults.grant
         deny = defaults.deny
@@ -204,7 +204,8 @@ class ConsentsWidget extends BaseWidget {
                     ctxName,
                     preferences,
                     consentUse,
-                    ctxDescription
+                    ctxDescription,
+                    legalb
                 ])
             }
         }catch(e) {}
@@ -234,7 +235,7 @@ class ConsentsWidget extends BaseWidget {
                 }
 
                 let consentUse = this.dict.getName(consentDefinition.consentUse)
-
+                let legalb = this.dict.getName(consentDefinition.justification)
                 let preferences = []
                 if (consentDefinition.extraData) {
                     const xd = JSON.parse(consentDefinition.extraData)
@@ -296,7 +297,8 @@ class ConsentsWidget extends BaseWidget {
                                 ctxName,
                                 preferences,
                                 consentUse,
-                                ctxDescription
+                                ctxDescription,
+                                legalb
                             ])
                         }catch (e){console.log(e)}
                     }
