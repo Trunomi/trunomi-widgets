@@ -401,12 +401,12 @@ export const allDict = {
 
 export const noItemsDict = {
     "en-US": [
-        "No Consents required",
+        "No Consents or Permissions required",
         "No Data Permissions",
         "No Requests for Data"
     ],
     "en-GB": [
-        "No Consents required",
+        "No Consents or Permissions required",
         "No Data Permissions",
         "No Requests for Data"
     ],
