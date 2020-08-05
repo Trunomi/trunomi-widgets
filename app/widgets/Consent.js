@@ -224,10 +224,10 @@ class ConsentsWidget extends BaseWidget {
                 if(consentDefinition===null)
                     return;
 
-                if (!(DPO && MOC)) {
+                /*if (!(DPO && MOC)) {
                     if(!this.dict.getName(consentDefinition.justification).includes('consent'))
                         return;
-                }
+                }*/
 
                 if (!DPO && consentDefinition.hide) {
                     return;
