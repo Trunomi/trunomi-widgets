@@ -360,6 +360,9 @@ class ConsentsWidget extends BaseWidget {
                                             <div className="w-100">
                                             <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             </div>
+                                            <div className="w-100">
+                                            <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Justification:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
+                                            </div>
                                         </div>
                                         <div className="flext flex-wrap justify-around w-50">
                                         <div className="w-100 tc pv3 flex justify-center">
@@ -381,6 +384,7 @@ class ConsentsWidget extends BaseWidget {
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Jutification:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
@@ -405,6 +409,9 @@ class ConsentsWidget extends BaseWidget {
                                             <div className="w-100">
                                             <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             </div>
+                                            <div className="w-100">
+                                            <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Justification:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
+                                            </div>
                                         </div>
                                         <div className="flext flex-wrap justify-around w-50">
                                             <div className="w-100 tc pv3 flex justify-center">
@@ -426,6 +433,7 @@ class ConsentsWidget extends BaseWidget {
                                             <div class="w-100 ph3">
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Jutification:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
