@@ -43,10 +43,34 @@ class DSRWidget extends BaseWidget{
                     if (!dt || !granted)
                         return
 
+                    let legalb = this.dict.getName(justification)
+
+                    let legalBasesOptions = [
+                        {id: 'consent', name: 'Global - Consent'},
+                        {id: 'impliedconsent', name: 'Global - Implied/Deemed Consent'},
+                        {id: 'contract', name: 'Global - Contractual necessity'},
+                        {id: 'legal', name: 'Global - Compliance with a legal obligation'},
+                        {id: 'protection', name: 'Global - Protection of vital interests'},
+                        {id: 'public', name: 'Global - Public interest'},
+                        {id: 'legitimate', name: 'Global - Legitimate interests'},
+                        {id: 'publicstudy', name: 'LGPD - Research by Public Study Entities'},
+                        {id: 'legalproceedings', name: 'LGPD - Exercise of Rights in Legal Proceedings'},
+                        {id: 'health', name: 'LGPD - Health Protection'},
+                        {id: 'credit', name: 'LGPD - Credit Protection'},
+                        {id: 'protectionoflife', name: 'LGPD - Protection of Life'},
+                        {id: 'other', name: 'Custom/Other'}
+                    ]
+            
+                    legalBasesOptions.forEach(x => {
+                        if (x.id === legalb) {
+                            legalb = x.name;
+                        }
+                    })
+
                     data.push({
                         name: this.dict.getName(dt.name),
                         permission: this.dict.getName(name),
-                        justification: this.dict.getName(justification),
+                        justification: legalb,
                         dataType: dt,
                         consentUse: this.dict.getName(consentUse)
                     })
@@ -70,6 +94,31 @@ class DSRWidget extends BaseWidget{
                 context.consentDefinitions.forEach(consent => {
                     const {name, justification, dataTypeId, consentUse} = consent
                     const dt = dataTypes[dataTypeId]
+
+                    let legalb = this.dict.getName(justification)
+
+                    let legalBasesOptions = [
+                        {id: 'consent', name: 'Global - Consent'},
+                        {id: 'impliedconsent', name: 'Global - Implied/Deemed Consent'},
+                        {id: 'contract', name: 'Global - Contractual necessity'},
+                        {id: 'legal', name: 'Global - Compliance with a legal obligation'},
+                        {id: 'protection', name: 'Global - Protection of vital interests'},
+                        {id: 'public', name: 'Global - Public interest'},
+                        {id: 'legitimate', name: 'Global - Legitimate interests'},
+                        {id: 'publicstudy', name: 'LGPD - Research by Public Study Entities'},
+                        {id: 'legalproceedings', name: 'LGPD - Exercise of Rights in Legal Proceedings'},
+                        {id: 'health', name: 'LGPD - Health Protection'},
+                        {id: 'credit', name: 'LGPD - Credit Protection'},
+                        {id: 'protectionoflife', name: 'LGPD - Protection of Life'},
+                        {id: 'other', name: 'Custom/Other'}
+                    ]
+            
+                    legalBasesOptions.forEach(x => {
+                        if (x.id === legalb) {
+                            legalb = x.name;
+                        }
+                    })
+
                     data.push({
                         name: this.dict.getName(dt.name),
                         permission: this.dict.getName(name),

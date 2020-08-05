@@ -137,6 +137,28 @@ class ConsentsWidget extends BaseWidget {
         let {revoke, grant, deny, extend, justification, mocOptions} = cd
         let defaults = this.getLegalBasisDefaults(justification, grant, deny, revoke)
         let legalb = this.dict.getName(cd.justification)
+        let legalBasesOptions = [
+            {id: 'consent', name: 'Global - Consent'},
+            {id: 'impliedconsent', name: 'Global - Implied/Deemed Consent'},
+            {id: 'contract', name: 'Global - Contractual necessity'},
+            {id: 'legal', name: 'Global - Compliance with a legal obligation'},
+            {id: 'protection', name: 'Global - Protection of vital interests'},
+            {id: 'public', name: 'Global - Public interest'},
+            {id: 'legitimate', name: 'Global - Legitimate interests'},
+            {id: 'publicstudy', name: 'LGPD - Research by Public Study Entities'},
+            {id: 'legalproceedings', name: 'LGPD - Exercise of Rights in Legal Proceedings'},
+            {id: 'health', name: 'LGPD - Health Protection'},
+            {id: 'credit', name: 'LGPD - Credit Protection'},
+            {id: 'protectionoflife', name: 'LGPD - Protection of Life'},
+            {id: 'other', name: 'Custom/Other'}
+        ]
+
+        legalBasesOptions.forEach(x => {
+            if (x.id === legalb) {
+                legalb = x.name;
+            }
+        })
+
         let consentUse = this.dict.getName(cd.consentUse)
         grant = defaults.grant
         deny = defaults.deny
@@ -236,6 +258,27 @@ class ConsentsWidget extends BaseWidget {
 
                 let consentUse = this.dict.getName(consentDefinition.consentUse)
                 let legalb = this.dict.getName(consentDefinition.justification)
+                let legalBasesOptions = [
+                    {id: 'consent', name: 'Global - Consent'},
+                    {id: 'impliedconsent', name: 'Global - Implied/Deemed Consent'},
+                    {id: 'contract', name: 'Global - Contractual necessity'},
+                    {id: 'legal', name: 'Global - Compliance with a legal obligation'},
+                    {id: 'protection', name: 'Global - Protection of vital interests'},
+                    {id: 'public', name: 'Global - Public interest'},
+                    {id: 'legitimate', name: 'Global - Legitimate interests'},
+                    {id: 'publicstudy', name: 'LGPD - Research by Public Study Entities'},
+                    {id: 'legalproceedings', name: 'LGPD - Exercise of Rights in Legal Proceedings'},
+                    {id: 'health', name: 'LGPD - Health Protection'},
+                    {id: 'credit', name: 'LGPD - Credit Protection'},
+                    {id: 'protectionoflife', name: 'LGPD - Protection of Life'},
+                    {id: 'other', name: 'Custom/Other'}
+                ]
+        
+                legalBasesOptions.forEach(x => {
+                    if (x.id === legalb) {
+                        legalb = x.name;
+                    }
+                })
                 let preferences = []
                 if (consentDefinition.extraData) {
                     const xd = JSON.parse(consentDefinition.extraData)
