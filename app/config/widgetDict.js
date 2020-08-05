@@ -97,12 +97,12 @@ export const dataActiveBoxTitlesDict = {
 
 export const pannelTitlesDict = {
     "en-US": [
-        'Manage My Consents',
+        'Manage My Consents & Permissions',
         'My Data Permissions',
         'My Data Requests'
     ],
     "en-GB": [
-        'Manage My Consents',
+        'Manage My Consents & Permissions',
         'My Data Permissions',
         'My Data Requests'
     ],
