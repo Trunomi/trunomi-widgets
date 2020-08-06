@@ -160,6 +160,8 @@ class ConsentsWidget extends BaseWidget {
             }
         })
 
+        let regulations = cd.regulations ? cd.regulations : {'NA': 'NA'}
+
         let consentUse = this.dict.getName(cd.consentUse)
         grant = defaults.grant
         deny = defaults.deny
@@ -228,7 +230,8 @@ class ConsentsWidget extends BaseWidget {
                     preferences,
                     consentUse,
                     ctxDescription,
-                    legalb
+                    legalb,
+                    regulations
                 ])
             }
         }catch(e) {}
@@ -281,6 +284,7 @@ class ConsentsWidget extends BaseWidget {
                         legalb = x.name;
                     }
                 })
+                let regulations = consentDefinition.regulations ? consentDefinition.regulations : {'NA': 'NA'}
                 let preferences = []
                 if (consentDefinition.extraData) {
                     const xd = JSON.parse(consentDefinition.extraData)
@@ -343,7 +347,8 @@ class ConsentsWidget extends BaseWidget {
                                 preferences,
                                 consentUse,
                                 ctxDescription,
-                                legalb
+                                legalb,
+                                regulations
                             ])
                         }catch (e){console.log(e)}
                     }
@@ -408,6 +413,9 @@ class ConsentsWidget extends BaseWidget {
                                             <div className="w-100">
                                             <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Justification:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
                                             </div>
+                                            <div className="w-100">
+                                            <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Regulation(s):</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[9] ? Object.keys(el[9]).length > 0 ? Object.keys(el[9]).map(x => {return x + '       '}) : 'N/A' : 'N/A'}</span></h1>
+                                            </div>
                                         </div>
                                         <div className="flext flex-wrap justify-around w-50">
                                         <div className="w-100 tc pv3 flex justify-center">
@@ -430,6 +438,7 @@ class ConsentsWidget extends BaseWidget {
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Jutification:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Regulation(s):</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[9] ? Object.keys(el[9]).length > 0 ? Object.keys(el[9]).map(x => {return x + '       '}) : 'N/A' : 'N/A'}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
@@ -457,6 +466,9 @@ class ConsentsWidget extends BaseWidget {
                                             <div className="w-100">
                                             <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Justification:</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
                                             </div>
+                                            <div className="w-100">
+                                            <h1 class="f5 fw2 mv2 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Regulation(s):</span><br/><span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[9] ? Object.keys(el[9]).length > 0 ? Object.keys(el[9]).map(x => {return x + '       '}) : 'N/A' : 'N/A'}</span></h1>
+                                            </div>
                                         </div>
                                         <div className="flext flex-wrap justify-around w-50">
                                             <div className="w-100 tc pv3 flex justify-center">
@@ -479,6 +491,7 @@ class ConsentsWidget extends BaseWidget {
                                             <h1 class="f5 fw2 mv3 lh-title blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[0]}: <span class="black" style={pcConfig.prefCentreGridItemTextFont}>{el[1]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{titles[1]}:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemHighlightedTextFont}>{el[2]}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Jutification:</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[8]}</span></h1>
+                                            <h1 class="f5 fw2 mv3 lh-title"><span class="blue" style={pcConfig.prefCentreGridItemHighlightedTextFont}>Regulation(s):</span> <span class="hot-pink fw6" style={pcConfig.prefCentreGridItemTextFont}>{el[9] ? Object.keys(el[9]).length > 0 ? Object.keys(el[9]).map(x => {return x + '       '}) : 'N/A' : 'N/A'}</span></h1>
                                             <h1 class="f5 fw2 mv3 lh-title" style={pcConfig.prefCentreGridItemTextFont}>{el[7]}<br/>{el[6]}</h1>
                                             <div class="bottom-0 right-0 tr w-100 bt b--silver pt3 flex justify-end">
                                             {tc}
