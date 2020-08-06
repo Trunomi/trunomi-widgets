@@ -46,18 +46,19 @@ class DSRWidget extends BaseWidget{
                     let legalb = this.dict.getName(justification)
 
                     let legalBasesOptions = [
-                        {id: 'consent', name: 'Global - Consent'},
-                        {id: 'impliedconsent', name: 'Global - Implied/Deemed Consent'},
-                        {id: 'contract', name: 'Global - Contractual necessity'},
-                        {id: 'legal', name: 'Global - Compliance with a legal obligation'},
-                        {id: 'protection', name: 'Global - Protection of vital interests'},
-                        {id: 'public', name: 'Global - Public interest'},
-                        {id: 'legitimate', name: 'Global - Legitimate interests'},
-                        {id: 'publicstudy', name: 'LGPD - Research by Public Study Entities'},
-                        {id: 'legalproceedings', name: 'LGPD - Exercise of Rights in Legal Proceedings'},
-                        {id: 'health', name: 'LGPD - Health Protection'},
-                        {id: 'credit', name: 'LGPD - Credit Protection'},
-                        {id: 'protectionoflife', name: 'LGPD - Protection of Life'},
+                        {id: 'consent', name: 'Consent'},
+                        {id: 'impliedconsent', name: 'Implied/Deemed Consent'},
+                        {id: 'contract', name: 'Contractual necessity'},
+                        {id: 'legal', name: 'Compliance with a legal obligation'},
+                        {id: 'protection', name: 'Protection of vital interests'},
+                        {id: 'public', name: 'Public interest'},
+                        {id: 'legitimate', name: 'Legitimate interests'},
+                        {id: 'publicstudy', name: 'Research by Public Study Entities'},
+                        {id: 'legalproceedings', name: 'Exercise of Rights in Legal Proceedings'},
+                        {id: 'health', name: 'Health Protection'},
+                        {id: 'credit', name: 'Credit Protection'},
+                        {id: 'protectionoflife', name: 'Protection of Life'},
+                        {id: 'dnsmpi', name: 'Do Not Sell My Personal Information'},
                         {id: 'other', name: 'Custom/Other'}
                     ]
             
