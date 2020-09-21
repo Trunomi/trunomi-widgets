@@ -87,7 +87,7 @@ class Trucert extends BaseWidget {
                 general.push(['Product', product]);
             }
             if (payload.gf_jurisdiction)
-                general.push(['Jurisdiction', payload.gf_jurisdiction]);
+                general.push(['Reported Jurisdiction', payload.gf_jurisdiction]);
             if (consentDef && consentDef.extraData) {
                 _.forEach(JSON.parse(consentDef.extraData), (val, key) => {
                     general.push([[key], val])
