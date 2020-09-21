@@ -82,6 +82,8 @@ class Trucert extends BaseWidget {
         else
             general.push(['Purpose', `Data ${eventDict[firstLedger.event.substring(0,3)]} Request`]);
         if (payload) {
+            let reg = consentDef.regulations
+            general.push(['Regulation(s)', reg ? Object.keys(reg).length > 0 ? Object.keys(reg).map(x => {return x + '       '}) : 'N/A' : 'N/A'])
             if (_.size(payload.gf_products)) {
                 let product = this.arrayToString(payload.gf_products);
                 general.push(['Product', product]);
