@@ -82,6 +82,33 @@ class Trucert extends BaseWidget {
         else
             general.push(['Purpose', `Data ${eventDict[firstLedger.event.substring(0,3)]} Request`]);
         if (payload) {
+            try {
+                let justification2 = consentDef.justification[Object.keys(consentDef.justification)[0]]
+                let legalBasesOptions = [
+                    {id: 'consent', name: 'Consent'},
+                    {id: 'impliedconsent', name: 'Implied/Deemed Consent'},
+                    {id: 'contract', name: 'Contractual necessity'},
+                    {id: 'legal', name: 'Compliance with a legal obligation'},
+                    {id: 'protection', name: 'Protection of vital interests'},
+                    {id: 'public', name: 'Public interest'},
+                    {id: 'legitimate', name: 'Legitimate interests'},
+                    {id: 'publicstudy', name: 'Research by Public Study Entities'},
+                    {id: 'legalproceedings', name: 'Exercise of Rights in Legal Proceedings'},
+                    {id: 'health', name: 'Health Protection'},
+                    {id: 'credit', name: 'Credit Protection'},
+                    {id: 'protectionoflife', name: 'Protection of Life'},
+                    {id: 'dnsmpi', name: 'Do Not Sell My Personal Information'},
+                    {id: 'other', name: 'Custom/Other'}
+                ]
+                legalBasesOptions.forEach(x => {
+                    if (x.id === justification2) {
+                        justification2 = x.name
+                    }
+                })
+                general.push(['Legal Basis', justification2])
+            } catch(e1) {
+                general.push(['Legal Basis', 'N/A'])
+            }
             let reg = consentDef.regulations
             general.push(['Regulation(s)', reg ? Object.keys(reg).length > 0 ? Object.keys(reg).map(x => {return x + '       '}) : 'N/A' : 'N/A'])
             if (_.size(payload.gf_products)) {
